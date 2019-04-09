@@ -12,13 +12,17 @@ import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import reducers from './src/reducers';
+import MainRouter from './src/navigator/Main/MainRouter';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-import MainRouter from './src/navigator/Main/MainRouter';
-
 export default class App extends Component {
   render() {
+    // 正式版 移除 console.log
+    if (!__DEV__) {
+      console.log = () => {};
+    }
+
     const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(ReduxThunk)));
 
     return (
