@@ -7,7 +7,7 @@
 /node_modules
 
 # Key
-ApiAndId.js
+/src/api/ApiData.js
 
 # OSX
 #
