@@ -1,5 +1,5 @@
-import MoreScreen from '../../components/More/MoreScreen';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+import MoreScreen from '../../components/More/MoreScreen';
 
 const MoreStack = createStackNavigator({
   MoreScreen: {

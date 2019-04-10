@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, Image, FlatList } from 'react-native';
-import DrawerListItem from './DrawerListItem';
+import { View, Text, ScrollView, Image, FlatList, SafeAreaView } from 'react-native';
+import { connect } from 'react-redux';
+import DrawerListItem from '../Drawer/DrawerListItem';
+import { commonColor } from '../Shared/Data/Color';
 import I18n from '../../i18n/i18n';
 
 import DrawerHeaderIcon from '../../assets/img/drawer_header_icon.png';
 
-class DrawerPanelScreen extends Component {
+class TheaterScreen extends Component {
   renderItem({ item }) {
     return <DrawerListItem item={item} />;
   }
@@ -50,24 +52,17 @@ class DrawerPanelScreen extends Component {
       },
     ];   
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: '#666666' }}>
-        <View>
-          <View style={{ marginTop: 50, justifyContent: 'center', alignItems: 'center' }}>
-            <Image 
-              source={DrawerHeaderIcon} 
-              style={{ width: 150, height: 50 }} 
-              resizeMode='contain'
-            />
-          </View>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#666666' }}>
+        <ScrollView style={{ flex: 1, backgroundColor: '#666666' }}>
           <FlatList
             data={list}
             renderItem={this.renderItem}
             keyExtractor={(item, index) => index.toString()}             
           />
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }
 
-export default DrawerPanelScreen;
+export default connect(null, {})(TheaterScreen);
