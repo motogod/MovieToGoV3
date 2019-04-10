@@ -52,7 +52,7 @@ class DrawerListItem extends Component {
 
   renderZoneArea = (title, id, icon) => {
     return (
-      <View key={id} style={{ flex: 1, flexDirection: 'row', padding: 12 }}>
+      <View key={id} style={{ flex: 1, flexDirection: 'row', padding: 20 }}>
         <View>
           <Text style={{ color: '#ffffff', fontSize: 20 }}>{title}</Text>
         </View>
@@ -73,8 +73,8 @@ class DrawerListItem extends Component {
                 key={value.id}
                 style={styles.button}
                 onPress={() => {
-                  this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
-                  this.props.item.navigation.navigate('TheaterList', {
+                  // this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
+                  this.props.item.navigation.navigate('LocalTheaterScreen', {
                     lng: this.state.lng,
                     lat: this.state.lat,
                     enCity: value.enCity,
@@ -95,8 +95,8 @@ class DrawerListItem extends Component {
                 key={value.id}
                 style={styles.button}
                 onPress={() => {
-                  this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
-                  this.props.item.navigation.navigate('TheaterList', {
+                  // this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
+                  this.props.item.navigation.navigate('LocalTheaterScreen', {
                     lng: this.state.lng,
                     lat: this.state.lat,
                     enCity: value.enCity,
@@ -117,8 +117,8 @@ class DrawerListItem extends Component {
                 key={value.id}
                 style={styles.button}
                 onPress={() => {
-                  this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
-                  this.props.item.navigation.navigate('TheaterList', {
+                  // this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
+                  this.props.item.navigation.navigate('LocalTheaterScreen', {
                     lng: this.state.lng,
                     lat: this.state.lat,
                     enCity: value.enCity
@@ -138,8 +138,8 @@ class DrawerListItem extends Component {
                 key={value.id}
                 style={styles.button}
                 onPress={() => {
-                  this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
-                  this.props.item.navigation.navigate('TheaterList', {
+                  // this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
+                  this.props.item.navigation.navigate('LocalTheaterScreen', {
                     lng: this.state.lng,
                     lat: this.state.lat,
                     enCity: value.enCity
@@ -159,8 +159,8 @@ class DrawerListItem extends Component {
                 key={value.id}
                 style={styles.button}
                 onPress={() => {
-                  this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
-                  this.props.item.navigation.navigate('TheaterList', {
+                  // this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
+                  this.props.item.navigation.navigate('LocalTheaterScreen', {
                     lng: this.state.lng,
                     lat: this.state.lat,
                     enCity: value.enCity
@@ -180,8 +180,8 @@ class DrawerListItem extends Component {
                 key={value.id}
                 style={styles.button}
                 onPress={() => {
-                  this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
-                  this.props.item.navigation.navigate('TheaterList', {
+                  // this.props.item.navigation.dispatch(DrawerActions.closeDrawer());
+                  this.props.item.navigation.navigate('LocalTheaterScreen', {
                     lng: this.state.lng,
                     lat: this.state.lat,
                     enCity: value.enCity
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     width: '100%',
     margin: 0,
     padding: 10,
-    paddingLeft: 19,
+    paddingLeft: 27,
     backgroundColor: '#C2D3DA',
     borderRadius: 9,
   },

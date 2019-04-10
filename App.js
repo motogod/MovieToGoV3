@@ -7,12 +7,13 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import reducers from './src/reducers';
 import MainRouter from './src/navigator/Main/MainRouter';
+import WelcomeRouter from './src/navigator/Welcome/WelcomeRouter';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -27,7 +28,7 @@ export default class App extends Component {
 
     return (
       <Provider store={store}>
-        <MainRouter />
+        <WelcomeRouter />
       </Provider>
     );
   }

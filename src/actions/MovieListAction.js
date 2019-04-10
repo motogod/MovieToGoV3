@@ -1,6 +1,7 @@
 import { serverData } from '../api/ApiData';
 import { 
   MOVIELIST_RANKING,
+  MOVIELIST_TODAY,
   REQUEST_MOVIELIST_THISWEEK, 
   MOVIELIST_THISWEEK 
 } from './types';
@@ -13,6 +14,17 @@ export const fetchRanking = () => {
         dispatch({ type: MOVIELIST_RANKING, ranking: responseData[0].movie });
       })
       .catch((error) => console.log(error));  
+  };
+};
+
+export const fetchTodayMovieList = () => {
+  return (dispatch) => {
+    fetch(`${serverData.serverUrl}api/todayMovie`)
+    .then(response => response.json())
+    .then(responseData => {
+      dispatch({ type: MOVIELIST_TODAY, todayMovie: responseData[0].movie });
+    })
+    .catch((error) => console.log(error));
   };
 };
 

@@ -4,6 +4,7 @@ export default {
   SEARCH: 'SEARCH',
   MORE: 'MORE',
   RANKING: 'RANKING',
+  TODAY_MOVIE: 'TODAY MOVIE',
   THIS_WEEK: 'THIS WEEK',
   TIME_INQUIRY: 'TIME INQUIRY',
   NO_INTERNET: 'No Internet connection detected. Please check your network settings.',

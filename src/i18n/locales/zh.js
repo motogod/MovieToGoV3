@@ -5,6 +5,7 @@ export default {
   SEARCH: '搜尋',
   MORE: '更多',
   RANKING: '排行榜',
+  TODAY_MOVIE: '今日強檔',
   THIS_WEEK: '本週新片',
   TIME_INQUIRY: '時刻查詢',
   NO_INTERNET: '裝置未偵測到網路連線狀態，請先設定網路環境',

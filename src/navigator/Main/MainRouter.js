@@ -6,18 +6,22 @@ import {
   createAppContainer, 
   createDrawerNavigator 
 } from 'react-navigation';
+// Screen
 import MainScreen from '../../components/Main/MainScreen';
 import RankingScreen from '../../components/Main/RankingScreen';
 import DrawerPanelScreen from '../../components/Drawer/DrawerPanelScreen';
-
+// Router
 import TheaterRouter from '../Theater/TheaterRouter';
 import SearchRouter from '../Search/SearchRouter';
 import MoreRouter from '../More/MoreRouter';
 
 import I18n from '../../i18n/i18n';
+import { commonColor } from '../../components/Shared/Data/Color';
+
+import HomeIcon from '../../assets/img/home.png';
 import TheaterIcon from '../../assets/img/theater.png';
 import SearchIcon from '../../assets/img/search.png';
-import MoreIcon from '../../assets/img/summary.png';
+import MoreIcon from '../../assets/img/more.png';
 
 const MainStack = createStackNavigator({
   MainScreen: {
@@ -43,7 +47,7 @@ const TabNavigator = createBottomTabNavigator({
     path: '/',
     navigationOptions: {
       tabBarIcon: ({ focused, tintColor }) => {
-        return <Image source={SearchIcon} style={{ width: 24, height: 24, tintColor }} />;
+        return <Image source={HomeIcon} style={{ width: 24, height: 24, tintColor }} />;
       },
       tabBarLabel: I18n.t('HOME')
     },
@@ -81,8 +85,9 @@ const TabNavigator = createBottomTabNavigator({
 },
 {
   tabBarOptions: {
+    showLabel: false,
     activeTintColor: 'blue',
-    inactiveTintColor: 'grey',
+    inactiveTintColor: commonColor.headerColor,
   },
 });
   
