@@ -54,7 +54,7 @@ class DrawerListItem extends Component {
     return (
       <View key={id} style={{ flex: 1, flexDirection: 'row', padding: 20 }}>
         <View>
-          <Text style={{ color: '#ffffff', fontSize: 20 }}>{title}</Text>
+          <Text style={{ color: '#ffffff', fontSize: 16 }}>{title}</Text>
         </View>
         <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
           <Image source={icon} style={{ height: 12, width: 12 }} />

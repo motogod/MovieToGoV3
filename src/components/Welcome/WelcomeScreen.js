@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 import { 
   fetchRanking, 
   fetchTodayMovieList, 
-  fetchThisWeek 
+  fetchThisWeek,
+  fetchRecentMovie
 } from '../../actions';
 
 class WelcomeScreen extends Component {
@@ -16,6 +17,7 @@ class WelcomeScreen extends Component {
     this.props.fetchRanking();
     this.props.fetchTodayMovieList();
     this.props.fetchThisWeek();
+    this.props.fetchRecentMovie();
   }
 
   componentDidMount() {
@@ -40,5 +42,6 @@ class WelcomeScreen extends Component {
 export default connect(null, { 
   fetchRanking, 
   fetchTodayMovieList,
-  fetchThisWeek
+  fetchThisWeek,
+  fetchRecentMovie
 })(WelcomeScreen);

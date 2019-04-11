@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { View, Image, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
-import AwesomeButtonRick from 'react-native-really-awesome-button/src/themes/rick';
 import I18n from '../../i18n/i18n';
+
+import TimeIcon from '../../assets/img/time.png';
+import TypeIcon from '../../assets/img/type.png';
+import TicketIcon from '../../assets/img/ticket.png';
+import CashIcon from '../../assets/img/cash.png';
 
 const { width } = Dimensions.get('window');
 
 const halfWidth = width / 2;
 
 const gridData = [
-  { optionName: I18n.t('TIME_INQUIRY') },
-  { optionName: 'Test2' },
-  { optionName: 'Test3' },
-  { optionName: 'Test4' },
-  { optionName: 'Test5' }
+  { optionName: I18n.t('TIME_INQUIRY'), source: TimeIcon },
+  { optionName: I18n.t('TYPE_INQUIRY'), source: TypeIcon },
+  { optionName: I18n.t('TICKET_INQUIRY'), source: TicketIcon },
+  { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon }
 ]; 
 
 class MoreScreen extends Component {
   renderGrid = ({ item }) => {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'yellow', paddingTop: 10 }}>
-        <AwesomeButtonRick 
+      <View style={styles.gridContainer}>
+        <AwesomeButton 
           textColor={'#FFFFFF'} 
-          backgroundColor={'#C0C0C0'} 
-          height={halfWidth - 10} 
-          width={halfWidth - 10} 
-          borderRadius={6}
+          backgroundColor={'#FFFFFF'} 
+          paddingTop={8}
+          paddingBottom={8}
+          width={width - 20} 
+          borderRadius={1}
         >
-          {item.optionName}
-        </AwesomeButtonRick>
+          <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Image source={item.source} style={styles.iconImage} />
+            <Text style={styles.iconText}>{item.optionName}</Text>
+          </View>
+        </AwesomeButton>
       </View>
     );
   }
@@ -37,7 +44,6 @@ class MoreScreen extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          numColumns={2}
           data={gridData}
           renderItem={this.renderGrid}
           horizontal={false}
@@ -51,9 +57,25 @@ class MoreScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
+  },
+  gridContainer: {
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    paddingTop: 10
+  },
+  iconImage: {
+    width: 25, 
+    height: 25, 
+    marginLeft: 15
+  },
+  iconText: {
+    marginLeft: 10, 
+    fontSize: 16, 
+    color: '#444f6c', 
+    fontWeight: '500',
+    letterSpacing: 2
   }
 });
 

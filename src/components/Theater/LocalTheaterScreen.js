@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import AwesomeButton from 'react-native-really-awesome-button';
 import { Loader } from '../Shared/Modal/Loader';
 import { fetchTheater } from '../../actions';
 
@@ -42,7 +43,7 @@ class LocalTheaterScreen extends Component {
     return (
       <TouchableOpacity style={{ flex: 1, flexDirection: 'row', paddingHorizontal: 16, paddingVertical: 10 }}>
         <View style={{ flex: 3 }}>
-          <Text style={{ fontSize: 20, color: '#444f6c', fontWeight: '500' }}>{theaterCn}</Text>
+          <Text style={{ fontSize: 16, color: '#444f6c', fontWeight: '500' }}>{theaterCn}</Text>
           <Text style={{ fontSize: 13, fontWeight: '100', marginTop: 3 }}>{address}</Text>
         </View>
       <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center' }}>
@@ -50,6 +51,19 @@ class LocalTheaterScreen extends Component {
       </View>
       {/* <View style={{ width, height: 0.5, backgroundColor: 'gray' }} /> */}
       </TouchableOpacity>
+
+      // <View style={{ flex: 1, flexDirection: 'row' }}>
+      // <AwesomeButton width={width} backgroundColor={'#fff'} borderRadius={0} raiseLevel={3}>
+      //   <View style={{ flex: 3, paddingLeft: 16, paddingVertical: 10 }}>
+      //     <Text style={{ fontSize: 20, color: '#444f6c', fontWeight: '500' }}>{theaterCn}</Text>
+      //     <Text style={{ fontSize: 13, fontWeight: '100', marginTop: 3 }}>{address}</Text>
+      //   </View>
+      // <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', paddingRight: 16 }}>
+      //   <Text style={{ fontSize: 15, fontWeight: '400', color: '#444f6c' }}>{`${kilometers[0]}.${meter[0]} km`}</Text>
+      // </View>
+      // {/* <View style={{ width, height: 0.5, backgroundColor: 'gray' }} /> */}
+      // </AwesomeButton>
+      // </View>
     );
   }
 

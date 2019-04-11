@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 
 const halfWidth = width / 2; 
 
-class ThisWeekScreen extends Component {
+class RecentMovieScreen extends Component {
   componentDidMount() {
     this.props.fetchThisWeek();
   }
@@ -28,7 +28,7 @@ class ThisWeekScreen extends Component {
             <Text style={styles.cnName}>{item.cnName}</Text>
             <Text style={styles.enName}>{item.enName}</Text>
             <Text numberOfLines={6} style={styles.movieContent}>{item.movieContent.trim()}}</Text>
-            <Text style={styles.movieDate}>{item.movieDate}</Text>
+            <Text style={[styles.movieDate, { alignSelf: 'flex-end', justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', textAlign: 'right' }]}>{item.movieDate}</Text>
           </View>
         </View>
       </View>
@@ -36,7 +36,7 @@ class ThisWeekScreen extends Component {
   }
 
   render() {
-    const { thisWeek, thisWeekLoading } = this.props;
+    const { recentMovie } = this.props;
 
     // if (thisWeekLoading) {
     //   return (
@@ -46,7 +46,7 @@ class ThisWeekScreen extends Component {
     return (
       <View style={{ backgroundColor: 'rgba(0,0,0,.2)' }}>
         <FlatList
-          data={thisWeek}
+          data={recentMovie}
           renderItem={this.renderMovieData}
           keyExtractor={(item, index) => index.toString()}  
         />
@@ -56,9 +56,9 @@ class ThisWeekScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { thisWeek, thisWeekLoading } = state.MovieListRedux;
+  const { recentMovie } = state.MovieListRedux;
 
-  return { thisWeek, thisWeekLoading };
+  return { recentMovie };
 };
 
 const styles = StyleSheet.create({
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
     width: halfWidth + 10, 
     marginLeft: 12, 
     flexDirection: 'column', 
-    marginTop: 2
+    marginTop: 2,
+    backgroundColor: 'yellow'
   },
   cnName: {
     fontSize: 16, 
@@ -100,8 +101,7 @@ const styles = StyleSheet.create({
   },
   movieDate: {
     fontSize: 16, 
-    marginTop: 10,
-    justifyContent: 'flex-end'
+    marginTop: 10
   },
   movieContent: {
     fontSize: 10, 
@@ -110,4 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, { fetchThisWeek })(ThisWeekScreen);
+export default connect(mapStateToProps, { fetchThisWeek })(RecentMovieScreen);

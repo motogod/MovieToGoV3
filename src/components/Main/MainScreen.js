@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView } from 'react-native';
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view';
 import { connect } from 'react-redux';
+// Scroll tab screen
 import RankingScreen from './RankingScreen';
 import TodayMovieScreen from './TodayMovieScreen';
 import ThisWeekScreen from './ThisWeekScreen';
+import RecentMovieScreen from './RecentMovieScreen';
+
 import I18n from '../../i18n/i18n';
 import { commonColor } from '../Shared/Data/Color';
 
@@ -38,7 +41,7 @@ class MainScreen extends Component {
           <RankingScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('RANKING')} />
           <TodayMovieScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('TODAY_MOVIE')} />
           <ThisWeekScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('THIS_WEEK')} />
-          <Text style={{ color: 'blue', fontSize: 26 }} tabLabel="React">what</Text>
+          <RecentMovieScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('RECENT')} />
           <Text style={{ color: 'blue', fontSize: 26 }} tabLabel="React">what</Text>
         </ScrollableTabView>
       </SafeAreaView>

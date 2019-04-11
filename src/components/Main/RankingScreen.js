@@ -12,8 +12,6 @@ import Swiper from 'react-native-swiper';
 import { connect } from 'react-redux';
 import { fetchRanking } from '../../actions';
 
-import CrownIcon from '../../assets/img/crown.png';
-
 const { width, height } = Dimensions.get('window');
 
 class RankingScreen extends Component {
@@ -24,18 +22,6 @@ class RankingScreen extends Component {
 
   componentDidMount() {
     this.props.fetchRanking();
-  }
-
-  // 第一名秀皇冠
-  showCrown = (index) => {
-    if (index === 0) {
-      return (
-        <Image 
-          style={{ width: 25, height: 25 }} 
-          source={CrownIcon} 
-        />
-      );
-    }
   }
 
   renderDot = () => {
@@ -125,7 +111,6 @@ class RankingScreen extends Component {
                   </View>
                </View>
                 <View style={{ flexDirection: 'row', marginLeft: 20 }}>
-                  {this.showCrown(index)}
                   {value.movieStyle.map((v, i) => {
                     return (
                       <TouchableOpacity
@@ -171,71 +156,6 @@ class RankingScreen extends Component {
   }
 }
 
-/* <Swiper 
-key={fiveRanking.length}
-style={{ width, height }}
-loop={true}
-loadMinimal={true}
-loadMinimalSize={1}
-dot={this.renderDot()}
-activeDot={this.renderActiveDot()}
-onTouchStart={this.renderTouchStart}
-onTouchEnd={this.renderTouchEnd}
-onMomentumScrollEnd={this.renderMomentEnd}
->
-{fiveRanking.map((value, index) => {
-    return (
-      <View key={index}>
-      <TouchableOpacity 
-        onPress={() => this.props.navigation.navigate('MovieDetail', {
-          enCity: 'TwRanking', 
-          cnName: value.cnName
-        })}
-      >
-      <Text>what the fuck</Text>
-        <Image 
-          source={{ uri: value.photoHref }} 
-          style={{ 
-            height, 
-            width
-          }} 
-          resizeMethod="resize"
-          resizeMode="stretch"
-        >
-          <View style={{ backgroundColor: 'rgba(0,0,0,.2)' }}>
-            <View style={{ flexDirection: 'row', marginLeft: 20, marginTop: 5 }}>
-              <View>
-                <Text style={styles.rankNum}>{`${index + 1}`}</Text>
-              </View>
-              <View style={{ marginLeft: 8, marginTop: 5, flexDirection: 'column' }}>
-                <Text style={styles.rankTiTle}>{value.cnName}</Text>
-                <Text style={styles.rankSubTitle}>{value.enName}</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: 'row', marginLeft: 20 }}>
-              {this.showCrown(index)}
-              {value.movieStyle.map((v, i) => {
-                return (
-                  <TouchableOpacity
-                    key={i}
-                    disabled={true}
-                    style={styles.submit}
-                    underlayColor='#fff'
-                  > 
-                    <Text style={styles.submitText}>{v.trim()}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
-            <View style={{ height: 8 }} />
-          </View>
-        </Image>
-        </TouchableOpacity>
-      </View>
-    );
-})}
-</Swiper> */
-
 const mapStateToProps = (state) => {
   const { ranking } = state.MovieListRedux;
 
@@ -272,32 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 14, 
     color: 'white', 
     fontWeight: 'bold'
-  },
-  wrapper: {
-  },
-slide1: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#9DD6EB',
-},
-slide2: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#97CAE5',
-},
-slide3: {
-  flex: 1,
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: '#92BBD9',
-},
-text: {
-  color: '#fff',
-  fontSize: 30,
-  fontWeight: 'bold',
-}
+  }
 });
 
 export default connect(mapStateToProps, { fetchRanking })(RankingScreen);

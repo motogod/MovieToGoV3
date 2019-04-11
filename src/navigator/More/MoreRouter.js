@@ -4,6 +4,9 @@ import MoreScreen from '../../components/More/MoreScreen';
 const MoreStack = createStackNavigator({
   MoreScreen: {
     screen: MoreScreen,
+    navigationOptions: () => ({
+      header: null
+    })
   },
 },
 {

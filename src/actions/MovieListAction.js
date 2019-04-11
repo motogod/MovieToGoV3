@@ -3,7 +3,8 @@ import {
   MOVIELIST_RANKING,
   MOVIELIST_TODAY,
   REQUEST_MOVIELIST_THISWEEK, 
-  MOVIELIST_THISWEEK 
+  MOVIELIST_THISWEEK,
+  MOVIELIST_RECENT_MOVIE
 } from './types';
 
 export const fetchRanking = () => {
@@ -43,6 +44,27 @@ export const fetchThisWeek = () => {
           type: MOVIELIST_THISWEEK, 
           thisWeek: responseData[0].movie, 
           thisWeekLoading: false 
+        });
+      })
+      .catch((error) => console.log(error));    
+  };
+};
+
+export const fetchRecentMovie = () => {
+  return (dispatch) => {
+    // dispatch({ 
+    //   type: REQUEST_MOVIELIST_THISWEEK, 
+    //   thisWeek: [],
+    //   thisWeekLoading: true
+    //  });
+
+    fetch(`${serverData.serverUrl}api/recentMovie`)
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('responseData =>', responseData);
+        dispatch({ 
+          type: MOVIELIST_RECENT_MOVIE, 
+          recentMovie: responseData
         });
       })
       .catch((error) => console.log(error));    

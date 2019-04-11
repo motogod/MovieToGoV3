@@ -90,16 +90,17 @@ const TabNavigator = createBottomTabNavigator({
     inactiveTintColor: commonColor.headerColor,
   },
 });
-  
-const Router = createDrawerNavigator({
-  FirstScreen: {
-    screen: TabNavigator
-  }
-},
-{
-  contentComponent: DrawerPanelScreen,
-  drawerWidth: 200
-});
+
+// Remove Drawer
+// const Router = createDrawerNavigator({
+//   FirstScreen: {
+//     screen: TabNavigator
+//   }
+// },
+// {
+//   contentComponent: DrawerPanelScreen,
+//   drawerWidth: 200
+// });
     
   
-export default createAppContainer(Router);
+export default createAppContainer(TabNavigator);
