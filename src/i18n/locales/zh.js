@@ -7,7 +7,7 @@ export default {
   RANKING: '排行榜',
   TODAY_MOVIE: '今日強檔',
   THIS_WEEK: '本週新片',
-  RECENT: '即將上映',
+  RECENT: '本週過後',
   TIME_INQUIRY: '時刻查詢',
   TYPE_INQUIRY: '分類查詢',
   TICKET_INQUIRY: '訂票連結',
@@ -18,5 +18,6 @@ export default {
   CENTRAL: '中部地區',
   SOUTHERN: '南部地區',
   EAST: '東部地區',
-  OUTER_ISLAND: '離島地區'
+  OUTER_ISLAND: '離島地區',
+  CANCEL: '關閉'
 }; 

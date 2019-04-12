@@ -21,7 +21,7 @@ class RankingScreen extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRanking();
+    // this.props.fetchRanking();
   }
 
   renderDot = () => {
@@ -136,7 +136,7 @@ class RankingScreen extends Component {
 
   render() {
     const { ranking } = this.props;
-
+    console.log('this.props =>', this.props);
     // 取前五名
     const fiveRanking = ranking.slice(0, 5);
 

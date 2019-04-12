@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { View, Image, Text, StyleSheet, 
+  FlatList, Dimensions, SafeAreaView
+} from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import I18n from '../../i18n/i18n';
 
@@ -10,13 +12,11 @@ import CashIcon from '../../assets/img/cash.png';
 
 const { width } = Dimensions.get('window');
 
-const halfWidth = width / 2;
-
 const gridData = [
-  { optionName: I18n.t('TIME_INQUIRY'), source: TimeIcon },
-  { optionName: I18n.t('TYPE_INQUIRY'), source: TypeIcon },
-  { optionName: I18n.t('TICKET_INQUIRY'), source: TicketIcon },
-  { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon }
+  { optionName: I18n.t('TIME_INQUIRY'), source: TimeIcon, nextScreen: '' },
+  { optionName: I18n.t('TYPE_INQUIRY'), source: TypeIcon, nextScreen: '' },
+  { optionName: I18n.t('TICKET_INQUIRY'), source: TicketIcon, nextScreen: 'BuyTicketsTheaterScreen' },
+  { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon, nextScreen: '' }
 ]; 
 
 class MoreScreen extends Component {
@@ -24,6 +24,7 @@ class MoreScreen extends Component {
     return (
       <View style={styles.gridContainer}>
         <AwesomeButton 
+          onPress={() => this.props.navigation.navigate('BuyTicketsTheaterScreen')}
           textColor={'#FFFFFF'} 
           backgroundColor={'#FFFFFF'} 
           paddingTop={8}
@@ -42,14 +43,14 @@ class MoreScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>   
         <FlatList
           data={gridData}
           renderItem={this.renderGrid}
           horizontal={false}
           keyExtractor={(item, index) => index.toString()}        
-        />
-      </View>
+        />  
+      </SafeAreaView>
     );
   }
 }

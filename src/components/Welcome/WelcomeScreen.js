@@ -9,11 +9,13 @@ import {
   fetchRanking, 
   fetchTodayMovieList, 
   fetchThisWeek,
-  fetchRecentMovie
+  fetchRecentMovie,
+  fetchBuyTickets
 } from '../../actions';
 
 class WelcomeScreen extends Component {
   componentWillMount() {
+    // 先 fetch ScrollTab 的資料
     this.props.fetchRanking();
     this.props.fetchTodayMovieList();
     this.props.fetchThisWeek();
@@ -43,5 +45,6 @@ export default connect(null, {
   fetchRanking, 
   fetchTodayMovieList,
   fetchThisWeek,
-  fetchRecentMovie
+  fetchRecentMovie,
+  fetchBuyTickets
 })(WelcomeScreen);

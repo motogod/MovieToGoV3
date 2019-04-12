@@ -14,7 +14,7 @@ import { commonColor } from '../Shared/Data/Color';
 class MainScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: 'Test',
+      headerBackTitle: null,
       headerLeft:
       <TouchableOpacity onPress={() => navigation.openDrawer()}>
         <Text>flgosgjag</Text>
@@ -26,8 +26,9 @@ class MainScreen extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: commonColor.headerColor }}>
         <ScrollableTabView
           initialPage={0}
           tabBarUnderlineStyle={{ backgroundColor: 'yellow', height: 1 }}
@@ -38,10 +39,10 @@ class MainScreen extends Component {
               style={{ backgroundColor: commonColor.headerColor }} 
             />}
         >
-          <RankingScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('RANKING')} />
-          <TodayMovieScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('TODAY_MOVIE')} />
-          <ThisWeekScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('THIS_WEEK')} />
-          <RecentMovieScreen style={{ color: 'blue', fontSize: 26 }} tabLabel={I18n.t('RECENT')} />
+          <RankingScreen navigation={navigation} tabLabel={I18n.t('RANKING')} />
+          <TodayMovieScreen navigation={navigation} tabLabel={I18n.t('TODAY_MOVIE')} />
+          <ThisWeekScreen navigation={navigation} tabLabel={I18n.t('THIS_WEEK')} />
+          <RecentMovieScreen navigation={navigation} tabLabel={I18n.t('RECENT')} />
           <Text style={{ color: 'blue', fontSize: 26 }} tabLabel="React">what</Text>
         </ScrollableTabView>
       </SafeAreaView>

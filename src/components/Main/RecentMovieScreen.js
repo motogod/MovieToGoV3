@@ -10,14 +10,14 @@ const halfWidth = width / 2;
 
 class RecentMovieScreen extends Component {
   componentDidMount() {
-    this.props.fetchThisWeek();
+    // this.props.fetchThisWeek();
   }
 
   renderMovieData = ({ item }) => {
     return (
       <View style={styles.card}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View>
+        <View style={{ flexDirection: 'row' }}>
+          <View style={{ flex: 1 }}>
             <Image 
               source={{ uri: item.photoHref }} 
               style={{ width: 120, height: 180, borderRadius: 10 }} 
@@ -28,7 +28,7 @@ class RecentMovieScreen extends Component {
             <Text style={styles.cnName}>{item.cnName}</Text>
             <Text style={styles.enName}>{item.enName}</Text>
             <Text numberOfLines={6} style={styles.movieContent}>{item.movieContent.trim()}}</Text>
-            <Text style={[styles.movieDate, { alignSelf: 'flex-end', justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', textAlign: 'right' }]}>{item.movieDate}</Text>
+            <Text style={styles.movieDate}>{item.movieDate}</Text>
           </View>
         </View>
       </View>
@@ -83,14 +83,14 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
   },
   textZone: {
-    width: halfWidth + 10, 
-    marginLeft: 12, 
+    flex: 2, 
+    flexWrap: 'wrap',
+    marginLeft: 20, 
     flexDirection: 'column', 
-    marginTop: 2,
-    backgroundColor: 'yellow'
+    marginTop: 2
   },
   cnName: {
-    fontSize: 16, 
+    fontSize: 17, 
     color: '#444f6c', 
     fontWeight: '500'
   },
@@ -100,8 +100,10 @@ const styles = StyleSheet.create({
     color: 'gray'
   },
   movieDate: {
-    fontSize: 16, 
-    marginTop: 10
+    fontSize: 17, 
+    color: '#444f6c', 
+    fontWeight: '500',
+    marginTop: 15,
   },
   movieContent: {
     fontSize: 10, 
