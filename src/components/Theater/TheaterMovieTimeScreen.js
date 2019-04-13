@@ -4,8 +4,8 @@ import { View, Text, FlatList, Dimensions,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchTime } from '../../actions';
-
-import { GetUserTime } from './Function';
+import { Loader } from '../Shared/Modal/Loader';
+import { GetUserTime, SplitMovieTime } from './Function';
 import { TimeButton, TimeGrayButton, VersionButton } from '../Shared/Button';
 import { commonColor } from '../Shared/Data/Color';
 
@@ -58,7 +58,9 @@ class TheaterMovieTimeScreen extends Component {
   }
 
   renderList = ({ item }) => {
-    const { cnName, enName, photoHref, versionType, releasedTime } = item;
+    const { cnName, enName, movieTime, photoHref, versionType, releasedTime } = item;
+
+    const onlyTime = SplitMovieTime(movieTime);
 
     return (
       <TouchableOpacity 
@@ -68,33 +70,28 @@ class TheaterMovieTimeScreen extends Component {
       >
         <View style={styles.card}>
           <View style={{ flexDirection: 'column' }}>
-            <View>
+            <View style={{ flexDirection: 'row' }}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ flex: 3 }}>
-                  <Text style={styles.cnName}>{cnName}</Text>
-                </View>
                 <View style={{ flex: 1 }}>
+                  <Image 
+                    source={{ uri: photoHref }} 
+                    style={styles.movieImage} 
+                    resizeMode='contain'
+                  />
+                </View>
+                <View style={{ flex: 3, marginLeft: 5, flexWrap: 'wrap' }}>
+                  <Text style={styles.cnName}>{cnName}</Text>
+                  <Text style={styles.enName}>{enName}</Text>
+                  <Text style={styles.movieTime}>{onlyTime}</Text>
                   <VersionButton>{versionType}</VersionButton>
                 </View>
               </View>
-              <View>
-                <Text style={styles.enName}>{enName}</Text>
-              </View>
             </View>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ flex: 1 }}>
-                <Image 
-                  source={{ uri: photoHref }} 
-                  style={styles.movieImage} 
-                  resizeMode='contain'
-                />
-              </View>
-              <View style={{ flex: 3 }}>
+            <View>
                 <View style={{ flexWrap: 'wrap', flexDirection: 'row', alignItems: 'flex-start' }}>
                   {this.renderTimeZone(releasedTime)}
                 </View>
               </View>
-            </View>
           </View>
         </View>
       </TouchableOpacity>
@@ -102,8 +99,13 @@ class TheaterMovieTimeScreen extends Component {
   }
 
   render() {
-    const { theaterMovieTime } = this.props;
+    const { theaterMovieTimeLoading, theaterMovieTime } = this.props;
 
+    if (theaterMovieTimeLoading) {
+      return (
+        <Loader loading={true} />
+      );
+    }
     return (
       <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.2)' }}>
         <FlatList
@@ -117,9 +119,9 @@ class TheaterMovieTimeScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { theaterMovieTime } = state.TheaterListRedux;
+  const { theaterMovieTimeLoading, theaterMovieTime } = state.TheaterListRedux;
 
-  return { theaterMovieTime };
+  return { theaterMovieTimeLoading, theaterMovieTime };
 };
 
 const styles = StyleSheet.create({
@@ -144,15 +146,23 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
   },
   cnName: {
-    fontSize: 16, 
+    fontSize: 20, 
     color: '#444f6c', 
     fontWeight: '500',
-    textAlign: 'left'
+    textAlign: 'left',
+    letterSpacing: 1
   },
   enName: {
-    fontSize: 14, 
-    marginTop: 0, 
+    fontSize: 16, 
+    marginTop: 2, 
     color: 'gray',
+    letterSpacing: 1
+  },
+  movieTime: {
+    fontSize: 16, 
+    marginTop: 8, 
+    color: '#666666',
+    letterSpacing: 2
   },
   movieImage: {
     width: 80, 

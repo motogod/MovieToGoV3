@@ -92,8 +92,7 @@ class RankingScreen extends Component {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', position: 'relative' }} key={index}>
           <TouchableOpacity 
             onPress={() => this.props.navigation.navigate('MovieDetail', {
-              enCity: 'TwRanking', 
-              cnName: value.cnName
+              enCity: 'TwRanking', cnName: value.cnName
             })}
           >
             <ImageBackground 

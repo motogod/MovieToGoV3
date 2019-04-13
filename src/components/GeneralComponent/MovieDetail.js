@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet, WebView,
+import { View, Image, Text, StyleSheet,
   FlatList, Dimensions, SafeAreaView
 } from 'react-native';
+import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
 import { fetchDetail } from '../../actions';
 
@@ -36,23 +37,6 @@ class MovieDetail extends Component {
     this.props.fetchDetail(enCity, cnName);
   }
 
-  onShouldStartLoadWithRequest = (navigator) => {
-    if (navigator.url.indexOf('embed') !== -1
-    ) {
-        return true;
-    } else {
-        this.videoPlayer.stopLoading(); //Some reference to your WebView to make it stop loading that URL
-        return false;
-    }    
-}
-
-// <View style={{ flex: 1 }}>
-// <WebView
-//   style={{ flex: 1 }}
-//   javaScriptEnabled={true}
-//   source={{ uri: 'https://www.youtube.com/embed/LA1pEXaNmBg?rel=0&autoplay=0&showinfo=0&controls=0' }}
-// />
-// </View>
   render() {
     const { movieDetailLoading, movieDetail } = this.props;
 

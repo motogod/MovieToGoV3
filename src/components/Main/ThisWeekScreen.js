@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Loader } from '../Shared/Modal/Loader';
 import { fetchThisWeek } from '../../actions';
+import { SplitMovieDate } from './Function';
 
 const { width } = Dimensions.get('window');
 
@@ -14,23 +15,32 @@ class ThisWeekScreen extends Component {
   }
 
   renderMovieData = ({ item }) => {
+    const { cnName, enName, movieDate, movieContent, photoHref } = item;
+
+    const onlyDate = SplitMovieDate(movieDate);
     return (
       <View style={styles.card}>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={{ flex: 1 }}>
-            <Image 
-              source={{ uri: item.photoHref }} 
-              style={{ width: 120, height: 180, borderRadius: 10 }} 
-              resizeMode='contain'
-            />
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('MovieDetail', {
+            enCity: 'ThisWeek', cnName
+          })}
+        >
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
+              <Image 
+                source={{ uri: photoHref }} 
+                style={{ width: 120, height: 180, borderRadius: 10 }} 
+                resizeMode='contain'
+              />
+            </View>
+            <View style={styles.textZone}>
+              <Text style={styles.cnName}>{cnName}</Text>
+              <Text style={styles.enName}>{enName}</Text>
+              <Text numberOfLines={6} style={styles.movieContent}>{movieContent.trim()}}</Text>
+              <Text style={styles.movieDate}>{onlyDate}</Text>
+            </View>
           </View>
-          <View style={styles.textZone}>
-            <Text style={styles.cnName}>{item.cnName}</Text>
-            <Text style={styles.enName}>{item.enName}</Text>
-            <Text numberOfLines={6} style={styles.movieContent}>{item.movieContent.trim()}}</Text>
-            <Text style={styles.movieDate}>{item.movieDate}</Text>
-          </View>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -92,22 +102,25 @@ const styles = StyleSheet.create({
   cnName: {
     fontSize: 17, 
     color: '#444f6c', 
-    fontWeight: '500'
+    fontWeight: '500',
+    letterSpacing: 1
   },
   enName: {
     fontSize: 14, 
     marginTop: 2, 
-    color: 'gray'
+    color: 'gray',
+    letterSpacing: 2
   },
   movieDate: {
     fontSize: 17, 
     color: '#444f6c', 
     fontWeight: '500',
-    marginTop: 15
+    marginTop: 15,
+    letterSpacing: 1
   },
   movieContent: {
     fontSize: 10, 
-    marginTop: 5, 
+    marginTop: 10, 
     fontWeight: '100'
   }
 });

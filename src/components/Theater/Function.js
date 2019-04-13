@@ -10,3 +10,13 @@ export const GetUserTime = {
     return theTime;
   }
 };
+
+export const SplitMovieTime = (movieTime) => {
+  // 處理字串 片長:02時30分
+  if (movieTime !== null && movieTime !== '') {
+    const onlyTime = movieTime.split('：');
+    return onlyTime[1];
+  }
+
+  return movieTime;
+};

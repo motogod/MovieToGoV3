@@ -2,6 +2,7 @@ import { serverData } from '../api/ApiData';
 import { 
   REQUEST_THEATER,
   MOVIELIST_THEATER,
+  REQUEST_MOVIELIST_THEATER_TIME,
   MOVIELIST_THEATER_TIME
 } from './types';
 
@@ -31,10 +32,12 @@ export const fetchTheater = ({ enCity, lng, lat }) => {
 // 讀取單一戲院的電影資料
 export const fetchTime = (enCity, theater) => {
   return (dispatch) => {
+    dispatch({ type: REQUEST_MOVIELIST_THEATER_TIME, theaterMovieTimeLoading: true, theaterMovieTime: [] });
+
     fetch(`${serverData.serverUrl}api?city=${enCity}&theater=${theater}`)
       .then(response => response.json())
       .then(responseData => {
-        dispatch({ type: MOVIELIST_THEATER_TIME, theaterMovieTime: responseData[0].movie });
+        dispatch({ type: MOVIELIST_THEATER_TIME, theaterMovieTimeLoading: false, theaterMovieTime: responseData[0].movie });
       })
       .catch((error) => console.log(error));    
   };

@@ -15,21 +15,23 @@ const VersionButton = ({ onPress, children }) => {
 
 const styles = StyleSheet.create({
   textStyle: {
-    color: 'black',
+    color: '#fff',
     textAlign: 'center',
     alignSelf: 'center',
     fontSize: 13,
     fontWeight: '600',
-    paddingTop: 2,
-    paddingBottom: 2,
+    paddingTop: 8,
+    paddingBottom: 8,
     paddingHorizontal: 0
   },
   buttonStyle: {
-    backgroundColor: '#F5FCFF',
+    width: 65,
+    backgroundColor: '#AAAAAA',
     borderRadius: 5,
     borderWidth: 1,
     overflow: 'hidden',
-    borderColor: '#DAA520'
+    borderColor: '#AAAAAA',
+    marginTop: 10
   }
 });
 // candy sugar with key-value

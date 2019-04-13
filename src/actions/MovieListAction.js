@@ -80,6 +80,7 @@ export const fetchDetail = (enCity, cnName) => {
     fetch(`${serverData.serverUrl}api/detail?city=${enCity}&movie=${cnName}`)
       .then(response => response.json())
       .then(responseData => {
+        console.log('what is my responseData', responseData);
         dispatch({ type: MOVIE_DETAIL, movieDetail: responseData[0].movie[0], movieDetailLoading: false });
       })
       .catch((error) => console.log(error));    
