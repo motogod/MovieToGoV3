@@ -9,6 +9,7 @@ import TimeIcon from '../../assets/img/time.png';
 import TypeIcon from '../../assets/img/type.png';
 import TicketIcon from '../../assets/img/ticket.png';
 import CashIcon from '../../assets/img/cash.png';
+import HeartIcon from '../../assets/img/heart.png';
 
 const { width } = Dimensions.get('window');
 
@@ -16,7 +17,8 @@ const gridData = [
   { optionName: I18n.t('TIME_INQUIRY'), source: TimeIcon, nextScreen: '' },
   { optionName: I18n.t('TYPE_INQUIRY'), source: TypeIcon, nextScreen: '' },
   { optionName: I18n.t('TICKET_INQUIRY'), source: TicketIcon, nextScreen: 'BuyTicketsTheaterScreen' },
-  { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon, nextScreen: '' }
+  { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon, nextScreen: '' },
+  { optionName: I18n.t('MY_COLLECTION'), source: HeartIcon, nextScreen: '' }
 ]; 
 
 class MoreScreen extends Component {

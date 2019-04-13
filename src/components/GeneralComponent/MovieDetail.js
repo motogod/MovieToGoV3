@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet,
-  FlatList, Dimensions, SafeAreaView
+  FlatList, Dimensions
 } from 'react-native';
+import AwesomeButton from 'react-native-really-awesome-button';
+import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { WebView } from 'react-native-webview';
+import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDetail } from '../../actions';
 
+import I18n from '../../i18n/i18n';
+import { SplitMovieString, adjustImdbInfo, adjustRottenInfo, showPTTScore } from './Function';
 import { Loader } from '../Shared/Modal/Loader';
 import { commonColor } from '../Shared/Data/Color';
 
+import ImdbIcon from '../../assets/img/imdb.png';
+import RottenIcon from '../../assets/img/rotten.png';
+
 const { width } = Dimensions.get('window');
+const halfWidth = width / 2;
+const equalWidth = width / 3;
 
 class MovieDetail extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -37,27 +47,233 @@ class MovieDetail extends Component {
     this.props.fetchDetail(enCity, cnName);
   }
 
-  render() {
-    const { movieDetailLoading, movieDetail } = this.props;
+  renderWebView = (videoId) => {
+    return (
+      <View style={{ width, height: 240 }}>
+        <WebView
+          mediaPlaybackRequiresUserAction={true}
+          source={{ uri: `https://www.youtube.com/embed/${videoId}?rel=0` }}
+        />
+      </View>
+    );
+  }
 
+  renderStickyHeader = (cnName) => {
+    return (
+      <View 
+        style={{ 
+        height: 42,
+        backgroundColor: 'rgba(0,0,0,.2)',
+        justifyContent: 'flex-start',
+        paddingLeft: 15
+      }}
+      >
+      <Text 
+        style={{ 
+          fontWeight: '900', color: 'white', fontSize: 20, margin: 8
+        }}
+      >{cnName}</Text>
+    </View>
+    );
+  }
+
+  renderTimeAndTicketButtonZone = (splitDate, splitTime) => {
+    return (
+      <View style={styles.card}>
+        <View>
+          <Text style={{ fontSize: 18 }}>{`${I18n.t('RELEASE_DATE')}${splitDate}`}</Text>
+          <Text style={{ fontSize: 18, marginTop: 10 }}>{`${I18n.t('MOVIE_TIME')}${splitTime}`}</Text>
+        </View>
+        <View style={{ marginTop: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
+          <AwesomeButton 
+            onPress={() => this.props.navigation.navigate('BuyTicketsTheaterScreen')}
+            textColor={'#FFFFFF'} 
+            backgroundColor={'#F5FCFF'} 
+            raiseLevel={6}
+            paddingTop={0}
+            paddingBottom={0}
+            width={halfWidth - 20} 
+            borderRadius={1}
+            borderWidth={1}
+            borderColor={'#DDDDDD'}
+          >
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={styles.iconText}>{I18n.t('TIME_INQUIRY')}</Text>
+            </View>
+          </AwesomeButton>
+
+          <AwesomeButton 
+            onPress={() => this.props.navigation.navigate('BuyTicketsTheaterScreen')}
+            textColor={'#FFFFFF'} 
+            backgroundColor={'#F5FCFF'} 
+            raiseLevel={6}
+            paddingTop={0}
+            paddingBottom={0}
+            width={halfWidth - 20} 
+            borderRadius={1}
+            borderWidth={1}
+            borderColor={'#DDDDDD'}
+          >
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={styles.iconText}>{I18n.t('TICKET_INQUIRY')}</Text>
+            </View>
+          </AwesomeButton>
+        </View>
+      </View>
+    );
+  }
+
+  renderImdbAndRotten = (imdbScore, rottenScore) => {
+    return (
+      <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', marginTop: 15 }}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View>
+            <Image source={ImdbIcon} style={{ width: 50, height: 50 }} />
+          </View>
+          <View style={{ marginLeft: 10 }}>
+            <Text style={{ fontSize: 13, fontWeight: '200', letterSpacing: 1 }}>{I18n.t('IMDB')}</Text>
+            <Text style={{ fontSize: 21, marginTop: 3 }}>{adjustImdbInfo(imdbScore)}</Text>
+          </View>
+        </View>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View>
+            <Image source={RottenIcon} style={{ width: 50, height: 50 }} />
+          </View>
+          <View style={{ marginLeft: 10 }}>
+            <Text style={{ fontSize: 13, fontWeight: '200', letterSpacing: 1 }}>{I18n.t('ROTTEN')}</Text>
+            <Text style={{ fontSize: 21, marginTop: 3 }}>{adjustRottenInfo(rottenScore)}</Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  renderPTT = (goodMinePoint) => {
+    return (
+      <View style={{ marginTop: 15 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={{ fontSize: 24, fontWeight: '200', marginLeft: 5 }}>PTT</Text>
+          <Text style={{ fontSize: 20, color: 'gray', fontWeight: 'bold', marginLeft: 5 }}>{I18n.t('PTT_SCORE')}</Text>
+        </View>
+        <AwesomeButton 
+          onPress={() => this.props.navigation.navigate('BuyTicketsTheaterScreen')}
+          textColor={'#FFFFFF'} 
+          backgroundColor={'#F5FCFF'} 
+          raiseLevel={6}
+          paddingTop={0}
+          paddingBottom={0}
+          width={width - 30} 
+          borderRadius={1}
+          borderWidth={1}
+          borderColor={'#DDDDDD'}
+        >
+          <View style={{ flex: 1, alignItems: 'flex-start', marginLeft: 15 }}>
+          <Rating readonly imageSize={30} fractions={1} startingValue={showPTTScore(goodMinePoint)} />
+          </View>
+        </AwesomeButton>
+      </View>
+    );
+  }
+
+  renderStills({ item }) {
+    return (
+      <View style={styles.phtoSection}>
+        <Image
+          source={{ uri: item }} 
+          style={{ width: halfWidth, height: 120 }}
+        />
+      </View>      
+    );
+  }
+
+  render() {
+    const { movieDetailLoading } = this.props;
+    
     if (movieDetailLoading) {
       return (
         <Loader loading={true} />
       );
     }
 
-    console.log('movieDetail =>', movieDetail);
+    const { cnName, enName, movieDate, movieTime, movieContent, videoId, 
+      imdbScore, rottenScore, movieActorCn, movieActorPhoto, movieStills,
+      goodMinePoint 
+    } = this.props.movieDetail;
 
-    console.log('movieDetail.videoId =>', movieDetail.videoId);
-
+    const splitDate = SplitMovieString(movieDate);
+    const splitTime = SplitMovieString(movieTime);
+    console.log('movieActorPhoto =>', movieActorPhoto);
     return (
-      <View style={{ width, height: 240 }}>
-        <WebView
-          mediaPlaybackRequiresUserAction={true}
-          style={{ width, height: 240 }}
-          source={{ uri: `https://www.youtube.com/embed/${movieDetail.videoId[0]}?rel=0` }}
-        />
-     </View>
+      <ParallaxScrollView
+        backgroundColor='transparent'
+        contentBackgroundColor='transparent'
+        parallaxHeaderHeight={240}
+        renderForeground={() => this.renderWebView(videoId[0])}
+        stickyHeaderHeight={42}
+        renderStickyHeader={() => this.renderStickyHeader(cnName)}
+      >    
+        <View style={{ backgroundColor: '#F5F5F5', padding: 15, flexDirection: 'row' }}>
+          <View>
+            <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{cnName}</Text>
+            <Text style={{ fontSize: 14, marginTop: 2, color: 'gray', letterSpacing: 2 }}>{enName}</Text>
+          </View>
+          <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
+            <Text>Test</Text>
+          </View>
+        </View>
+
+        {this.renderTimeAndTicketButtonZone(splitDate, splitTime)}
+
+        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+
+        <View style={styles.card}>
+          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('MOVIE_SCORE')}</Text>
+          {this.renderImdbAndRotten(imdbScore, rottenScore)}
+          {this.renderPTT(goodMinePoint)}
+        </View>
+
+        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+
+        <View style={styles.card}>
+          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('CONTENT_INFO')}</Text>
+        </View>
+
+        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+
+        <View style={styles.card}>
+          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('ACTOR')}</Text>
+          <FlatList
+            style={styles.flatSection}
+            data={movieActorPhoto}
+            extraData={movieActorCn}
+            renderItem={({ item, index }) => (
+              <View style={styles.phtoSection}>
+                <Image
+                  source={{ uri: item }}
+                  style={{ width: equalWidth, height: 120 }}
+                />
+              <Text style={styles.actorTitle}>{movieActorCn[index]}</Text>
+              </View>)
+            }
+            horizontal={true}
+            keyExtractor={(item, index) => index.toString()}  
+          />
+        </View>
+
+        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+
+        <View style={styles.card}>
+          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('STILLS')}</Text>
+          <FlatList
+            style={styles.flatSection}
+            data={movieStills}
+            renderItem={this.renderStills}
+            horizontal={true}
+            keyExtractor={(item, index) => index.toString()}  
+          />
+        </View>
+
+      </ParallaxScrollView>
     );
   }
 }
@@ -69,7 +285,58 @@ const mapStateToProps = (state) => {
 };
 
 const styles = StyleSheet.create({
-
+  card: {
+    width,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 0,
+  },
+  iconImage: {
+    width: 25, 
+    height: 25, 
+    marginLeft: 15
+  },
+  iconText: {
+    textAlign: 'center',
+    fontSize: 14, 
+    color: '#444f6c', 
+    fontWeight: '500',
+    letterSpacing: 1
+  },
+  thirdHeaderContainer: {
+    margin: 15,
+    backgroundColor: 'yellow',
+  },
+  myDescription: {
+    padding: 10,
+    paddingTop: 0,
+  },
+  phtoSection: {
+    alignSelf: 'stretch',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#fff',
+    marginLeft: 5,
+    marginRight: 5 
+  },
+  actorTitle: {
+    flex: 1, 
+    marginTop: 5,
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    alignSelf: 'center'
+  },
+  flatSection: {
+    backgroundColor: '#ffffff', 
+    paddingTop: 15, 
+    paddingBottom: 15, 
+    paddingLeft: 10, 
+    paddingRight: 10
+  },
 });
 
 export default connect(mapStateToProps, { fetchDetail })(MovieDetail);
