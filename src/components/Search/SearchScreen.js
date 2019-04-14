@@ -110,22 +110,20 @@ class SearchScreen extends Component {
           }, 500);
         }}
       >
-          <View style={{ padding: 15, flexDirection: 'row' }}>
+          <View style={{ paddingVertical: 15, paddingHorizontal: 20, flexDirection: 'row' }}>
             <View>
               <Image
-                style={{ width: 50, height: 50 }}
+                style={{ width: 80, height: 80 }}
                 source={{ uri: item.photoHref }}
               />
             </View>
             <View style={{ marginLeft: 8, flexWrap: 'wrap', width: equalWidth }}>
-              {/* <Text style={{ fontSize: 16, color: '#444f6c' }}>{item.cnName}</Text> */}
               <Highlighter
                 style={{ fontSize: 16, color: '#ffffff' }}
                 highlightStyle={{ color: 'gold' }}
                 searchWords={[inputText]}
                 textToHighlight={item.cnName ? item.cnName : ''}
               />
-              {/* <Text style={{ fontSize: 12, color: 'gray', marginTop: 12 }}>{item.enName}</Text> */}
               <Highlighter
                 style={{ fontSize: 12, color: '#ffffff', marginTop: 12 }}
                 highlightStyle={{ color: 'gold' }}
@@ -148,7 +146,6 @@ class SearchScreen extends Component {
     console.log('finalFilterData', finalFilterData);
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
-        <View>
           <View style={styles.container}>
             <View style={styles.sectionStyle}>
               <Image source={SearchIcon} style={styles.imageStyle} />
@@ -162,14 +159,13 @@ class SearchScreen extends Component {
               {showLoadingIcon ? this.renderLoadingCircle() : null}
             </View>
           </View>
-          <View>
+          <View style={{ flex: 1 }}>
             <FlatList
               data={finalFilterData}
               renderItem={this.renderItem} 
               keyExtractor={(item, index) => index.toString()}         
             />
           </View>
-        </View>
       </SafeAreaView>
     );
   }
@@ -183,8 +179,8 @@ const mapStateToProps = (state) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
+    // flex: 1,
+    paddingHorizontal: 16,
     flexDirection: 'row'
   },    
   sectionStyle: {
