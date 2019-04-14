@@ -1,5 +1,14 @@
 import React, { Component } from 'react';
-import { View, Image, StyleSheet, Animated, Text, LayoutAnimation } from 'react-native';
+import { 
+  View, 
+  Image, 
+  StyleSheet, 
+  Animated, 
+  Text, 
+  LayoutAnimation,
+  NativeModules,
+  Platform 
+} from 'react-native';
 
 import DownIcon from '../../assets/img/panel_down_arrow.png';
 import UpIcon from '../../assets/img/panel_up_arrow.png';
@@ -7,6 +16,13 @@ import UpIcon from '../../assets/img/panel_up_arrow.png';
 class Panel extends Component {
   constructor(props) {
     super(props);
+
+    // set LayoutAnimation.spring() can be work for Android
+    if (Platform.OS === 'android') {
+      const { UIManager } = NativeModules;
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+
     this.state = {
       /** 文字是否展開 */
       expanded: true,

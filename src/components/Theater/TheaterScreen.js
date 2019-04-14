@@ -5,8 +5,7 @@ import { View, Text, ScrollView, Image, FlatList,
 import AwesomeButton from 'react-native-really-awesome-button';
 import ModalSelector from 'react-native-modal-selector';
 import { connect } from 'react-redux';
-import DrawerListItem from '../Drawer/DrawerListItem';
-import { commonColor } from '../Shared/Data/Color';
+
 import {   
   taipeiCities,
   northCities,
@@ -17,17 +16,12 @@ import {
 } from '../Shared/Data/CityArray';
 
 import I18n from '../../i18n/i18n';
-import DrawerHeaderIcon from '../../assets/img/drawer_header_icon.png';
 
 const { width } = Dimensions.get('window');
-
-const testData = [{ id: 5, name: 'Red Apples' }];
 
 class TheaterScreen extends Component {
 
   renderItem({ item }) {
-    // return <DrawerListItem item={item} />;
-    console.log('item =>', item);
     return (
       <View style={styles.gridContainer}>
         <ModalSelector

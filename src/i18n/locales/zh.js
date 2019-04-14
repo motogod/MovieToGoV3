@@ -29,5 +29,10 @@ export default {
   SOUTHERN: '南部地區',
   EAST: '東部地區',
   OUTER_ISLAND: '離島地區',
-  CANCEL: '關閉'
+  CANCEL: '關閉',
+  SEARCH_ALL_MOVIE: '查詢所有電影',
+  TICKETS_LINKING: '訂票連結',
+  CHOOSE_LOCATION: '請選擇地區',
+  CHOOSE_SLIDER_TIME: '請設定時段',
+  HEADER_CANCEL: '重選'
 }; 
