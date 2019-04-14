@@ -4,6 +4,7 @@ import LocalTheaterScreen from '../../components/Theater/LocalTheaterScreen';
 import TheaterMovieTimeScreen from '../../components/Theater/TheaterMovieTimeScreen';
 // GeneralComponent screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
+import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
 
 import { commonColor } from '../../components/Shared/Data/Color';
 
@@ -23,6 +24,9 @@ const TheaterStack = createStackNavigator({
   },
   MovieDetail: {
     screen: MovieDetail
+  },
+  PttWebScreen: {
+    screen: PttWebScreen
   }
 },
 {

@@ -9,6 +9,7 @@ import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDetail } from '../../actions';
 
+import Panel from './Panel';
 import I18n from '../../i18n/i18n';
 import { SplitMovieString, adjustImdbInfo, adjustRottenInfo, showPTTScore } from './Function';
 import { Loader } from '../Shared/Modal/Loader';
@@ -92,6 +93,7 @@ class MovieDetail extends Component {
             raiseLevel={6}
             paddingTop={0}
             paddingBottom={0}
+            height={50}
             width={halfWidth - 20} 
             borderRadius={1}
             borderWidth={1}
@@ -109,6 +111,7 @@ class MovieDetail extends Component {
             raiseLevel={6}
             paddingTop={0}
             paddingBottom={0}
+            height={50}
             width={halfWidth - 20} 
             borderRadius={1}
             borderWidth={1}
@@ -148,7 +151,7 @@ class MovieDetail extends Component {
     );
   }
 
-  renderPTT = (goodMinePoint) => {
+  renderPTT = (goodMinePoint, cnName) => {
     return (
       <View style={{ marginTop: 15 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -156,12 +159,13 @@ class MovieDetail extends Component {
           <Text style={{ fontSize: 20, color: 'gray', fontWeight: 'bold', marginLeft: 5 }}>{I18n.t('PTT_SCORE')}</Text>
         </View>
         <AwesomeButton 
-          onPress={() => this.props.navigation.navigate('BuyTicketsTheaterScreen')}
+          onPress={() => this.props.navigation.navigate('PttWebScreen', { cnName })}
           textColor={'#FFFFFF'} 
           backgroundColor={'#F5FCFF'} 
           raiseLevel={6}
           paddingTop={0}
           paddingBottom={0}
+          height={50}
           width={width - 30} 
           borderRadius={1}
           borderWidth={1}
@@ -225,17 +229,21 @@ class MovieDetail extends Component {
         {this.renderTimeAndTicketButtonZone(splitDate, splitTime)}
 
         <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
-
+        
         <View style={styles.card}>
           <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('MOVIE_SCORE')}</Text>
           {this.renderImdbAndRotten(imdbScore, rottenScore)}
-          {this.renderPTT(goodMinePoint)}
+          {this.renderPTT(goodMinePoint, cnName)}
         </View>
 
         <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
 
-        <View style={styles.card}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('CONTENT_INFO')}</Text>
+        <View style={[styles.card, { flex: 5 }]}>
+          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2, marginBottom: 15 }}>{I18n.t('CONTENT_INFO')}</Text>
+          <Panel numberOfLines={3} showExpandText={true}>
+            {movieContent.trim()}
+          </Panel>
+
         </View>
 
         <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />

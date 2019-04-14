@@ -12,6 +12,7 @@ import RankingScreen from '../../components/Main/RankingScreen';
 import DrawerPanelScreen from '../../components/Drawer/DrawerPanelScreen';
 // General screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
+import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
 // Router
 import TheaterRouter from '../Theater/TheaterRouter';
 import SearchRouter from '../Search/SearchRouter';
@@ -37,6 +38,9 @@ const MainStack = createStackNavigator({
   },
   MovieDetail: {
     screen: MovieDetail
+  },
+  PttWebScreen: {
+    screen: PttWebScreen
   }
 },
 {

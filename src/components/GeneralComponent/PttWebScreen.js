@@ -4,41 +4,40 @@ import { WebView } from 'react-native-webview';
 
 import { commonColor } from '../Shared/Data/Color';
 
-class TheaterTicketWebScreen extends Component {
+class PttWebScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.theaterCn}`,
+    title: 'PTT',
     headerBackTitle: null,
     headerTintColor: '#fff',
     headerStyle: {
-      backgroundColor: commonColor.headerColor, 
-      elevation: null
+        backgroundColor: commonColor.headerColor, 
+        elevation: null
     }
   });
 
   constructor(props) {
     super(props); 
+    const { cnName } = this.props.navigation.state.params;
 
-    const { ticketAddress } = this.props.navigation.state.params;
-
-    this.state = { ticketAddress };
+    this.state = { cnName };
   }
 
   goBack = () => {
     this.refs['webview'].goBack();
   }
-  
+
+
   goForward = () => {
     this.refs['webview'].goForward();
   }
 
   render() {
-    const { ticketAddress } = this.state;
-
+      const { cnName } = this.state;
     return (
       <View style={{ flex: 1, justifyContent: 'flex-end' }}>
         <WebView
           ref='webview'
-          source={{ uri: ticketAddress }}
+          source={{ uri: `https://www.ptt.cc/bbs/movie/search?page=1&q=${cnName}` }}
           dataDetectorTypes='all'
           startInLoadingState={true}
           domStorageEnabled={true}
@@ -73,4 +72,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TheaterTicketWebScreen;
+export default PttWebScreen;

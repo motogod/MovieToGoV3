@@ -21,7 +21,7 @@ class RankingScreen extends Component {
   }
 
   componentDidMount() {
-    // this.props.fetchRanking();
+    this.props.fetchRanking();
   }
 
   renderDot = () => {
