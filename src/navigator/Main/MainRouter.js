@@ -10,6 +10,9 @@ import {
 import MainScreen from '../../components/Main/MainScreen';
 import RankingScreen from '../../components/Main/RankingScreen';
 import DrawerPanelScreen from '../../components/Drawer/DrawerPanelScreen';
+// General screen
+import MovieDetail from '../../components/GeneralComponent/MovieDetail';
+import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
 // Router
 import TheaterRouter from '../Theater/TheaterRouter';
 import SearchRouter from '../Search/SearchRouter';
@@ -33,6 +36,12 @@ const MainStack = createStackNavigator({
   RankingScreen: {
     screen: RankingScreen
   },
+  MovieDetail: {
+    screen: MovieDetail
+  },
+  PttWebScreen: {
+    screen: PttWebScreen
+  }
 },
 {
   initialRouteName: 'MainScreen',
@@ -90,16 +99,17 @@ const TabNavigator = createBottomTabNavigator({
     inactiveTintColor: commonColor.headerColor,
   },
 });
-  
-const Router = createDrawerNavigator({
-  FirstScreen: {
-    screen: TabNavigator
-  }
-},
-{
-  contentComponent: DrawerPanelScreen,
-  drawerWidth: 200
-});
+
+// Remove Drawer
+// const Router = createDrawerNavigator({
+//   FirstScreen: {
+//     screen: TabNavigator
+//   }
+// },
+// {
+//   contentComponent: DrawerPanelScreen,
+//   drawerWidth: 200
+// });
     
   
-export default createAppContainer(Router);
+export default createAppContainer(TabNavigator);

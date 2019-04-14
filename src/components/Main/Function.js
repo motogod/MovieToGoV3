@@ -4,3 +4,13 @@ export const subMovieContent = (movieContent) => {
   }
   return movieContent;
 };
+
+export const SplitMovieDate = (movieDate) => {
+  // 處理字串 片長:02時30分
+  if (movieDate !== null && movieDate !== '') {
+    const onlyTime = movieDate.split('：');
+    return onlyTime[1];
+  }
+
+  return movieDate;
+};

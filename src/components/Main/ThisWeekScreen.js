@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, Dimensions } from 'react-native';
+import { 
+  View, Text, FlatList, StyleSheet, Image, Dimensions, 
+  TouchableOpacity 
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Loader } from '../Shared/Modal/Loader';
 import { fetchThisWeek } from '../../actions';
+import { SplitMovieDate } from './Function';
 
 const { width } = Dimensions.get('window');
 
@@ -10,27 +14,36 @@ const halfWidth = width / 2;
 
 class ThisWeekScreen extends Component {
   componentDidMount() {
-    this.props.fetchThisWeek();
+    // this.props.fetchThisWeek();
   }
 
   renderMovieData = ({ item }) => {
+    const { cnName, enName, movieDate, movieContent, photoHref } = item;
+
+    const onlyDate = SplitMovieDate(movieDate);
     return (
       <View style={styles.card}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <View>
-            <Image 
-              source={{ uri: item.photoHref }} 
-              style={{ width: 120, height: 180, borderRadius: 10 }} 
-              resizeMode='contain'
-            />
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('MovieDetail', {
+            enCity: 'ThisWeek', cnName
+          })}
+        >
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1 }}>
+              <Image 
+                source={{ uri: photoHref }} 
+                style={{ width: 120, height: 180, borderRadius: 10 }} 
+                resizeMode='contain'
+              />
+            </View>
+            <View style={styles.textZone}>
+              <Text style={styles.cnName}>{cnName}</Text>
+              <Text style={styles.enName}>{enName}</Text>
+              <Text numberOfLines={6} style={styles.movieContent}>{movieContent.trim()}}</Text>
+              <Text style={styles.movieDate}>{onlyDate}</Text>
+            </View>
           </View>
-          <View style={{ width: halfWidth + 10, marginLeft: 12, flexDirection: 'column', marginTop: 2 }}>
-            <Text style={{ fontSize: 16, color: '#444f6c', fontWeight: '500' }}>{item.cnName}</Text>
-            <Text style={{ fontSize: 14, marginTop: 2, color: 'gray' }}>{item.enName}</Text>
-            <Text style={{ fontSize: 16, marginTop: 10 }}>{item.movieDate}</Text>
-            <Text numberOfLines={7} style={{ fontSize: 10, marginTop: 5, fontWeight: '100' }}>{item.movieContent.trim()}}</Text>
-          </View>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -73,19 +86,46 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     // elevation only work on Android
     elevation: 4,
-    // alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     flexDirection: 'column',
     backgroundColor: 'white',
     marginTop: 8,
     padding: 15,
-    // paddingHorizontal: 25,
-    // paddingTop: 35,
-    // paddingBottom: 16,
     borderRadius: 0,
     borderWidth: StyleSheet.hairlineWidth,
   },
+  textZone: {
+    flex: 2, 
+    flexWrap: 'wrap',
+    marginLeft: 20, 
+    flexDirection: 'column', 
+    marginTop: 2
+  },
+  cnName: {
+    fontSize: 17, 
+    color: '#444f6c', 
+    fontWeight: '500',
+    letterSpacing: 1
+  },
+  enName: {
+    fontSize: 14, 
+    marginTop: 2, 
+    color: 'gray',
+    letterSpacing: 2
+  },
+  movieDate: {
+    fontSize: 17, 
+    color: '#444f6c', 
+    fontWeight: '500',
+    marginTop: 15,
+    letterSpacing: 1
+  },
+  movieContent: {
+    fontSize: 10, 
+    marginTop: 10, 
+    fontWeight: '100'
+  }
 });
 
 export default connect(mapStateToProps, { fetchThisWeek })(ThisWeekScreen);
