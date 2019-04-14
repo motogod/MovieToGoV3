@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Loader } from '../Shared/Modal/Loader';
 
@@ -9,13 +9,20 @@ const halfWidth = width / 2;
 
 class TodayMovieScreen extends Component {
   renderMovieData = ({ item }) => {
+    const { cnName, photoHref } = item;
     return (
       <View style={{ flex: 1, alignItems: 'center', marginTop: 5 }}>
-        <Image 
-          style={{ width: halfWidth - 20, height: 250, borderRadius: 10 }} 
-          source={{ uri: item.photoHref }} 
-          resizeMode='stretch'
-        />
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('MovieDetail', {
+            enCity: 'TaipeiOthers', cnName
+          })}
+        >
+          <Image 
+            style={{ width: halfWidth - 20, height: 250, borderRadius: 10 }} 
+            source={{ uri: photoHref }} 
+            resizeMode='stretch'
+          />
+        </TouchableOpacity>
       </View>
     );
   }

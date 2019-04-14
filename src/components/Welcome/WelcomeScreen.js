@@ -8,14 +8,18 @@ import { connect } from 'react-redux';
 import { 
   fetchRanking, 
   fetchTodayMovieList, 
-  fetchThisWeek 
+  fetchThisWeek,
+  fetchRecentMovie,
+  fetchBuyTickets
 } from '../../actions';
 
 class WelcomeScreen extends Component {
   componentWillMount() {
-    this.props.fetchRanking();
-    this.props.fetchTodayMovieList();
-    this.props.fetchThisWeek();
+    // 先 fetch ScrollTab 的資料
+    // this.props.fetchRanking();
+    // this.props.fetchTodayMovieList();
+    // this.props.fetchThisWeek();
+    // this.props.fetchRecentMovie();
   }
 
   componentDidMount() {
@@ -40,5 +44,7 @@ class WelcomeScreen extends Component {
 export default connect(null, { 
   fetchRanking, 
   fetchTodayMovieList,
-  fetchThisWeek
+  fetchThisWeek,
+  fetchRecentMovie,
+  fetchBuyTickets
 })(WelcomeScreen);

@@ -2,15 +2,20 @@ import {
   MOVIELIST_RANKING,
   MOVIELIST_TODAY,
   REQUEST_MOVIELIST_THISWEEK,
-  MOVIELIST_THISWEEK
+  MOVIELIST_THISWEEK,
+  MOVIELIST_RECENT_MOVIE,
+  REQUEST_MOVIE_DETAIL,
+  MOVIE_DETAIL
 } from '../actions/types';
 // asyncData : 判斷收藏 ICON 為已收藏或未收藏
 const INITIAL_STATE = {
   todayMovie: [],
   ranking: [],
   thisWeek: [],
-  thisWeekLoading: false,
+  thisWeekLoading: true,
+  recentMovie: [],
   timeList: [],
+  movieDetailLoading: true,
   movieDetail: [],
   asyncData: [],
   loading: true,
@@ -42,6 +47,23 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         thisWeek: action.thisWeek,
         thisWeekLoading: action.thisWeekLoading
+      };
+    case MOVIELIST_RECENT_MOVIE:
+      return {
+        ...state,
+        recentMovie: action.recentMovie
+      };
+    case REQUEST_MOVIE_DETAIL:
+      return {
+        ...state,
+        movieDetailLoading: action.movieDetailLoading,
+        movieDetail: action.movieDetail
+      };
+    case MOVIE_DETAIL:
+      return {
+        ...state,
+        movieDetailLoading: action.movieDetailLoading,
+        movieDetail: action.movieDetail
       };
     default:
       return state;
