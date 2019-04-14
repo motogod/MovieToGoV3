@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet, NativeModules, TouchableOpacity,
   FlatList, Dimensions, LayoutAnimation, Platform
 } from 'react-native';
-// import MultiSlider from '@ptomasroos/react-native-multi-slider';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ModalSelector from 'react-native-modal-selector';
 

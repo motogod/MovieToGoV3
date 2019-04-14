@@ -5,7 +5,9 @@ import {
   SEARCH_TIME_REQUEST,
   SEARCH_TIME,
   MOVIE_STYLE_REQUEST,
-  MOVIE_STYLE
+  MOVIE_STYLE,
+  TICKET_OF_THEATER,
+  TICKET_INFORMATION
 } from '../actions/types';
       
 const INITIAL_STATE = {
@@ -17,7 +19,9 @@ const INITIAL_STATE = {
   searchAllMovieTimeLoading: true,
   searchAllMovieTime: [],
   movieStyleLoading: false, 
-  movieStyleList: []
+  movieStyleList: [],
+  ticketTheater: [],
+  ticketInformation: []
 };
   
 export default (state = INITIAL_STATE, action) => {
@@ -66,6 +70,16 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         movieStyleLoading: action.movieStyleLoading, 
         movieStyleList: action.movieStyleList        
+      };
+    case TICKET_OF_THEATER:
+      return {
+        ...state,
+        ticketTheater: action.ticketTheater
+      };
+    case TICKET_INFORMATION:
+      return {
+        ...state,
+        ticketInformation: action.ticketInformation
       };
     default:
       return state;

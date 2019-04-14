@@ -28,6 +28,11 @@ export const SEARCH_TIME = 'SEARCH_TIME';
 export const MOVIE_STYLE_REQUEST = 'MOVIE_STYLE_REQUEST';
 export const MOVIE_STYLE = 'MOVIE_STYLE';
 
+// Cash Information
+export const TICKET_REQUEST = 'TICKET_REQUEST';
+export const TICKET_OF_THEATER = 'TICKET_OF_THEATER';
+export const TICKET_INFORMATION = 'TICKET_INFORMATION';
+
 // Movie Detail
 export const REQUEST_MOVIE_DETAIL = 'REQUEST_MOVIE_DETAIL';
 export const MOVIE_DETAIL = 'MOVIE_DETAIL';

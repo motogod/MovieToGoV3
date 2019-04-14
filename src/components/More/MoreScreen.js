@@ -17,7 +17,7 @@ const gridData = [
   { optionName: I18n.t('TIME_INQUIRY'), source: TimeIcon, nextScreen: 'SearchMovieTimeScreen', barTitle: I18n.t('SEARCH_ALL_MOVIE') },
   { optionName: I18n.t('TYPE_INQUIRY'), source: TypeIcon, nextScreen: '', barTitle: '' },
   { optionName: I18n.t('TICKET_INQUIRY'), source: TicketIcon, nextScreen: 'BuyTicketsTheaterScreen', barTitle: I18n.t('TICKETS_LINKING') },
-  { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon, nextScreen: '', barTitle: '' },
+  { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon, nextScreen: 'CashInfoScreen', barTitle: I18n.t('CASH_INFO') },
   { optionName: I18n.t('MY_COLLECTION'), source: HeartIcon, nextScreen: '', barTitle: '' }
 ]; 
 

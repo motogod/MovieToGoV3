@@ -11,6 +11,7 @@ export default {
   TIME_INQUIRY: '時刻查詢',
   TYPE_INQUIRY: '分類查詢',
   TICKET_INQUIRY: '訂票連結',
+  CASH_INFO: '票價資訊',
   CASH_INQUIRY: '票價資訊',
   MY_COLLECTION: '我的收藏',
   RELEASE_DATE: '上 映：',

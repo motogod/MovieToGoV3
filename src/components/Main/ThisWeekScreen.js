@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { 
+  View, Text, FlatList, StyleSheet, Image, Dimensions, 
+  TouchableOpacity 
+} from 'react-native';
 import { connect } from 'react-redux';
 import { Loader } from '../Shared/Modal/Loader';
 import { fetchThisWeek } from '../../actions';
