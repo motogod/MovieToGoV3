@@ -24,6 +24,10 @@ export const DEFAULT_SEND_SEARCH_FORM = 'DEFAULT_SEND_SEARCH_FORM';
 export const SEARCH_TIME_REQUEST = 'SEARCH_TIME_REQUEST';
 export const SEARCH_TIME = 'SEARCH_TIME';
 
+// Search Movie Style
+export const MOVIE_STYLE_REQUEST = 'MOVIE_STYLE_REQUEST';
+export const MOVIE_STYLE = 'MOVIE_STYLE';
+
 // Movie Detail
 export const REQUEST_MOVIE_DETAIL = 'REQUEST_MOVIE_DETAIL';
 export const MOVIE_DETAIL = 'MOVIE_DETAIL';

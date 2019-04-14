@@ -4,7 +4,9 @@ import {
   SEND_SEARCH_FORM,
   DEFAULT_SEND_SEARCH_FORM,
   SEARCH_TIME_REQUEST,
-  SEARCH_TIME
+  SEARCH_TIME,
+  MOVIE_STYLE_REQUEST,
+  MOVIE_STYLE
 } from './types';
 
 export const fetchBuyTickets = () => {
@@ -44,18 +46,42 @@ export const defaultSendSearchForm = () => {
 // 搜尋區域內所有電影
 export const fetchSearchTime = (selectedEnCity, firstSliderValue, secondSliderValue) => {
   return (dispatch) => {
-    dispatch({ type: SEARCH_TIME_REQUEST });
+    dispatch({ 
+      type: SEARCH_TIME_REQUEST, 
+      searchAllMovieTimeLoading: true,
+      searchAllMovieTime: []
+    });
 
-    fetch(`https://obscure-reaches-65656.herokuapp.com/api/getCloseTime?city=${selectedCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}`)
+    console.log('url =>', `https://obscure-reaches-65656.herokuapp.com/api/getCloseTime?city=${selectedEnCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}`);
+
+    fetch(`https://obscure-reaches-65656.herokuapp.com/api/getCloseTime?city=${selectedEnCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}`)
       .then(response => response.json())
       .then(responseData => {
+        console.log('responseData', responseData);
         const movieData = responseData.reduce((r, s) => {
           r.push({ title: s.theaterCn, id: s._id, data: s.movie });
           return r;
         }, []);
-        //dispatch({ type: SEARCH_TIME, payload: responseData });
-        dispatch({ type: SEARCH_TIME, payload: movieData });
+        dispatch({ 
+          type: SEARCH_TIME, 
+          searchAllMovieTimeLoading: false,
+          searchAllMovieTime: movieData 
+        });
       })
       .catch((error) => console.log(error));    
     };  
+};
+
+export const fetchMovieStyle = (url) => {
+  return (dispatch) => {
+    dispatch({ type: MOVIE_STYLE_REQUEST, movieStyleLoading: true, movieStyleList: [] });
+
+    fetch(url)
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('fetchMovieStyle responseData', responseData);
+        dispatch({ type: MOVIE_STYLE, movieStyleLoading: false, movieStyleList: responseData });
+      })
+      .catch((error) => console.log(error));
+  };
 };

@@ -97,10 +97,6 @@ class SearchMovieTimeScreen extends Component {
     });
   }
 
-  // defaultSearchForm = () => {
-  //   this.props.defaultSendSearchForm();
-  // }
-
   renderItem({ item }) {
     return (
       <View style={styles.gridContainer}>
@@ -192,7 +188,7 @@ class SearchMovieTimeScreen extends Component {
 
     if (userClickedCity) {
       return (
-        <View style={{ flex: 1, marginTop: 20, alignItems: 'center' }}>
+        <View style={{ flex: 1, paddingTop: 20, alignItems: 'center', backgroundColor: '#F5FCFF' }}>
           <View style={{ alignItems: 'center' }}>
             <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('CHOOSE_LOCATION')}</Text>
             <Text style={{ marginTop: 20, fontSize: 20, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{stateCnCity}</Text>
@@ -222,18 +218,27 @@ class SearchMovieTimeScreen extends Component {
                 stateFirstSlideValue,
                 stateSecondSliderValue
               );
+
+              this.props.navigation.navigate('SearchResultScreen', {
+                stateCnCity,
+                stateEnCity,
+                stateFirstSlideValue,
+                stateSecondSliderValue                
+              });
+
             }}
             style={{ marginTop: 30 }}
             textColor={'#FFFFFF'} 
             backgroundColor={'#FFFFFF'} 
             paddingTop={8}
             paddingBottom={8}
+            height={40}
             width={halfWidth} 
             borderRadius={1}
             borderWidth={0.5}
           >
             <View style={{ flex: 1, alignItems: 'center' }}>
-              <Text style={styles.iconText}>查詢</Text>  
+              <Text style={styles.iconText}>{I18n.t('SEARCH')}</Text>  
             </View>
           </AwesomeButton>
         </View>

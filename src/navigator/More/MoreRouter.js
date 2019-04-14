@@ -1,6 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import MoreScreen from '../../components/More/MoreScreen';
 import SearchMovieTimeScreen from '../../components/More/SearchMovieTimeScreen';
+import SearchResultScreen from '../../components/More/SearchResultScreen';
 import BuyTicketsTheaterScreen from '../../components/More/BuyTicketsTheaterScreen';
 import TheaterTicketWebScreen from '../../components/More/TheaterTicketWebScreen';
 // GeneralComponent screen
@@ -17,6 +18,9 @@ const MoreStack = createStackNavigator({
   },
   SearchMovieTimeScreen: {
     screen: SearchMovieTimeScreen
+  },
+  SearchResultScreen: {
+    screen: SearchResultScreen
   },
   BuyTicketsTheaterScreen: {
     screen: BuyTicketsTheaterScreen
