@@ -33,5 +33,6 @@ export default {
   TICKETS_LINKING: 'TICKETS LINKING',
   CHOOSE_LOCATION: 'Please select the area',
   CHOOSE_SLIDER_TIME: 'Please select the time',
-  HEADER_CANCEL: 'RE'
+  HEADER_CANCEL: 'RE',
+  ENTER_MOVIE_NAME: 'Please enter a movie name...'
 }; 

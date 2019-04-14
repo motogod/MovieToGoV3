@@ -34,5 +34,6 @@ export default {
   TICKETS_LINKING: '訂票連結',
   CHOOSE_LOCATION: '請選擇地區',
   CHOOSE_SLIDER_TIME: '請設定時段',
-  HEADER_CANCEL: '重選'
+  HEADER_CANCEL: '重選',
+  ENTER_MOVIE_NAME: '請輸入電影名稱...'
 }; 

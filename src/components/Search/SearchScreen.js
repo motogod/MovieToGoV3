@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, Dimensions, SafeAreaView, 
-  TextInput, Image, ActivityIndicator, TouchableOpacity
+  TextInput, Image, ActivityIndicator, TouchableOpacity, Platform
 } from 'react-native';
 import _ from 'lodash';
 import Highlighter from 'react-native-highlight-words';
 import { connect } from 'react-redux';
 import { fetchMovieStyle } from '../../actions';
 
+import { serverData } from '../../api/ApiData';
+import I18n from '../../i18n/i18n';
 import SearchIcon from '../../assets/img/search.png';
 
 const { width } = Dimensions.get('window');
@@ -35,7 +37,13 @@ class SearchScreen extends Component {
   constructor(props) {
     super(props);
 
+    let textInputMarginTop = 0;
+    if (Platform.OS === 'android') {
+      textInputMarginTop = 16;
+    }
+
     this.state = {
+      textInputMarginTop,
       inputText: '',
       userFilterData: [],
       showLoadingIcon: false
@@ -43,7 +51,7 @@ class SearchScreen extends Component {
   }
 
   componentDidMount() {
-    const theApi = 'https://obscure-reaches-65656.herokuapp.com/api/getMovieStyle1?';
+    const theApi = `${serverData.serverUrl}api/getMovieStyle1?`;
     let queryString = '';
 
     // 串接 array 參數的 API // 撈全部類型
@@ -115,17 +123,18 @@ class SearchScreen extends Component {
               <Image
                 style={{ width: 80, height: 80 }}
                 source={{ uri: item.photoHref }}
+                resizeMode='stretch'
               />
             </View>
             <View style={{ marginLeft: 8, flexWrap: 'wrap', width: equalWidth }}>
               <Highlighter
-                style={{ fontSize: 16, color: '#ffffff' }}
+                style={styles.cnName}
                 highlightStyle={{ color: 'gold' }}
                 searchWords={[inputText]}
                 textToHighlight={item.cnName ? item.cnName : ''}
               />
               <Highlighter
-                style={{ fontSize: 12, color: '#ffffff', marginTop: 12 }}
+                style={styles.enName}
                 highlightStyle={{ color: 'gold' }}
                 searchWords={[inputText]}
                 textToHighlight={item.enName ? item.enName : ''}
@@ -138,7 +147,7 @@ class SearchScreen extends Component {
   }
 
   render() {
-    const { inputText, userFilterData, showLoadingIcon } = this.state;
+    const { inputText, userFilterData, showLoadingIcon, textInputMarginTop } = this.state;
 
     // 利用 lodash 移除陣列內的物件有相同的 cnName 的物件 (皆以中文片名為移除重複的狀況)
     const finalFilterData = _.uniqBy(userFilterData, 'cnName');
@@ -146,14 +155,14 @@ class SearchScreen extends Component {
     console.log('finalFilterData', finalFilterData);
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
-          <View style={styles.container}>
+          <View style={[styles.container, { marginTop: textInputMarginTop }]}>
             <View style={styles.sectionStyle}>
               <Image source={SearchIcon} style={styles.imageStyle} />
               <TextInput 
                 style={styles.textInputStyle}
                 onChangeText={tex => this.changeInside(tex)}
                 value={inputText}
-                placeholder={'請輸入院線電影片名...'}
+                placeholder={I18n.t('ENTER_MOVIE_NAME')}
                 underlineColorAndroid="transparent"
               />
               {showLoadingIcon ? this.renderLoadingCircle() : null}
@@ -209,7 +218,18 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
     borderBottomColor: '#212121',
     color: '#212121'
-  }
+  },
+  cnName: {
+    fontSize: 17, 
+    color: '#444f6c', 
+    fontWeight: '500',
+    letterSpacing: 1
+  },
+  enName: {
+    marginTop: 12, 
+    color: 'gray',
+    letterSpacing: 2
+  },
 });
 
 export default connect(mapStateToProps, { fetchMovieStyle })(SearchScreen);
