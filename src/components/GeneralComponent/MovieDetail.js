@@ -44,7 +44,7 @@ class MovieDetail extends Component {
 
     this.state = {
       enCity, 
-      cnName,
+      cnName
     };
   }
 
@@ -66,14 +66,7 @@ class MovieDetail extends Component {
 
   renderStickyHeader = (cnName) => {
     return (
-      <View 
-        style={{ 
-        height: 42,
-        backgroundColor: 'rgba(0,0,0,.2)',
-        justifyContent: 'flex-start',
-        paddingLeft: 15
-      }}
-      >
+      <View style={styles.stickyHeader}>
       <Text 
         style={{ 
           fontWeight: '900', color: 'white', fontSize: 20, margin: 8
@@ -204,7 +197,13 @@ class MovieDetail extends Component {
           borderColor={'#DDDDDD'}
         >
           <View style={{ flex: 1, alignItems: 'flex-start', marginLeft: 15 }}>
-          <Rating readonly imageSize={25} fractions={1} startingValue={showPTTScore(goodMinePoint)} />
+            <Rating 
+              readonly 
+              style={{ backgroundColor: '#F5FCFF' }}
+              imageSize={25} 
+              fractions={1} 
+              startingValue={showPTTScore(goodMinePoint)} 
+            />
           </View>
         </AwesomeButton>
       </View>
@@ -248,10 +247,10 @@ class MovieDetail extends Component {
         stickyHeaderHeight={42}
         renderStickyHeader={() => this.renderStickyHeader(cnName)}
       >    
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15, flexDirection: 'row' }}>
+        <View style={styles.nameZone}>
           <View>
-            <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{cnName}</Text>
-            <Text style={{ fontSize: 14, marginTop: 2, color: 'gray', letterSpacing: 2 }}>{enName}</Text>
+            <Text style={styles.cnName}>{cnName}</Text>
+            <Text style={styles.enName}>{enName}</Text>
           </View>
           {this.renderLikeImage(this.props.saveMovieDetail, this.props.movieDetail)}
         </View>
@@ -261,25 +260,25 @@ class MovieDetail extends Component {
         <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
         
         <View style={styles.card}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('MOVIE_SCORE')}</Text>
+          <Text style={styles.movieScore}>{I18n.t('MOVIE_SCORE')}</Text>
           {this.renderImdbAndRotten(imdbScore, rottenScore)}
           {this.renderPTT(goodMinePoint, cnName)}
         </View>
 
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+        <View style={styles.dividenView} />
 
         <View style={[styles.card, { flex: 5 }]}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2, marginBottom: 15 }}>{I18n.t('CONTENT_INFO')}</Text>
+          <Text style={styles.contentInfo}>{I18n.t('CONTENT_INFO')}</Text>
           <Panel numberOfLines={3} showExpandText={true}>
             {movieContent.trim()}
           </Panel>
 
         </View>
 
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+        <View style={styles.dividenView} />
 
         <View style={styles.card}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('ACTOR')}</Text>
+          <Text style={styles.actor}>{I18n.t('ACTOR')}</Text>
           <FlatList
             style={styles.flatSection}
             data={movieActorPhoto}
@@ -298,10 +297,10 @@ class MovieDetail extends Component {
           />
         </View>
 
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+        <View style={styles.dividenView} />
 
         <View style={styles.card}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('STILLS')}</Text>
+          <Text style={styles.stills}>{I18n.t('STILLS')}</Text>
           <FlatList
             style={styles.flatSection}
             data={movieStills}
@@ -342,10 +341,11 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 0,
   },
-  iconImage: {
-    width: 25, 
-    height: 25, 
-    marginLeft: 15
+  stickyHeader: {
+    height: 42,
+    backgroundColor: 'rgba(0,0,0,.2)',
+    justifyContent: 'flex-start',
+    paddingLeft: 15
   },
   iconText: {
     textAlign: 'center',
@@ -353,23 +353,6 @@ const styles = StyleSheet.create({
     color: '#444f6c', 
     fontWeight: '500',
     letterSpacing: 1
-  },
-  thirdHeaderContainer: {
-    margin: 15,
-    backgroundColor: 'yellow',
-  },
-  myDescription: {
-    padding: 10,
-    paddingTop: 0,
-  },
-  phtoSection: {
-    alignSelf: 'stretch',
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: '#fff',
-    marginLeft: 5,
-    marginRight: 5 
   },
   actorTitle: {
     flex: 1, 
@@ -385,6 +368,48 @@ const styles = StyleSheet.create({
     paddingLeft: 10, 
     paddingRight: 10
   },
+  nameZone: {
+    backgroundColor: '#F5F5F5', 
+    padding: 15, 
+    flexDirection: 'row'
+  },
+  cnName: {
+    fontSize: 18, 
+    color: '#444f6c', 
+    fontWeight: '500', 
+    letterSpacing: 1
+  },
+  enName: {
+    fontSize: 14, 
+    marginTop: 2, 
+    color: 'gray', 
+    letterSpacing: 2
+  },
+  dividenView: {
+    backgroundColor: '#F5F5F5', 
+    padding: 15
+  },
+  stills: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2
+  },
+  actor: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2
+  },
+  contentInfo: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2, 
+    marginBottom: 15
+  },
+  movieScore: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2
+  }
 });
 
 export default connect(mapStateToProps, { fetchDetail, saveDetail, deleteDetail })(MovieDetail);

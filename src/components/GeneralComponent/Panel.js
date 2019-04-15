@@ -92,7 +92,7 @@ class Panel extends Component {
           <Image source={this.state.expandIcon} style={{ width: 15, height: 15 }} />
         </Text>
       ) : null;
-      console.log('this.props.children', this.props.children);
+
     return (
       <View style={{ paddingHorizontal: 18 }}>
         <Text
