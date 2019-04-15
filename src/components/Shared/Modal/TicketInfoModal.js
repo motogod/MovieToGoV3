@@ -34,12 +34,15 @@ class TicketInfoModal extends Component {
         onRequestClose={() => { console.log('close modal'); }}
       >
         <SafeAreaView style={{ width, height, backgroundColor: '#F5FCFF' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Text style={styles.theaterCn}>{ticketInformation.theaterCn}</Text>
           <TouchableOpacity 
             onPress={onPress}
-            style={{ alignItems: 'flex-end', padding: 20 }}
+            style={{ flex: 1, alignItems: 'flex-end', padding: 20, justifyContent: 'flex-end' }}
           >
             <Image style={{ width: 40, height: 40 }} source={CancelIcon} />
           </TouchableOpacity>
+          </View>
           <FlatList
           data={ticketInformation.ticketType}
           extraData={ticketInformation.ticketPrice}
@@ -74,22 +77,13 @@ const mapStateToProps = (state) => {
 };
 
 const styles = StyleSheet.create({
-  modalBackground: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    backgroundColor: '#00000040'
+  theaterCn: {
+    fontSize: 18, 
+    color: '#444f6c', 
+    fontWeight: '500',
+    letterSpacing: 1,
+    padding: 20
   },
-  activityIndicatorWrapper: {
-    backgroundColor: 'gray',
-    height: 50,
-    width: 50,
-    borderRadius: 10,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-around'
-  }
 });
 
 export default connect(mapStateToProps, { getTicketInformation })(TicketInfoModal);

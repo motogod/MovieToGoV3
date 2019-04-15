@@ -46,9 +46,9 @@ class MyCollectionScreen extends Component {
     const { saveMovieDetail } = this.props;
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
         <FlatList
-          style={{ backgroundColor: '#ffffff' }}
+          style={{ backgroundColor: '#F5FCFF' }}
           data={saveMovieDetail}
           renderItem={this.renderItem} 
           keyExtractor={(item, index) => index.toString()}   

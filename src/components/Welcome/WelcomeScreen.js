@@ -16,10 +16,10 @@ import {
 class WelcomeScreen extends Component {
   componentWillMount() {
     // 先 fetch ScrollTab 的資料
-    // this.props.fetchRanking();
-    // this.props.fetchTodayMovieList();
-    // this.props.fetchThisWeek();
-    // this.props.fetchRecentMovie();
+    this.props.fetchRanking();
+    this.props.fetchTodayMovieList();
+    this.props.fetchThisWeek();
+    this.props.fetchRecentMovie();
   }
 
   componentDidMount() {

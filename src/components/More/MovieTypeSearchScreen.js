@@ -71,9 +71,8 @@ class MovieTypeSearchScreen extends Component {
     const { names } = this.state;
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#ffffff' }}>
+      <View style={{ flex: 1, justifyContent: 'center', backgroundColor: '#F5FCFF' }}>
         <FlatList
-          style={{ backgroundColor: '#ffffff' }}
           data={movieStyleArray}
           renderItem={this.renderItem}
           horizontal={false}

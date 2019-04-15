@@ -9,8 +9,7 @@ import {
   MOVIELIST_RECENT_MOVIE,
   REQUEST_MOVIE_DETAIL,
   MOVIE_DETAIL,
-  PERSIST_MOVIE_DETAIL,
-  DELETE_PERSIST_MOVIE_DETAIL
+  PERSIST_MOVIE_DETAIL
 } from './types';
 
 export const fetchRanking = () => {
@@ -104,8 +103,6 @@ export const fetchDetail = (enCity, cnName) => {
 
 export const saveDetail = (saveMovieDetail, movieDetail) => {
   return (dispatch) => {
-    console.log('saveMovieDetail =>', saveMovieDetail);
-    console.log('movieDetail =>', movieDetail);
     if (saveMovieDetail.length > 0) {
       // 收藏的電影名單裡面至少有一筆資料
       // 以中文名字判斷是否之前有存入 有則回傳 index的值 沒有資料回傳 -1

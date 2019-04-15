@@ -38,5 +38,6 @@ export default {
   HEADER_CANCEL: 'RE',
   ENTER_MOVIE_NAME: 'Please enter a movie name...',
   COLLECTED: 'COLLECTED',
-  DELETED: 'DELETED'
+  DELETED: 'DELETED',
+  TICKET_REFERENCE_INFO: 'Ticket information is for reference only'
 }; 
