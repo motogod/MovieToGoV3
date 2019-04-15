@@ -82,8 +82,9 @@ class MovieTypeSearchScreen extends Component {
         {this.state.names.length > 0 ? 
           <Button 
             onPress={() => this.props.navigation.navigate('MovieTypeResultScreen', { names })}
-            containerViewStyle={{ width: '100%', marginLeft: 0, marginRight: 0, backgroundColor: commonColor.headerColor }} 
-            title='查詢'
+            style={{ backgroundColor: commonColor.headerColor }}
+            containerViewStyle={{ width: '100%', marginLeft: 0, marginRight: 0 }} 
+            title={I18n.t('SEARCH')}
           /> : null
         }
       </View>

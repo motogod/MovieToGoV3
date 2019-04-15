@@ -63,12 +63,14 @@ class MovieTypeResultScreen extends Component {
                 <View style={{ flex: 3, marginLeft: 5, flexWrap: 'wrap' }}>
                   <Text style={styles.cnName}>{cnName}</Text>
                   <Text style={styles.enName}>{enName}</Text>
-                  {movieStyle.map((value, index) => {
+                  <View style={{ flexDirection: 'row' }}>
+                  {movieStyle.map((value, inNum) => {
                     return (
-                      <VersionButton key={index}>{value}</VersionButton>
+                      <VersionButton marginLeft={5} key={inNum}>{value}</VersionButton>
                     );
                   })
                   }
+                  </View>
                 </View>
               </View>
             </View>
@@ -97,7 +99,7 @@ class MovieTypeResultScreen extends Component {
     filterArray2 = _.uniqBy(filterArray, 'cnName');
 
     return (
-      <View>
+      <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,.2)' }}>
         <FlatList
           data={filterArray2}
           renderItem={this.renderList}

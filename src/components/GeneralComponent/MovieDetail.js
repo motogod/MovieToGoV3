@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet,
+import { View, Image, Text, StyleSheet, Animated, Easing,
   FlatList, Dimensions, TouchableWithoutFeedback
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
@@ -40,17 +40,34 @@ class MovieDetail extends Component {
   constructor(props) {
     super(props); 
 
+    this.scale = new Animated.Value(0);
+
     const { enCity, cnName } = this.props.navigation.state.params;
 
     this.state = {
       enCity, 
-      cnName
+      cnName,
+      animation: new Animated.Value(0),
+      opacity: new Animated.Value(1)
     };
   }
 
   componentDidMount() {
     const { enCity, cnName } = this.state;
     this.props.fetchDetail(enCity, cnName);
+  }
+
+  scalElem = (toValue, duration) => {
+    this.scale.setValue(0);
+    Animated.timing(
+      this.scale,
+      {
+        toValue,
+        duration,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }
+    ).start();
   }
 
   renderWebView = (videoId) => {
@@ -77,13 +94,24 @@ class MovieDetail extends Component {
   }
 
   renderLikeImage = (saveMovieDetail, movieDetail) => {
+    const scale = this.scale.interpolate({
+      inputRange: [0, 0.5, 1],
+      outputRange: [1, 0.5, 1]
+    });
+
     const checkExisted = checkSaveMovieDataExisted(saveMovieDetail, movieDetail);
 
     if (checkExisted) {
       return (
         <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
-          <TouchableWithoutFeedback onPress={() => this.props.deleteDetail(saveMovieDetail, movieDetail)}>
-            <Image source={LikeIcon} style={{ width: 30, height: 30 }} />
+          <TouchableWithoutFeedback 
+            onPressIn={() => this.scalElem(1, 250)}
+            onPressOut={() => {
+              this.scalElem(0, 100);
+                this.props.deleteDetail(saveMovieDetail, movieDetail);
+              }}
+          >
+            <Animated.Image source={LikeIcon} style={{ width: 30, height: 30, transform: [{ scale }] }} />
           </TouchableWithoutFeedback>
         </View>
       );
@@ -92,12 +120,14 @@ class MovieDetail extends Component {
     return (
       <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
         <TouchableWithoutFeedback 
-          onPress={() => {
-            this.refs.toast.show(`${I18n.t('COLLECTED')} ${movieDetail.cnName}`, DURATION.LENGTH_LONG);
-            this.props.saveDetail(saveMovieDetail, movieDetail);
+        onPressIn={() => this.scalElem(1, 250)}
+        onPressOut={() => {
+          this.scalElem(0, 100);
+          this.refs.toast.show(`${I18n.t('COLLECTED')} ${movieDetail.cnName}`, DURATION.LENGTH_LONG);
+          this.props.saveDetail(saveMovieDetail, movieDetail);
           }}
         >
-          <Image source={UnlikeIcon} style={{ width: 30, height: 30 }} />
+          <Animated.Image source={UnlikeIcon} style={{ width: 30, height: 30, transform: [{ scale }] }} />
         </TouchableWithoutFeedback>
       </View>
     );
@@ -353,6 +383,15 @@ const styles = StyleSheet.create({
     color: '#444f6c', 
     fontWeight: '500',
     letterSpacing: 1
+  },
+  phtoSection: {
+    alignSelf: 'stretch',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#fff',
+    marginLeft: 5,
+    marginRight: 5 
   },
   actorTitle: {
     flex: 1, 
