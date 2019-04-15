@@ -4,6 +4,7 @@ import { View, Image, Text, StyleSheet,
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import Toast, { DURATION } from 'react-native-easy-toast';
 import { WebView } from 'react-native-webview';
 import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -97,7 +98,12 @@ class MovieDetail extends Component {
 
     return (
       <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
-        <TouchableWithoutFeedback onPress={() => this.props.saveDetail(saveMovieDetail, movieDetail)}>
+        <TouchableWithoutFeedback 
+          onPress={() => {
+            this.refs.toast.show(`${I18n.t('COLLECTED')} ${movieDetail.cnName}`, DURATION.LENGTH_LONG);
+            this.props.saveDetail(saveMovieDetail, movieDetail);
+          }}
+        >
           <Image source={UnlikeIcon} style={{ width: 30, height: 30 }} />
         </TouchableWithoutFeedback>
       </View>
@@ -305,6 +311,16 @@ class MovieDetail extends Component {
           />
         </View>
 
+        <Toast
+          ref="toast"
+          style={{ backgroundColor: 'gray' }}
+          position='top'
+          positionValue={200}
+          fadeInDuration={750}
+          fadeOutDuration={1000}
+          opacity={0.8}
+          textStyle={{ color: 'white' }}
+        />
       </ParallaxScrollView>
     );
   }

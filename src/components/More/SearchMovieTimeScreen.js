@@ -201,9 +201,10 @@ class SearchMovieTimeScreen extends Component {
           <MultiSlider
             values={[stateFirstSlideValue, stateSecondSliderValue]}
             sliderLength={250}
+            touchDimensions={{ height: 200, width: 200 }}
             onValuesChange={(values) => {
               this.setState({ stateFirstSlideValue: values[0], stateSecondSliderValue: values[1] });
-            }
+              }
             }
             min={0}
             max={24}

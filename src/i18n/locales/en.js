@@ -36,5 +36,6 @@ export default {
   CHOOSE_LOCATION: 'Please select the area',
   CHOOSE_SLIDER_TIME: 'Please select the time',
   HEADER_CANCEL: 'RE',
-  ENTER_MOVIE_NAME: 'Please enter a movie name...'
+  ENTER_MOVIE_NAME: 'Please enter a movie name...',
+  COLLECTED: 'COLLECTED'
 }; 
