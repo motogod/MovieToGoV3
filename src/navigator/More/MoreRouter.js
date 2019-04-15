@@ -6,6 +6,7 @@ import BuyTicketsTheaterScreen from '../../components/More/BuyTicketsTheaterScre
 import CashInfoScreen from '../../components/More/CashInfoScreen';
 import CashInfoDetailScreen from '../../components/More/CashInfoDetailScreen';
 import TheaterTicketWebScreen from '../../components/More/TheaterTicketWebScreen';
+import MyCollectionScreen from '../../components/More/MyCollectionScreen';
 // GeneralComponent screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
 import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
@@ -35,6 +36,9 @@ const MoreStack = createStackNavigator({
   },
   CashInfoDetailScreen: {
     screen: CashInfoDetailScreen
+  },
+  MyCollectionScreen: {
+    screen: MyCollectionScreen
   },
   MovieDetail: {
     screen: MovieDetail

@@ -184,8 +184,8 @@ class SearchMovieTimeScreen extends Component {
       stateFirstSlideValue, 
       stateSecondSliderValue 
     } = this.state;
-
-    if (userClickedCity) {
+    // 一併加入 stateCnCity 在 redux-persist 是否有存值的判斷
+    if (userClickedCity || stateCnCity !== '') {
       return (
         <View style={{ flex: 1, paddingTop: 20, alignItems: 'center', backgroundColor: '#F5FCFF' }}>
           <View style={{ alignItems: 'center' }}>

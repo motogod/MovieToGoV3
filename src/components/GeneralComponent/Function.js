@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 export const SplitMovieString = (movieDate) => {
 // 處理字串 如 片  長:02時30分
   if (movieDate !== null && movieDate !== '') {
@@ -45,4 +47,17 @@ export const showPTTScore = (goodMinePoint) => {
   }
 
   return minePoint;
+};
+
+export const checkSaveMovieDataExisted = (saveMovieDetail, movieDetail) => {
+  // 有則回傳 index的值 沒有回傳 -1
+  const cnNameIndex = _.findIndex(saveMovieDetail, (value) => { 
+    return value.cnName === movieDetail.cnName; 
+  });
+
+  if (cnNameIndex > -1) {
+    return true;
+  } 
+  // 無資料，不需做刪除動作
+  return false;
 };

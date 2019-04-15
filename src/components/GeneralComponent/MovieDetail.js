@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet,
-  FlatList, Dimensions
+  FlatList, Dimensions, TouchableWithoutFeedback
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { WebView } from 'react-native-webview';
 import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { fetchDetail } from '../../actions';
+import { fetchDetail, saveDetail, deleteDetail } from '../../actions';
 
 import Panel from './Panel';
 import I18n from '../../i18n/i18n';
-import { SplitMovieString, adjustImdbInfo, adjustRottenInfo, showPTTScore } from './Function';
+import { SplitMovieString, adjustImdbInfo, adjustRottenInfo, 
+  showPTTScore, checkSaveMovieDataExisted 
+} from './Function';
 import { Loader } from '../Shared/Modal/Loader';
 import { commonColor } from '../Shared/Data/Color';
 
 import ImdbIcon from '../../assets/img/imdb.png';
 import RottenIcon from '../../assets/img/rotten.png';
+import LikeIcon from '../../assets/img/like.png';
+import UnlikeIcon from '../../assets/img/unlike.png';
 
 const { width } = Dimensions.get('window');
 const halfWidth = width / 2;
@@ -75,6 +79,28 @@ class MovieDetail extends Component {
         }}
       >{cnName}</Text>
     </View>
+    );
+  }
+
+  renderLikeImage = (saveMovieDetail, movieDetail) => {
+    const checkExisted = checkSaveMovieDataExisted(saveMovieDetail, movieDetail);
+    console.log('checkExisted', checkExisted);
+    if (checkExisted) {
+      return (
+        <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
+          <TouchableWithoutFeedback onPress={() => this.props.deleteDetail(saveMovieDetail, movieDetail)}>
+            <Image source={LikeIcon} style={{ width: 30, height: 30 }} />
+          </TouchableWithoutFeedback>
+        </View>
+      );
+    }
+
+    return (
+      <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
+        <TouchableWithoutFeedback onPress={() => this.props.saveDetail(saveMovieDetail, movieDetail)}>
+          <Image source={UnlikeIcon} style={{ width: 30, height: 30 }} />
+        </TouchableWithoutFeedback>
+      </View>
     );
   }
 
@@ -155,8 +181,8 @@ class MovieDetail extends Component {
     return (
       <View style={{ marginTop: 15 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ fontSize: 24, fontWeight: '200', marginLeft: 5 }}>PTT</Text>
-          <Text style={{ fontSize: 20, color: 'gray', fontWeight: 'bold', marginLeft: 5 }}>{I18n.t('PTT_SCORE')}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 5 }}>PTT</Text>
+          <Text style={{ fontSize: 13, color: 'gray', fontWeight: 'bold', marginLeft: 5 }}>{I18n.t('PTT_SCORE')}</Text>
         </View>
         <AwesomeButton 
           onPress={() => this.props.navigation.navigate('PttWebScreen', { cnName })}
@@ -172,7 +198,7 @@ class MovieDetail extends Component {
           borderColor={'#DDDDDD'}
         >
           <View style={{ flex: 1, alignItems: 'flex-start', marginLeft: 15 }}>
-          <Rating readonly imageSize={30} fractions={1} startingValue={showPTTScore(goodMinePoint)} />
+          <Rating readonly imageSize={25} fractions={1} startingValue={showPTTScore(goodMinePoint)} />
           </View>
         </AwesomeButton>
       </View>
@@ -221,9 +247,7 @@ class MovieDetail extends Component {
             <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{cnName}</Text>
             <Text style={{ fontSize: 14, marginTop: 2, color: 'gray', letterSpacing: 2 }}>{enName}</Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
-            <Text>Test</Text>
-          </View>
+          {this.renderLikeImage(this.props.saveMovieDetail, this.props.movieDetail)}
         </View>
 
         {this.renderTimeAndTicketButtonZone(splitDate, splitTime)}
@@ -287,9 +311,9 @@ class MovieDetail extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { movieDetailLoading, movieDetail } = state.MovieListRedux;
+  const { movieDetailLoading, movieDetail, saveMovieDetail } = state.MovieListRedux;
 
-  return { movieDetailLoading, movieDetail };
+  return { movieDetailLoading, movieDetail, saveMovieDetail };
 };
 
 const styles = StyleSheet.create({
@@ -347,4 +371,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, { fetchDetail })(MovieDetail);
+export default connect(mapStateToProps, { fetchDetail, saveDetail, deleteDetail })(MovieDetail);
