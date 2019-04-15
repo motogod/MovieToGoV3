@@ -133,7 +133,7 @@ export const deleteDetail = (saveMovieDetail, movieDetail) => {
           dispatch({ type: PERSIST_MOVIE_DETAIL, saveMovieDetail: removeElements });
           return;
         }
-        // 將新的 Array (已移除掉使用者選擇要刪除的影片)存入 AsyncStorage
+        // 將新的 Array (已移除掉使用者選擇要刪除的影片)
         dispatch({ type: PERSIST_MOVIE_DETAIL, saveMovieDetail: removeElements });
       } else {
         // 無資料，不需做刪除動作

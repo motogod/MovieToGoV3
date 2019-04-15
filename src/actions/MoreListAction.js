@@ -76,11 +76,11 @@ export const fetchSearchTime = (selectedEnCity, firstSliderValue, secondSliderVa
 export const fetchMovieStyle = (url) => {
   return (dispatch) => {
     dispatch({ type: MOVIE_STYLE_REQUEST, movieStyleLoading: true, movieStyleList: [] });
-
+    
     fetch(url)
       .then(response => response.json())
       .then(responseData => {
-        console.log('fetchMovieStyle responseData', responseData);
+        
         dispatch({ type: MOVIE_STYLE, movieStyleLoading: false, movieStyleList: responseData });
       })
       .catch((error) => console.log(error));

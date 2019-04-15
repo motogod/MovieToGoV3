@@ -2,6 +2,8 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import MoreScreen from '../../components/More/MoreScreen';
 import SearchMovieTimeScreen from '../../components/More/SearchMovieTimeScreen';
 import SearchResultScreen from '../../components/More/SearchResultScreen';
+import MovieTypeSearchScreen from '../../components/More/MovieTypeSearchScreen';
+import MovieTypeResultScreen from '../../components/More/MovieTypeResultScreen';
 import BuyTicketsTheaterScreen from '../../components/More/BuyTicketsTheaterScreen';
 import CashInfoScreen from '../../components/More/CashInfoScreen';
 import CashInfoDetailScreen from '../../components/More/CashInfoDetailScreen';
@@ -24,6 +26,12 @@ const MoreStack = createStackNavigator({
   },
   SearchResultScreen: {
     screen: SearchResultScreen
+  },
+  MovieTypeSearchScreen: {
+    screen: MovieTypeSearchScreen
+  },
+  MovieTypeResultScreen: {
+    screen: MovieTypeResultScreen
   },
   BuyTicketsTheaterScreen: {
     screen: BuyTicketsTheaterScreen
