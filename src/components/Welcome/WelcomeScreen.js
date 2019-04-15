@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { 
   View, 
   Text, 
-  StyleSheet 
+  StyleSheet,
+  Platform 
 } from 'react-native';
 import { connect } from 'react-redux';
 import { 
@@ -10,10 +11,17 @@ import {
   fetchTodayMovieList, 
   fetchThisWeek,
   fetchRecentMovie,
-  fetchBuyTickets
+  fetchBuyTickets,
+  saveLocation
 } from '../../actions';
 
 class WelcomeScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { lng: '', lat: '' };
+  }
+
   componentWillMount() {
     // 先 fetch ScrollTab 的資料
     this.props.fetchRanking();
@@ -26,10 +34,46 @@ class WelcomeScreen extends Component {
     this.timer = setTimeout(() => { 
       this.props.navigation.navigate('MainScreen');
     }, 2500);
+
+    this.getCurentPosition();
   }
 
   componentWillUnmount() {
     this.timer && clearTimeout(this.timer);
+  }
+
+  // get device location
+  getCurentPosition() {
+    try {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          console.log('my lng', position.coords.longitude);
+          console.log('my lat', position.coords.latitude);
+          this.setState({ lng: position.coords.longitude, lat: position.coords.latitude });
+          this.props.saveLocation({ lng: position.coords.longitude, lat: position.coords.latitude });
+        },
+        (error) => {
+          console.log('my error is =>');
+          console.log(error.message);
+          console.log(error.code);
+          //TODO: better design
+          switch (error.code) {
+            case 1:
+              if (Platform.OS === 'ios') {
+                // Alert.alert('ios1', 'ios2');
+              } else {
+                // Alert.alert('android1', 'android2');
+              }
+              break;
+            default:
+              // Alert.alert('開啟GPS時戲院可依距離來顯示', '');
+          }
+        },
+        { enableHighAccuracy: false, timeout: 100000, maximumAge: 30000 }
+      );
+    } catch (e) {   
+      console.log(e);   
+    }
   }
 
   render() {
@@ -46,5 +90,6 @@ export default connect(null, {
   fetchTodayMovieList,
   fetchThisWeek,
   fetchRecentMovie,
-  fetchBuyTickets
+  fetchBuyTickets,
+  saveLocation
 })(WelcomeScreen);

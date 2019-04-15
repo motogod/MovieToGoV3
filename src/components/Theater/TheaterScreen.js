@@ -21,7 +21,9 @@ const { width } = Dimensions.get('window');
 
 class TheaterScreen extends Component {
 
-  renderItem({ item }) {
+  renderItem = ({ item }) => {
+    const { lat, lng } = this.props;
+
     return (
       <View style={styles.gridContainer}>
         <ModalSelector
@@ -33,8 +35,8 @@ class TheaterScreen extends Component {
           optionTextStyle={{ color: 'black' }}
           onChange={(value) => {
             item.navigation.navigate('LocalTheaterScreen', {
-              lng: '',
-              lat: '',
+              lng,
+              lat,
               enCity: value.enCity,
               cnCity: value.cnCity
               });
@@ -114,6 +116,13 @@ class TheaterScreen extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  console.log('state.LocationRedux', state.LocationRedux);
+  const { lat, lng } = state.LocationRedux;
+  
+  return { lat, lng };
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -139,4 +148,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, {})(TheaterScreen);
+export default connect(mapStateToProps, {})(TheaterScreen);
