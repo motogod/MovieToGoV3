@@ -38,5 +38,6 @@ export default {
   CHOOSE_SLIDER_TIME: '請設定時段',
   HEADER_CANCEL: '重選',
   ENTER_MOVIE_NAME: '請輸入電影名稱...',
-  COLLECTED: '已收藏'
+  COLLECTED: '已收藏',
+  DELETED: '已移除'
 }; 

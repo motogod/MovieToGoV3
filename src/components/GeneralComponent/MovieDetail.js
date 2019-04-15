@@ -85,7 +85,7 @@ class MovieDetail extends Component {
 
   renderLikeImage = (saveMovieDetail, movieDetail) => {
     const checkExisted = checkSaveMovieDataExisted(saveMovieDetail, movieDetail);
-    console.log('checkExisted', checkExisted);
+
     if (checkExisted) {
       return (
         <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
@@ -238,7 +238,7 @@ class MovieDetail extends Component {
 
     const splitDate = SplitMovieString(movieDate);
     const splitTime = SplitMovieString(movieTime);
-    console.log('movieActorPhoto =>', movieActorPhoto);
+
     return (
       <ParallaxScrollView
         backgroundColor='transparent'

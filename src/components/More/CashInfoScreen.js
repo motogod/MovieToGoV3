@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { 
-  View, Text, FlatList, StyleSheet, Image, Dimensions, 
-  TouchableOpacity
-} from 'react-native';
+import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ModalSelector from 'react-native-modal-selector';
 
@@ -20,7 +17,6 @@ import {
 } from '../Shared/Data/CityArray';
 
 const { width } = Dimensions.get('window');
-const halfWidth = width / 2;
 
 class CashInfoScreen extends Component {
   static navigationOptions = ({ navigation }) => ({

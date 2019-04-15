@@ -37,5 +37,6 @@ export default {
   CHOOSE_SLIDER_TIME: 'Please select the time',
   HEADER_CANCEL: 'RE',
   ENTER_MOVIE_NAME: 'Please enter a movie name...',
-  COLLECTED: 'COLLECTED'
+  COLLECTED: 'COLLECTED',
+  DELETED: 'DELETED'
 }; 
