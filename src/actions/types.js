@@ -1,6 +1,9 @@
 // RANKING
 export const MOVIELIST_RANKING = 'MOVIELIST_RANKING';
 
+// MOVIE NEWS
+export const MOVIELIST_NEWS = 'MOVIELIST_NEWS';
+
 // Today
 export const MOVIELIST_TODAY = 'MOVIELIST_TODAY';
 

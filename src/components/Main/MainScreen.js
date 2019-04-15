@@ -4,6 +4,7 @@ import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab
 import { connect } from 'react-redux';
 // Scroll tab screen
 import RankingScreen from './RankingScreen';
+import MovieNews from './MovieNews';
 import TodayMovieScreen from './TodayMovieScreen';
 import ThisWeekScreen from './ThisWeekScreen';
 import RecentMovieScreen from './RecentMovieScreen';
@@ -40,10 +41,10 @@ class MainScreen extends Component {
             />}
         >
           <RankingScreen navigation={navigation} tabLabel={I18n.t('RANKING')} />
+          <MovieNews navigation={navigation} tabLabel={I18n.t('MOVIE_NEWS')} />
           <TodayMovieScreen navigation={navigation} tabLabel={I18n.t('TODAY_MOVIE')} />
           <ThisWeekScreen navigation={navigation} tabLabel={I18n.t('THIS_WEEK')} />
           <RecentMovieScreen navigation={navigation} tabLabel={I18n.t('RECENT')} />
-          <Text style={{ color: 'blue', fontSize: 26 }} tabLabel="React">what</Text>
         </ScrollableTabView>
       </SafeAreaView>
     );

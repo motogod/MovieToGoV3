@@ -5,6 +5,7 @@ export default {
   SEARCH: '搜尋',
   MORE: '更多',
   RANKING: '排行榜',
+  MOVIE_NEWS: '電影新聞',
   TODAY_MOVIE: '今日強檔',
   THIS_WEEK: '本週新片',
   RECENT: '本週過後',

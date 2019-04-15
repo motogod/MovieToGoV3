@@ -1,6 +1,7 @@
 import { serverData } from '../api/ApiData';
 import { 
   MOVIELIST_RANKING,
+  MOVIELIST_NEWS,
   MOVIELIST_TODAY,
   REQUEST_MOVIELIST_THISWEEK, 
   MOVIELIST_THISWEEK,
@@ -18,6 +19,17 @@ export const fetchRanking = () => {
       })
       .catch((error) => console.log(error));  
   };
+};
+
+export const fetchMovieNews = () => {
+  return (dispatch) => {
+    fetch(serverData.wowNewsUrl)
+      .then(response => response.json())
+      .then(responseData => {
+        dispatch({ type: MOVIELIST_NEWS, movieNews: responseData.results });
+      })
+      .catch((error) => console.log(error));  
+    };
 };
 
 export const fetchTodayMovieList = () => {

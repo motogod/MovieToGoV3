@@ -1,5 +1,6 @@
 import { 
   MOVIELIST_RANKING,
+  MOVIELIST_NEWS,
   MOVIELIST_TODAY,
   REQUEST_MOVIELIST_THISWEEK,
   MOVIELIST_THISWEEK,
@@ -11,6 +12,7 @@ import {
 const INITIAL_STATE = {
   todayMovie: [],
   ranking: [],
+  movieNews: [],
   thisWeek: [],
   thisWeekLoading: true,
   recentMovie: [],
@@ -30,6 +32,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ranking: action.ranking
+      };
+    case MOVIELIST_NEWS:
+      return {
+        ...state,
+        movieNews: action.movieNews
       };
     case MOVIELIST_TODAY:
       return {

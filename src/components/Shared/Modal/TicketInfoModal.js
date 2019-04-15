@@ -5,6 +5,7 @@ import {
   Text,
   Image,
   Modal,
+  FlatList,
   Dimensions,
   SafeAreaView,
   TouchableOpacity
@@ -19,8 +20,12 @@ const { width, height } = Dimensions.get('window');
 class TicketInfoModal extends Component {
   
   render() {
+    // theaterCn ticketType ticketPrice
     const { visible, onPress, ticketInformation } = this.props;
     console.log('ticketInformation', ticketInformation);
+
+    let changeColor = 'white';
+
     return (
       <Modal
         transparent={true}
@@ -35,6 +40,27 @@ class TicketInfoModal extends Component {
           >
             <Image style={{ width: 40, height: 40 }} source={CancelIcon} />
           </TouchableOpacity>
+          <FlatList
+          data={ticketInformation.ticketType}
+          extraData={ticketInformation.ticketPrice}
+          renderItem={({ item, index }) => {
+            if (index % 2 === 0) {
+              changeColor = '#DDDDDD';
+            } else {
+              changeColor = 'white';
+            }
+  
+          return (
+            <View style={{ flexDirection: 'row', backgroundColor: changeColor }}>
+              <Text style={{ flex: 0.7, fontSize: 16, padding: 10 }}>{item}</Text>
+              <View style={{ height: '100%', width: 5, backgroundColor: 'white' }}></View>
+              <Text style={{ flex: 0.3, fontSize: 16, padding: 10 }}>{ticketInformation.ticketPrice[index]}</Text>
+            </View>
+          );
+          }
+          }
+          keyExtractor={(item, index) => index.toString()}
+        />
         </SafeAreaView>
       </Modal>
     );
