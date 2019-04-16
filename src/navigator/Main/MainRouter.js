@@ -33,7 +33,8 @@ const MainStack = createStackNavigator({
   MainScreen: {
     screen: MainScreen,
     navigationOptions: () => ({
-      header: null
+      header: null,
+      gesturesEnabled: false
     })
   },
   MovieNewsWebScreen: {

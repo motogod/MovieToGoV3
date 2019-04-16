@@ -13,7 +13,8 @@ const WelcomeStack = createStackNavigator({
   MainScreen: {
     screen: MainRouter,
     navigationOptions: () => ({
-      header: null
+      header: null,
+      gesturesEnabled: false
     })
   }
 },
