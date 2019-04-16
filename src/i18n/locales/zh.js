@@ -40,5 +40,5 @@ export default {
   ENTER_MOVIE_NAME: '請輸入電影名稱...',
   COLLECTED: '已收藏',
   DELETED: '已移除',
-  TICKET_REFERENCE_INFO: '票價資訊僅供猜考，如有雷同純屬巧合'
+  TICKET_REFERENCE_INFO: '票價資訊僅供參考，如有雷同純屬巧合'
 }; 

@@ -8,7 +8,8 @@ import {
 } from 'react-navigation';
 // Screen
 import MainScreen from '../../components/Main/MainScreen';
-import RankingScreen from '../../components/Main/RankingScreen';
+import MovieNewsWebScreen from '../../components/Main/MovieNewsWebScreen';
+import BuyTicketsTheaterScreen from '../../components/More/BuyTicketsTheaterScreen';
 import DrawerPanelScreen from '../../components/Drawer/DrawerPanelScreen';
 // General screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
@@ -33,8 +34,11 @@ const MainStack = createStackNavigator({
       header: null
     })
   },
-  RankingScreen: {
-    screen: RankingScreen
+  MovieNewsWebScreen: {
+    screen: MovieNewsWebScreen
+  },
+  BuyTicketsTheaterScreen: {
+    screen: BuyTicketsTheaterScreen
   },
   MovieDetail: {
     screen: MovieDetail

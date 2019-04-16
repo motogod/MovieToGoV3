@@ -133,7 +133,7 @@ class MovieDetail extends Component {
     );
   }
 
-  renderTimeAndTicketButtonZone = (splitDate, splitTime) => {
+  renderTimeAndTicketButtonZone = (splitDate, splitTime, enCity, cnName) => {
     return (
       <View style={styles.card}>
         <View>
@@ -142,7 +142,7 @@ class MovieDetail extends Component {
         </View>
         <View style={{ marginTop: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
           <AwesomeButton 
-            onPress={() => this.props.navigation.navigate('BuyTicketsTheaterScreen')}
+            onPress={() => this.props.navigation.navigate('SearchMovieTimeScreen', { enCity, cnName })}
             textColor={'#FFFFFF'} 
             backgroundColor={'#F5FCFF'} 
             raiseLevel={6}
@@ -252,6 +252,8 @@ class MovieDetail extends Component {
   }
 
   render() {
+    // enCity 給 搜尋時刻用
+    const { enCity } = this.state;
     const { movieDetailLoading } = this.props;
     
     if (movieDetailLoading) {
@@ -285,7 +287,7 @@ class MovieDetail extends Component {
           {this.renderLikeImage(this.props.saveMovieDetail, this.props.movieDetail)}
         </View>
 
-        {this.renderTimeAndTicketButtonZone(splitDate, splitTime)}
+        {this.renderTimeAndTicketButtonZone(splitDate, splitTime, enCity, cnName)}
 
         <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
         

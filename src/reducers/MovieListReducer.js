@@ -1,5 +1,6 @@
 import { 
   MOVIELIST_RANKING,
+  REQUEST_MOVIELIST_NEWS,
   MOVIELIST_NEWS,
   MOVIELIST_TODAY,
   REQUEST_MOVIELIST_THISWEEK,
@@ -31,9 +32,16 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ranking: action.ranking
       };
+    case REQUEST_MOVIELIST_NEWS:
+      return {
+        ...state,
+        movieNewsLoading: action.movieNewsLoading,
+        movieNews: action.movieNews
+      };
     case MOVIELIST_NEWS:
       return {
         ...state,
+        movieNewsLoading: action.movieNewsLoading,
         movieNews: action.movieNews
       };
     case MOVIELIST_TODAY:

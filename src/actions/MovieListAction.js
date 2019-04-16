@@ -2,6 +2,7 @@ import _ from 'lodash';
 import { serverData } from '../api/ApiData';
 import { 
   MOVIELIST_RANKING,
+  REQUEST_MOVIELIST_NEWS,
   MOVIELIST_NEWS,
   MOVIELIST_TODAY,
   REQUEST_MOVIELIST_THISWEEK, 
@@ -9,7 +10,9 @@ import {
   MOVIELIST_RECENT_MOVIE,
   REQUEST_MOVIE_DETAIL,
   MOVIE_DETAIL,
-  PERSIST_MOVIE_DETAIL
+  PERSIST_MOVIE_DETAIL,
+  REQUEST_SEARCH_SINGLE_MOVIE_TIME,
+  SEARCH_SINGLE_MOVIE_TIME
 } from './types';
 
 export const fetchRanking = () => {
@@ -25,10 +28,12 @@ export const fetchRanking = () => {
 
 export const fetchMovieNews = () => {
   return (dispatch) => {
+    dispatch({ type: REQUEST_MOVIELIST_NEWS, movieNewsLoading: true, movieNews: [] });
+
     fetch(serverData.wowNewsUrl)
       .then(response => response.json())
       .then(responseData => {
-        dispatch({ type: MOVIELIST_NEWS, movieNews: responseData.results });
+        dispatch({ type: MOVIELIST_NEWS, movieNewsLoading: false, movieNews: responseData.results });
       })
       .catch((error) => console.log(error));  
     };
@@ -136,4 +141,22 @@ export const deleteDetail = (saveMovieDetail, movieDetail) => {
         // 無資料，不需做刪除動作
       }
   };
+};
+
+export const searchSingleMovieTime = (selectedCity, cnName, firstSliderValue, secondSliderValue) => {
+  return (dispatch) => {
+    dispatch({ type: REQUEST_SEARCH_SINGLE_MOVIE_TIME });
+
+    fetch(`${serverData.serverUrl}api/getNameCloseTime?city=${selectedCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}&cnName=${cnName}`)
+      .then(response => response.json())
+      .then(responseData => {
+        const movieData = responseData.reduce((r, s) => {
+          r.push({ title: s.theaterCn, id: s._id, data: s.movie });
+          return r;
+        }, []);
+
+        dispatch({ type: SEARCH_SINGLE_MOVIE_TIME, singleMovieTime: movieData });
+      })
+      .catch((error) => console.log(error));    
+    }; 
 };

@@ -49,6 +49,8 @@ class SearchMovieTimeScreen extends Component {
   constructor(props) {
     super(props);
 
+    const { enCity, cnName } = this.props.navigation.state.params;
+
     // set LayoutAnimation.spring() can be work for Android
     if (Platform.OS === 'android') {
       const { UIManager } = NativeModules;
@@ -60,7 +62,9 @@ class SearchMovieTimeScreen extends Component {
       stateCnCity: '',
       stateEnCity: '',
       stateFirstSlideValue: 0,
-      stateSecondSliderValue: 24
+      stateSecondSliderValue: 24,
+      enCity,
+      cnName
     };
 
     this.renderItem = this.renderItem.bind(this);
@@ -94,6 +98,19 @@ class SearchMovieTimeScreen extends Component {
       stateFirstSlideValue: 0,
       stateSecondSliderValue: 24
     });
+  }
+  // 判斷是否從 MovieDetail 跳轉過來的時間查詢，若是 enCity 會有值(call 資料庫用)
+  // 並畫面上顯示 中文片名
+  renderCnName = (enCity, cnName) => {
+    if (enCity === undefined) {
+      return <View />;
+    }
+
+    return (
+      <View>
+        <Text style={{ marginVertical: 20, fontSize: 20, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{cnName}</Text>
+      </View>
+    );
   }
 
   renderItem({ item }) {
@@ -182,13 +199,16 @@ class SearchMovieTimeScreen extends Component {
       stateCnCity, 
       stateEnCity, 
       stateFirstSlideValue, 
-      stateSecondSliderValue 
+      stateSecondSliderValue,
+      enCity,
+      cnName
     } = this.state;
     // 一併加入 stateCnCity 在 redux-persist 是否有存值的判斷
     if (userClickedCity || stateCnCity !== '') {
       return (
         <View style={{ flex: 1, paddingTop: 20, alignItems: 'center', backgroundColor: '#F5FCFF' }}>
           <View style={{ alignItems: 'center' }}>
+            {this.renderCnName(enCity, cnName)}
             <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('CHOOSE_LOCATION')}</Text>
             <Text style={{ marginTop: 20, fontSize: 20, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{stateCnCity}</Text>
             <Text style={{ marginTop: 30, fontSize: 18, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('CHOOSE_SLIDER_TIME')}</Text>

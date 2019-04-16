@@ -112,8 +112,8 @@ class CashInfoScreen extends Component {
 
     return (
       <View style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
-        <View style={{ marginTop: 20, alignItems: 'center' }}>
-          <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('TICKET_REFERENCE_INFO')}</Text>
+        <View style={{ padding: 20, alignItems: 'center' }}>
+          <Text style={{ fontSize: 15, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('TICKET_REFERENCE_INFO')}</Text>
         </View>
         <FlatList
           data={list}

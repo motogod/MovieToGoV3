@@ -1,5 +1,7 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import SearchScreen from '../../components/Search/SearchScreen';
+// GeneralComponent
+import MovieDetail from '../../components/GeneralComponent/MovieDetail';
 
 const SearchStack = createStackNavigator({
   SearchScreen: {
@@ -8,6 +10,9 @@ const SearchStack = createStackNavigator({
       header: null
     })
   },
+  MovieDetail: {
+    screen: MovieDetail
+  }
 },
 {
   initialRouteName: 'SearchScreen',

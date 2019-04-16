@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { 
+  View, Text, FlatList, StyleSheet, Image, Dimensions, 
+  TouchableOpacity 
+} from 'react-native';
 import { WebView } from 'react-native-webview';
 
+import { serverData } from '../../api/ApiData';
 import { commonColor } from '../Shared/Data/Color';
 
 import LeftIcon from '../../assets/img/left_arrow.png';
 import RightIcon from '../../assets/img/right_arrow.png';
 
-class TheaterTicketWebScreen extends Component {
+class MovieNewsWebScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: `${navigation.state.params.theaterCn}`,
+    title: 'Wow NEWS',
     headerBackTitle: null,
     headerTintColor: '#fff',
     headerStyle: {
-      backgroundColor: commonColor.headerColor, 
-      elevation: null
+        backgroundColor: commonColor.headerColor, 
+        elevation: null
     }
   });
 
   constructor(props) {
     super(props); 
 
-    const { ticketAddress } = this.props.navigation.state.params;
+    const { slug } = this.props.navigation.state.params;
 
-    this.state = { ticketAddress };
+    this.state = { slug };
   }
 
   goBack = () => {
@@ -35,19 +39,19 @@ class TheaterTicketWebScreen extends Component {
   }
 
   render() {
-    const { ticketAddress } = this.state;
-
+    const { slug } = this.state;
+    
     return (
-      <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-        <WebView
-          ref='webview'
-          source={{ uri: ticketAddress }}
-          dataDetectorTypes='all'
-          startInLoadingState={true}
-          domStorageEnabled={true}
-          javaScriptEnabled={true}
-          automaticallyAdjustContentInsets={true}
-        />
+        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+          <WebView
+            ref='webview'
+            source={{ uri: `${serverData.wowNewsWebDomain}${slug}` }}
+            dataDetectorTypes='all'
+            startInLoadingState={true}
+            domStorageEnabled={true}
+            javaScriptEnabled={true}
+            automaticallyAdjustContentInsets={true}
+          />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => this.goBack()}>
             <Image source={LeftIcon} style={{ height: 20, width: 20 }} />
@@ -56,7 +60,7 @@ class TheaterTicketWebScreen extends Component {
             <Image source={RightIcon} style={{ height: 20, width: 20 }} />
           </TouchableOpacity>
         </View>
-      </View>
+      </View>    
     );
   }
 }
@@ -76,4 +80,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TheaterTicketWebScreen;
+export default MovieNewsWebScreen;
