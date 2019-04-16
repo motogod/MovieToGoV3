@@ -3,20 +3,20 @@ import { View, Image, Text, StyleSheet, NativeModules, TouchableWithoutFeedback,
   FlatList, Dimensions, LayoutAnimation, Platform, TouchableOpacity, SectionList
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchSearchTime } from '../../actions';
+import { fetchSingleMovieTime } from '../../actions';
 
 import { GetUserTime } from './Function';
 import { Loader } from '../Shared/Modal/Loader';
 import { commonColor } from '../../components/Shared/Data/Color';
 
-class SearchResultScreen extends Component {
+class SearchSingleResultScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.stateCnCity}`,
     headerBackTitle: null,
     headerTintColor: '#fff',
     headerStyle: {
-      backgroundColor: commonColor.headerColor, 
-      elevation: null
+        backgroundColor: commonColor.headerColor, 
+        elevation: null
     }
   });
 
@@ -26,6 +26,7 @@ class SearchResultScreen extends Component {
     const { 
       stateEnCity, 
       stateCnCity, 
+      movieCnName,
       stateFirstSlideValue, 
       stateSecondSliderValue 
     } = this.props.navigation.state.params;
@@ -33,6 +34,7 @@ class SearchResultScreen extends Component {
     this.state = { 
       enCity: stateEnCity, 
       cnName: stateCnCity,
+      movieCnName,
       stateFirstSlideValue,
       stateSecondSliderValue
     };
@@ -41,20 +43,22 @@ class SearchResultScreen extends Component {
   componentDidMount() {
     const { 
       enCity,
+      cnName,
+      movieCnName,
       stateFirstSlideValue,
       stateSecondSliderValue
     } = this.state;
 
-    this.props.fetchSearchTime(      
+    this.props.fetchSingleMovieTime(      
       enCity,
       stateFirstSlideValue,
-      stateSecondSliderValue
+      stateSecondSliderValue,
+      movieCnName,
     );
   }
 
   sectionComp = (info) => {
     const theaterCn = info.section.title;
-
     return (
       <TouchableWithoutFeedback>
         <View style={{ flex: 1, backgroundColor: '#DCDCDC' }}>
@@ -65,6 +69,8 @@ class SearchResultScreen extends Component {
   }
 
   renderSectionItem = (info) => {
+    console.log('what is my info', info);
+    // 這邊的cnName指電影名稱
     const cnName = info.item.cnName;
     const versionType = info.item.versionType;
     return (
@@ -100,19 +106,20 @@ class SearchResultScreen extends Component {
   }
 
   render() {
-    const { searchAllMovieTimeLoading, searchAllMovieTime } = this.props;
+    const { searchSingleMovieTimeLoading, searchSingleMovieTime } = this.props;
 
-    if (searchAllMovieTimeLoading) {
+    if (searchSingleMovieTimeLoading) {
       return (
         <Loader loading={true} />
       );
     }
+    console.log('searchSingleMovieTime', searchSingleMovieTime);
     return (
       <View style={{ flex: 1 }}>
         <SectionList
           renderSectionHeader={this.sectionComp}
           renderItem={this.renderSectionItem}
-          sections={searchAllMovieTime}
+          sections={searchSingleMovieTime}
           keyExtractor={(item, index) => index}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
@@ -122,10 +129,10 @@ class SearchResultScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { searchAllMovieTimeLoading, searchAllMovieTime } = state.MoreListRedux;
-
-  return { searchAllMovieTimeLoading, searchAllMovieTime };
-};
+  const { searchSingleMovieTimeLoading, searchSingleMovieTime } = state.MoreListRedux;
+  
+  return { searchSingleMovieTimeLoading, searchSingleMovieTime };
+};  
 
 const styles = StyleSheet.create({
   sectionTitle: {
@@ -169,4 +176,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, { fetchSearchTime })(SearchResultScreen);
+export default connect(mapStateToProps, { fetchSingleMovieTime })(SearchSingleResultScreen);

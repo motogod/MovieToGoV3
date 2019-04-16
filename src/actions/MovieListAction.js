@@ -10,9 +10,7 @@ import {
   MOVIELIST_RECENT_MOVIE,
   REQUEST_MOVIE_DETAIL,
   MOVIE_DETAIL,
-  PERSIST_MOVIE_DETAIL,
-  REQUEST_SEARCH_SINGLE_MOVIE_TIME,
-  SEARCH_SINGLE_MOVIE_TIME
+  PERSIST_MOVIE_DETAIL
 } from './types';
 
 export const fetchRanking = () => {
@@ -141,22 +139,4 @@ export const deleteDetail = (saveMovieDetail, movieDetail) => {
         // 無資料，不需做刪除動作
       }
   };
-};
-
-export const searchSingleMovieTime = (selectedCity, cnName, firstSliderValue, secondSliderValue) => {
-  return (dispatch) => {
-    dispatch({ type: REQUEST_SEARCH_SINGLE_MOVIE_TIME });
-
-    fetch(`${serverData.serverUrl}api/getNameCloseTime?city=${selectedCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}&cnName=${cnName}`)
-      .then(response => response.json())
-      .then(responseData => {
-        const movieData = responseData.reduce((r, s) => {
-          r.push({ title: s.theaterCn, id: s._id, data: s.movie });
-          return r;
-        }, []);
-
-        dispatch({ type: SEARCH_SINGLE_MOVIE_TIME, singleMovieTime: movieData });
-      })
-      .catch((error) => console.log(error));    
-    }; 
 };

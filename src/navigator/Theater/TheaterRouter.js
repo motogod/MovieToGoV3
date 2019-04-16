@@ -5,8 +5,8 @@ import TheaterMovieTimeScreen from '../../components/Theater/TheaterMovieTimeScr
 // GeneralComponent screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
 import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
-
-import { commonColor } from '../../components/Shared/Data/Color';
+import SearchSingleMovieTimeScreen from '../../components/GeneralComponent/SearchSingleMovieTimeScreen';
+import SearchSingleResultScreen from '../../components/GeneralComponent/SearchSingleResultScreen';
 
 const TheaterStack = createStackNavigator({
   TheaterScreen: {
@@ -27,6 +27,12 @@ const TheaterStack = createStackNavigator({
   },
   PttWebScreen: {
     screen: PttWebScreen
+  },
+  SearchSingleMovieTimeScreen: {
+    screen: SearchSingleMovieTimeScreen
+  },
+  SearchSingleResultScreen: {
+    screen: SearchSingleResultScreen
   }
 },
 {

@@ -19,10 +19,12 @@ const persistTheaterListConfig = {
   whitelist: ['']
 };
 // 儲存使用者在時間查詢點選的條件 selectedCnCity, firstSliderValue, secondSliderValue
+// 儲存單一電影的查詢條件 selectedSingleCnCity, firstSingleSliderValue, secondSingleSliderValue
 const persistMoreListConfig = {
   key: 'MoreListRedux',
   storage,
-  whitelist: ['selectedCnCity', 'firstSliderValue', 'secondSliderValue']
+  whitelist: ['selectedCnCity', 'firstSliderValue', 'secondSliderValue', 'selectedSingleCnCity',
+  'firstSingleSliderValue', 'secondSingleSliderValue']
 };
 
 const locationConfig = {

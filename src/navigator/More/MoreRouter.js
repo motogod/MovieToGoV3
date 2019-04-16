@@ -12,6 +12,8 @@ import MyCollectionScreen from '../../components/More/MyCollectionScreen';
 // GeneralComponent screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
 import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
+import SearchSingleMovieTimeScreen from '../../components/GeneralComponent/SearchSingleMovieTimeScreen';
+import SearchSingleResultScreen from '../../components/GeneralComponent/SearchSingleResultScreen';
 
 const MoreStack = createStackNavigator({
   MoreScreen: {
@@ -53,6 +55,12 @@ const MoreStack = createStackNavigator({
   },
   PttWebScreen: {
     screen: PttWebScreen
+  },
+  SearchSingleMovieTimeScreen: {
+    screen: SearchSingleMovieTimeScreen
+  },
+  SearchSingleResultScreen: {
+    screen: SearchSingleResultScreen
   }
 },
 {

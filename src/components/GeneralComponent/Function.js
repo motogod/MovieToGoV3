@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import moment from 'moment-timezone';
 
 export const SplitMovieString = (movieDate) => {
 // 處理字串 如 片  長:02時30分
@@ -60,4 +61,15 @@ export const checkSaveMovieDataExisted = (saveMovieDetail, movieDetail) => {
   } 
   // 無資料，不需做刪除動作
   return false;
+};
+
+export const GetUserTime = {
+  getUserHour: () => {
+    return new Date().getHours();
+  },
+  getAsiaTime: (value, format) => {
+    const localTime = moment(value, format).tz('Asia/Taipei').format(format);
+    const theTime = new Date(localTime); 
+    return theTime;
+  }
 };

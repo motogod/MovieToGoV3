@@ -9,7 +9,11 @@ import {
   MOVIE_STYLE,
   TICKET_REQUEST,
   TICKET_OF_THEATER,
-  TICKET_INFORMATION
+  TICKET_INFORMATION,
+  REQUEST_SEARCH_SINGLE_MOVIE_TIME,
+  SEND_SINGLE_SEARCH_FORM,
+  SEARCH_SINGLE_MOVIE_TIME,
+  DEFAULT_SEND_SINGLE_SEARCH_FORM
 } from './types';
 
 export const fetchBuyTickets = () => {
@@ -40,9 +44,28 @@ export const sendSearchForm = (selectedCnCity, selectedEnCity, firstSliderValue,
 
 // 重置 儲存使用者選取的搜尋條件到 Reducer
 export const defaultSendSearchForm = () => {
-  
   return (dispatch) => {
     dispatch({ type: DEFAULT_SEND_SEARCH_FORM });
+  };
+};
+
+// 儲存使用者選取的搜尋條件到 Reducer (針對單一電影)
+export const sendSingleSearchForm = (selectedSingleCnCity, selectedSingleEnCity, firstSingleSliderValue, secondSingleSliderValue) => {
+  return (dispatch) => {
+    dispatch({ 
+      type: SEND_SINGLE_SEARCH_FORM, 
+      selectedSingleCnCity,
+      selectedSingleEnCity, 
+      firstSingleSliderValue,
+      secondSingleSliderValue
+    });
+  };
+};
+
+// 重置 儲存使用者選取的搜尋條件到 Reducer (針對單一電影)
+export const defaultSendSingleSearchForm = () => {
+  return (dispatch) => {
+    dispatch({ type: DEFAULT_SEND_SINGLE_SEARCH_FORM });
   };
 };
 
@@ -58,7 +81,6 @@ export const fetchSearchTime = (selectedEnCity, firstSliderValue, secondSliderVa
     fetch(`${serverData.serverUrl}api/getCloseTime?city=${selectedEnCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}`)
       .then(response => response.json())
       .then(responseData => {
-        
         const movieData = responseData.reduce((r, s) => {
           r.push({ title: s.theaterCn, id: s._id, data: s.movie });
           return r;
@@ -69,9 +91,39 @@ export const fetchSearchTime = (selectedEnCity, firstSliderValue, secondSliderVa
           searchAllMovieTime: movieData 
         });
       })
-      .catch((error) => console.log(error));    
+      .catch((error) => console.log(error));   
     };  
 };
+
+// 搜尋單一電影所有時間
+export const fetchSingleMovieTime = (selectedCity, firstSliderValue, secondSliderValue, cnName) => {
+  return (dispatch) => {
+    console.log('why');
+    dispatch({ 
+      type: REQUEST_SEARCH_SINGLE_MOVIE_TIME,       
+      searchSingleMovieTimeLoading: true,
+      searchSingleMovieTime: [] 
+    });
+    console.log('url', `${serverData.serverUrl}api/getNameCloseTime?city=${selectedCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}&cnName=${cnName}`);
+    fetch(`${serverData.serverUrl}api/getNameCloseTime?city=${selectedCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}&cnName=${cnName}`)
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('responseData', responseData);
+        const movieData = responseData.reduce((r, s) => {
+          r.push({ title: s.theaterCn, id: s._id, data: s.movie });
+          return r;
+        }, []);
+
+        dispatch({ 
+          type: SEARCH_SINGLE_MOVIE_TIME,           
+          searchSingleMovieTimeLoading: false,
+          searchSingleMovieTime: movieData  
+        });
+      })
+      .catch((error) => console.log(error));   
+    }; 
+};
+
 // 查詢電影分類
 export const fetchMovieStyle = (url) => {
   return (dispatch) => {

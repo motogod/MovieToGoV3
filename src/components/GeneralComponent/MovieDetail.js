@@ -137,18 +137,20 @@ class MovieDetail extends Component {
     return (
       <View style={styles.card}>
         <View>
-          <Text style={{ fontSize: 18 }}>{`${I18n.t('RELEASE_DATE')}${splitDate}`}</Text>
-          <Text style={{ fontSize: 18, marginTop: 10 }}>{`${I18n.t('MOVIE_TIME')}${splitTime}`}</Text>
+          <Text style={{ fontSize: 15 }}>{`${I18n.t('RELEASE_DATE')}${splitDate}`}</Text>
+          <Text style={{ fontSize: 15, marginTop: 10 }}>{`${I18n.t('MOVIE_TIME')}${splitTime}`}</Text>
         </View>
         <View style={{ marginTop: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
           <AwesomeButton 
-            onPress={() => this.props.navigation.navigate('SearchMovieTimeScreen', { enCity, cnName })}
+            onPress={() => this.props.navigation.navigate('SearchSingleMovieTimeScreen', {
+              cnName
+            })}
             textColor={'#FFFFFF'} 
             backgroundColor={'#F5FCFF'} 
             raiseLevel={6}
             paddingTop={0}
             paddingBottom={0}
-            height={50}
+            height={45}
             width={halfWidth - 20} 
             borderRadius={1}
             borderWidth={1}
@@ -166,7 +168,7 @@ class MovieDetail extends Component {
             raiseLevel={6}
             paddingTop={0}
             paddingBottom={0}
-            height={50}
+            height={45}
             width={halfWidth - 20} 
             borderRadius={1}
             borderWidth={1}
@@ -220,7 +222,7 @@ class MovieDetail extends Component {
           raiseLevel={6}
           paddingTop={0}
           paddingBottom={0}
-          height={50}
+          height={45}
           width={width - 30} 
           borderRadius={1}
           borderWidth={1}
@@ -230,7 +232,7 @@ class MovieDetail extends Component {
             <Rating 
               readonly 
               style={{ backgroundColor: '#F5FCFF' }}
-              imageSize={25} 
+              imageSize={20} 
               fractions={1} 
               startingValue={showPTTScore(goodMinePoint)} 
             />

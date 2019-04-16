@@ -8,8 +8,8 @@ import { WebView } from 'react-native-webview';
 import { serverData } from '../../api/ApiData';
 import { commonColor } from '../Shared/Data/Color';
 
-import LeftIcon from '../../assets/img/left_arrow.png';
-import RightIcon from '../../assets/img/right_arrow.png';
+import LeftIcon from '../../assets/img/left_green_arrow.png';
+import RightIcon from '../../assets/img/right_green_arrow.png';
 
 class MovieNewsWebScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -54,10 +54,10 @@ class MovieNewsWebScreen extends Component {
           />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => this.goBack()}>
-            <Image source={LeftIcon} style={{ height: 20, width: 20 }} />
+            <Image source={LeftIcon} style={{ height: 30, width: 30 }} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.goForward} onPress={() => this.goForward()}>
-            <Image source={RightIcon} style={{ height: 20, width: 20 }} />
+            <Image source={RightIcon} style={{ height: 30, width: 30 }} />
           </TouchableOpacity>
         </View>
       </View>    

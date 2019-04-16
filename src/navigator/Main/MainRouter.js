@@ -14,6 +14,8 @@ import DrawerPanelScreen from '../../components/Drawer/DrawerPanelScreen';
 // General screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
 import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
+import SearchSingleMovieTimeScreen from '../../components/GeneralComponent/SearchSingleMovieTimeScreen';
+import SearchSingleResultScreen from '../../components/GeneralComponent/SearchSingleResultScreen';
 // Router
 import TheaterRouter from '../Theater/TheaterRouter';
 import SearchRouter from '../Search/SearchRouter';
@@ -45,6 +47,12 @@ const MainStack = createStackNavigator({
   },
   PttWebScreen: {
     screen: PttWebScreen
+  },
+  SearchSingleMovieTimeScreen: {
+    screen: SearchSingleMovieTimeScreen
+  },
+  SearchSingleResultScreen: {
+    screen: SearchSingleResultScreen
   }
 },
 {
