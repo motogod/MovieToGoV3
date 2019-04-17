@@ -1,5 +1,9 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import SearchScreen from '../../components/Search/SearchScreen';
+// GeneralComponent
+import MovieDetail from '../../components/GeneralComponent/MovieDetail';
+import SearchSingleMovieTimeScreen from '../../components/GeneralComponent/SearchSingleMovieTimeScreen';
+import SearchSingleResultScreen from '../../components/GeneralComponent/SearchSingleResultScreen';
 
 const SearchStack = createStackNavigator({
   SearchScreen: {
@@ -8,6 +12,15 @@ const SearchStack = createStackNavigator({
       header: null
     })
   },
+  MovieDetail: {
+    screen: MovieDetail
+  },
+  SearchSingleMovieTimeScreen: {
+    screen: SearchSingleMovieTimeScreen
+  },
+  SearchSingleResultScreen: {
+    screen: SearchSingleResultScreen
+  }
 },
 {
   initialRouteName: 'SearchScreen',

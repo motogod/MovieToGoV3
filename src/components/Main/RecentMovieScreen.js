@@ -11,7 +11,7 @@ const halfWidth = width / 2;
 
 class RecentMovieScreen extends Component {
   componentDidMount() {
-    // this.props.fetchThisWeek();
+    this.props.fetchThisWeek();
   }
 
   renderMovieData = ({ item }) => {
@@ -37,8 +37,8 @@ class RecentMovieScreen extends Component {
             <View style={styles.textZone}>
               <Text style={styles.cnName}>{cnName}</Text>
               <Text style={styles.enName}>{enName}</Text>
-              <Text numberOfLines={6} style={styles.movieContent}>{movieContent.trim()}}</Text>
               <Text style={styles.movieDate}>{onlyDate}</Text>
+              <Text numberOfLines={6} style={styles.movieContent}>{movieContent.trim()}}</Text>
             </View>
           </View>
         </TouchableOpacity>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     fontSize: 17, 
     color: '#444f6c', 
     fontWeight: '500',
-    marginTop: 15,
+    marginTop: 10,
     letterSpacing: 1
   },
   movieContent: {

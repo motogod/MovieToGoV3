@@ -5,6 +5,7 @@ export default {
   SEARCH: '搜尋',
   MORE: '更多',
   RANKING: '排行榜',
+  MOVIE_NEWS: '電影新聞',
   TODAY_MOVIE: '今日強檔',
   THIS_WEEK: '本週新片',
   RECENT: '本週過後',
@@ -32,9 +33,14 @@ export default {
   OUTER_ISLAND: '離島地區',
   CANCEL: '關閉',
   SEARCH_ALL_MOVIE: '查詢所有電影',
+  SEARCH_SINGLE_MOVIE: '查詢單一電影',
   TICKETS_LINKING: '訂票連結',
   CHOOSE_LOCATION: '請選擇地區',
+  CHOOSED_LOCATION: '選擇的地區',
   CHOOSE_SLIDER_TIME: '請設定時段',
   HEADER_CANCEL: '重選',
-  ENTER_MOVIE_NAME: '請輸入電影名稱...'
+  ENTER_MOVIE_NAME: '請輸入電影名稱...',
+  COLLECTED: '已收藏',
+  DELETED: '已移除',
+  TICKET_REFERENCE_INFO: '票價資訊僅供參考，如有雷同純屬巧合'
 }; 

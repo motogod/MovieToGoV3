@@ -108,7 +108,7 @@ class SearchResultScreen extends Component {
       );
     }
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <SectionList
           renderSectionHeader={this.sectionComp}
           renderItem={this.renderSectionItem}

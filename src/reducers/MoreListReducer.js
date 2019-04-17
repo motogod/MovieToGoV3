@@ -7,7 +7,11 @@ import {
   MOVIE_STYLE_REQUEST,
   MOVIE_STYLE,
   TICKET_OF_THEATER,
-  TICKET_INFORMATION
+  TICKET_INFORMATION,
+  SEND_SINGLE_SEARCH_FORM,
+  REQUEST_SEARCH_SINGLE_MOVIE_TIME,
+  SEARCH_SINGLE_MOVIE_TIME,
+  DEFAULT_SEND_SINGLE_SEARCH_FORM
 } from '../actions/types';
       
 const INITIAL_STATE = {
@@ -16,8 +20,14 @@ const INITIAL_STATE = {
   selectedEnCity: '',
   firstSliderValue: 0,
   secondSliderValue: 24,
+  selectedSingleCnCity: '',
+  selectedSingleEnCity: '',
+  firstSingleSliderValue: 0,
+  secondSingleSliderValue: 24,
   searchAllMovieTimeLoading: true,
   searchAllMovieTime: [],
+  searchSingleMovieTimeLoading: true,
+  searchSingleMovieTime: [],
   movieStyleLoading: false, 
   movieStyleList: [],
   ticketTheater: [],
@@ -81,6 +91,36 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         ticketInformation: action.ticketInformation
       };
+    case SEND_SINGLE_SEARCH_FORM:
+      return {
+        ...state,
+        selectedSingleCnCity: action.selectedSingleCnCity,
+        selectedSingleEnCity: action.selectedSingleEnCity,
+        firstSingleSliderValue: action.firstSingleSliderValue,
+        secondSingleSliderValue: action.secondSingleSliderValue,
+      };
+    case DEFAULT_SEND_SINGLE_SEARCH_FORM:
+      return {
+        ...state,
+        selectedSingleCnCity: '',
+        selectedSingleEnCity: '',
+        firstSingleSliderValue: 0,
+        secondSingleSliderValue: 24,
+      };
+    case REQUEST_SEARCH_SINGLE_MOVIE_TIME: {
+      return {
+        ...state,
+        searchSingleMovieTimeLoading: action.searchSingleMovieTimeLoading,
+        searchSingleMovieTime: action.searchSingleMovieTime
+      };
+    }
+    case SEARCH_SINGLE_MOVIE_TIME: {
+      return {
+        ...state,
+        searchSingleMovieTimeLoading: action.searchSingleMovieTimeLoading,
+        searchSingleMovieTime: action.searchSingleMovieTime        
+      };
+    }
     default:
       return state;
   }
