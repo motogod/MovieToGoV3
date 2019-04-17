@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet, NativeModules, TouchableOpacity,
+import { View, Text, StyleSheet, NativeModules, TouchableOpacity,
   FlatList, Dimensions, LayoutAnimation, Platform
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
@@ -182,28 +182,30 @@ class SearchMovieTimeScreen extends Component {
       stateCnCity, 
       stateEnCity, 
       stateFirstSlideValue, 
-      stateSecondSliderValue 
+      stateSecondSliderValue
     } = this.state;
-
-    if (userClickedCity) {
+    console.log('stateEnCity', stateEnCity);
+    // 一併加入 stateCnCity 在 redux-persist 是否有存值的判斷
+    if (userClickedCity || stateCnCity !== '') {
       return (
-        <View style={{ flex: 1, paddingTop: 20, alignItems: 'center', backgroundColor: '#F5FCFF' }}>
+        <View style={{ flex: 1, paddingTop: 20, alignItems: 'center', backgroundColor: commonColor.headerColor }}>
           <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('CHOOSE_LOCATION')}</Text>
-            <Text style={{ marginTop: 20, fontSize: 20, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{stateCnCity}</Text>
-            <Text style={{ marginTop: 30, fontSize: 18, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('CHOOSE_SLIDER_TIME')}</Text>
+            <Text style={{ fontSize: 18, color: '#fff', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('CHOOSED_LOCATION')}</Text>
+            <Text style={{ marginTop: 20, fontSize: 20, color: 'yellow', fontWeight: '500', letterSpacing: 1 }}>{stateCnCity}</Text>
+            <Text style={{ marginTop: 30, fontSize: 18, color: '#fff', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('CHOOSE_SLIDER_TIME')}</Text>
           </View>
           <View style={{ marginTop: 30, flexDirection: 'row' }}>
-            <Text style={{ fontSize: 20, color: '#444f6c', fontWeight: '500', letterSpacing: 2 }}>{stateFirstSlideValue}</Text>
-            <Text style={{ fontSize: 20, color: '#444f6c', fontWeight: '500', marginHorizontal: 15 }}>~</Text>
-            <Text style={{ fontSize: 20, color: '#444f6c', fontWeight: '500', letterSpacing: 2 }}>{stateSecondSliderValue}</Text>
+            <Text style={{ fontSize: 20, color: 'yellow', fontWeight: '500', letterSpacing: 2 }}>{stateFirstSlideValue}</Text>
+            <Text style={{ fontSize: 20, color: 'yellow', fontWeight: '500', marginHorizontal: 15 }}>-</Text>
+            <Text style={{ fontSize: 20, color: 'yellow', fontWeight: '500', letterSpacing: 2 }}>{stateSecondSliderValue}</Text>
           </View>
           <MultiSlider
             values={[stateFirstSlideValue, stateSecondSliderValue]}
             sliderLength={250}
+            touchDimensions={{ height: 200, width: 200 }}
             onValuesChange={(values) => {
               this.setState({ stateFirstSlideValue: values[0], stateSecondSliderValue: values[1] });
-            }
+              }
             }
             min={0}
             max={24}
@@ -283,7 +285,17 @@ const styles = StyleSheet.create({
     color: '#444f6c', 
     fontWeight: '500',
     letterSpacing: 2
-  }
+  },
+  card: {
+    width,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    padding: 15,
+    borderRadius: 0,
+  },
 });
 
 export default connect(mapStateToProps, { 

@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 import { commonColor } from '../Shared/Data/Color';
+
+import LeftIcon from '../../assets/img/left_arrow.png';
+import RightIcon from '../../assets/img/right_arrow.png';
 
 class TheaterTicketWebScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -47,10 +50,10 @@ class TheaterTicketWebScreen extends Component {
         />
         <View style={styles.arrowView}>
           <TouchableOpacity onPress={() => this.goBack()}>
-            <Text>後退</Text>
+            <Image source={LeftIcon} style={{ height: 20, width: 20 }} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.goForward} onPress={() => this.goForward()}>
-            <Text>前進</Text>
+            <Image source={RightIcon} style={{ height: 20, width: 20 }} />
           </TouchableOpacity>
         </View>
       </View>

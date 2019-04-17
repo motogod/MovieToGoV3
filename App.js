@@ -11,6 +11,8 @@ import { StyleSheet, Text, View, FlatList, SafeAreaView } from 'react-native';
 import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import reducers from './src/reducers';
 import MainRouter from './src/navigator/Main/MainRouter';
 import WelcomeRouter from './src/navigator/Welcome/WelcomeRouter';
@@ -25,10 +27,14 @@ export default class App extends Component {
     }
 
     const store = createStore(reducers, {}, composeEnhancers(applyMiddleware(ReduxThunk)));
+    // redux persist setting
+    const persistor = persistStore(store);
 
     return (
       <Provider store={store}>
-        <WelcomeRouter />
+        <PersistGate loading={null} persistor={persistor}>
+          <WelcomeRouter />
+        </PersistGate>
       </Provider>
     );
   }

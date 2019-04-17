@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet,
-  FlatList, Dimensions
+import { View, Image, Text, StyleSheet, Animated, Easing,
+  FlatList, Dimensions, TouchableWithoutFeedback
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
+import Toast, { DURATION } from 'react-native-easy-toast';
 import { WebView } from 'react-native-webview';
 import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { fetchDetail } from '../../actions';
+import { fetchDetail, saveDetail, deleteDetail } from '../../actions';
 
 import Panel from './Panel';
 import I18n from '../../i18n/i18n';
-import { SplitMovieString, adjustImdbInfo, adjustRottenInfo, showPTTScore } from './Function';
+import { SplitMovieString, adjustImdbInfo, adjustRottenInfo, 
+  showPTTScore, checkSaveMovieDataExisted 
+} from './Function';
 import { Loader } from '../Shared/Modal/Loader';
 import { commonColor } from '../Shared/Data/Color';
 
 import ImdbIcon from '../../assets/img/imdb.png';
 import RottenIcon from '../../assets/img/rotten.png';
+import LikeIcon from '../../assets/img/like.png';
+import UnlikeIcon from '../../assets/img/unlike.png';
 
 const { width } = Dimensions.get('window');
 const halfWidth = width / 2;
@@ -35,17 +40,34 @@ class MovieDetail extends Component {
   constructor(props) {
     super(props); 
 
+    this.scale = new Animated.Value(0);
+
     const { enCity, cnName } = this.props.navigation.state.params;
 
     this.state = {
       enCity, 
       cnName,
+      animation: new Animated.Value(0),
+      opacity: new Animated.Value(1)
     };
   }
 
   componentDidMount() {
     const { enCity, cnName } = this.state;
     this.props.fetchDetail(enCity, cnName);
+  }
+
+  scalElem = (toValue, duration) => {
+    this.scale.setValue(0);
+    Animated.timing(
+      this.scale,
+      {
+        toValue,
+        duration,
+        easing: Easing.linear,
+        useNativeDriver: true
+      }
+    ).start();
   }
 
   renderWebView = (videoId) => {
@@ -61,14 +83,7 @@ class MovieDetail extends Component {
 
   renderStickyHeader = (cnName) => {
     return (
-      <View 
-        style={{ 
-        height: 42,
-        backgroundColor: 'rgba(0,0,0,.2)',
-        justifyContent: 'flex-start',
-        paddingLeft: 15
-      }}
-      >
+      <View style={styles.stickyHeader}>
       <Text 
         style={{ 
           fontWeight: '900', color: 'white', fontSize: 20, margin: 8
@@ -78,22 +93,64 @@ class MovieDetail extends Component {
     );
   }
 
-  renderTimeAndTicketButtonZone = (splitDate, splitTime) => {
+  renderLikeImage = (saveMovieDetail, movieDetail) => {
+    const scale = this.scale.interpolate({
+      inputRange: [0, 0.5, 1],
+      outputRange: [1, 0.5, 1]
+    });
+
+    const checkExisted = checkSaveMovieDataExisted(saveMovieDetail, movieDetail);
+
+    if (checkExisted) {
+      return (
+        <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
+          <TouchableWithoutFeedback 
+            onPressIn={() => this.scalElem(1, 250)}
+            onPressOut={() => {
+              this.scalElem(0, 100);
+                this.props.deleteDetail(saveMovieDetail, movieDetail);
+              }}
+          >
+            <Animated.Image source={LikeIcon} style={{ width: 30, height: 30, transform: [{ scale }] }} />
+          </TouchableWithoutFeedback>
+        </View>
+      );
+    }
+
+    return (
+      <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
+        <TouchableWithoutFeedback 
+        onPressIn={() => this.scalElem(1, 250)}
+        onPressOut={() => {
+          this.scalElem(0, 100);
+          this.refs.toast.show(`${I18n.t('COLLECTED')} ${movieDetail.cnName}`, DURATION.LENGTH_LONG);
+          this.props.saveDetail(saveMovieDetail, movieDetail);
+          }}
+        >
+          <Animated.Image source={UnlikeIcon} style={{ width: 30, height: 30, transform: [{ scale }] }} />
+        </TouchableWithoutFeedback>
+      </View>
+    );
+  }
+
+  renderTimeAndTicketButtonZone = (splitDate, splitTime, enCity, cnName) => {
     return (
       <View style={styles.card}>
         <View>
-          <Text style={{ fontSize: 18 }}>{`${I18n.t('RELEASE_DATE')}${splitDate}`}</Text>
-          <Text style={{ fontSize: 18, marginTop: 10 }}>{`${I18n.t('MOVIE_TIME')}${splitTime}`}</Text>
+          <Text style={{ fontSize: 15 }}>{`${I18n.t('RELEASE_DATE')}${splitDate}`}</Text>
+          <Text style={{ fontSize: 15, marginTop: 10 }}>{`${I18n.t('MOVIE_TIME')}${splitTime}`}</Text>
         </View>
         <View style={{ marginTop: 15, flexDirection: 'row', justifyContent: 'space-between' }}>
           <AwesomeButton 
-            onPress={() => this.props.navigation.navigate('BuyTicketsTheaterScreen')}
+            onPress={() => this.props.navigation.navigate('SearchSingleMovieTimeScreen', {
+              cnName
+            })}
             textColor={'#FFFFFF'} 
             backgroundColor={'#F5FCFF'} 
             raiseLevel={6}
             paddingTop={0}
             paddingBottom={0}
-            height={50}
+            height={45}
             width={halfWidth - 20} 
             borderRadius={1}
             borderWidth={1}
@@ -111,7 +168,7 @@ class MovieDetail extends Component {
             raiseLevel={6}
             paddingTop={0}
             paddingBottom={0}
-            height={50}
+            height={45}
             width={halfWidth - 20} 
             borderRadius={1}
             borderWidth={1}
@@ -155,8 +212,8 @@ class MovieDetail extends Component {
     return (
       <View style={{ marginTop: 15 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Text style={{ fontSize: 24, fontWeight: '200', marginLeft: 5 }}>PTT</Text>
-          <Text style={{ fontSize: 20, color: 'gray', fontWeight: 'bold', marginLeft: 5 }}>{I18n.t('PTT_SCORE')}</Text>
+          <Text style={{ fontSize: 20, fontWeight: '200', marginLeft: 5 }}>PTT</Text>
+          <Text style={{ fontSize: 13, color: 'gray', fontWeight: 'bold', marginLeft: 5 }}>{I18n.t('PTT_SCORE')}</Text>
         </View>
         <AwesomeButton 
           onPress={() => this.props.navigation.navigate('PttWebScreen', { cnName })}
@@ -165,14 +222,20 @@ class MovieDetail extends Component {
           raiseLevel={6}
           paddingTop={0}
           paddingBottom={0}
-          height={50}
+          height={45}
           width={width - 30} 
           borderRadius={1}
           borderWidth={1}
           borderColor={'#DDDDDD'}
         >
           <View style={{ flex: 1, alignItems: 'flex-start', marginLeft: 15 }}>
-          <Rating readonly imageSize={30} fractions={1} startingValue={showPTTScore(goodMinePoint)} />
+            <Rating 
+              readonly 
+              style={{ backgroundColor: '#F5FCFF' }}
+              imageSize={20} 
+              fractions={1} 
+              startingValue={showPTTScore(goodMinePoint)} 
+            />
           </View>
         </AwesomeButton>
       </View>
@@ -191,6 +254,8 @@ class MovieDetail extends Component {
   }
 
   render() {
+    // enCity 給 搜尋時刻用
+    const { enCity } = this.state;
     const { movieDetailLoading } = this.props;
     
     if (movieDetailLoading) {
@@ -206,7 +271,7 @@ class MovieDetail extends Component {
 
     const splitDate = SplitMovieString(movieDate);
     const splitTime = SplitMovieString(movieTime);
-    console.log('movieActorPhoto =>', movieActorPhoto);
+
     return (
       <ParallaxScrollView
         backgroundColor='transparent'
@@ -216,40 +281,38 @@ class MovieDetail extends Component {
         stickyHeaderHeight={42}
         renderStickyHeader={() => this.renderStickyHeader(cnName)}
       >    
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15, flexDirection: 'row' }}>
+        <View style={styles.nameZone}>
           <View>
-            <Text style={{ fontSize: 18, color: '#444f6c', fontWeight: '500', letterSpacing: 1 }}>{cnName}</Text>
-            <Text style={{ fontSize: 14, marginTop: 2, color: 'gray', letterSpacing: 2 }}>{enName}</Text>
+            <Text style={styles.cnName}>{cnName}</Text>
+            <Text style={styles.enName}>{enName}</Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
-            <Text>Test</Text>
-          </View>
+          {this.renderLikeImage(this.props.saveMovieDetail, this.props.movieDetail)}
         </View>
 
-        {this.renderTimeAndTicketButtonZone(splitDate, splitTime)}
+        {this.renderTimeAndTicketButtonZone(splitDate, splitTime, enCity, cnName)}
 
         <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
         
         <View style={styles.card}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('MOVIE_SCORE')}</Text>
+          <Text style={styles.movieScore}>{I18n.t('MOVIE_SCORE')}</Text>
           {this.renderImdbAndRotten(imdbScore, rottenScore)}
           {this.renderPTT(goodMinePoint, cnName)}
         </View>
 
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+        <View style={styles.dividenView} />
 
         <View style={[styles.card, { flex: 5 }]}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2, marginBottom: 15 }}>{I18n.t('CONTENT_INFO')}</Text>
+          <Text style={styles.contentInfo}>{I18n.t('CONTENT_INFO')}</Text>
           <Panel numberOfLines={3} showExpandText={true}>
             {movieContent.trim()}
           </Panel>
 
         </View>
 
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+        <View style={styles.dividenView} />
 
         <View style={styles.card}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('ACTOR')}</Text>
+          <Text style={styles.actor}>{I18n.t('ACTOR')}</Text>
           <FlatList
             style={styles.flatSection}
             data={movieActorPhoto}
@@ -268,10 +331,10 @@ class MovieDetail extends Component {
           />
         </View>
 
-        <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
+        <View style={styles.dividenView} />
 
         <View style={styles.card}>
-          <Text style={{ color: '#2a2f43', fontWeight: 'bold', letterSpacing: 2 }}>{I18n.t('STILLS')}</Text>
+          <Text style={styles.stills}>{I18n.t('STILLS')}</Text>
           <FlatList
             style={styles.flatSection}
             data={movieStills}
@@ -281,15 +344,25 @@ class MovieDetail extends Component {
           />
         </View>
 
+        <Toast
+          ref="toast"
+          style={{ backgroundColor: 'gray' }}
+          position='top'
+          positionValue={200}
+          fadeInDuration={750}
+          fadeOutDuration={1000}
+          opacity={0.8}
+          textStyle={{ color: 'white' }}
+        />
       </ParallaxScrollView>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { movieDetailLoading, movieDetail } = state.MovieListRedux;
+  const { movieDetailLoading, movieDetail, saveMovieDetail } = state.MovieListRedux;
 
-  return { movieDetailLoading, movieDetail };
+  return { movieDetailLoading, movieDetail, saveMovieDetail };
 };
 
 const styles = StyleSheet.create({
@@ -302,10 +375,11 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 0,
   },
-  iconImage: {
-    width: 25, 
-    height: 25, 
-    marginLeft: 15
+  stickyHeader: {
+    height: 42,
+    backgroundColor: 'rgba(0,0,0,.2)',
+    justifyContent: 'flex-start',
+    paddingLeft: 15
   },
   iconText: {
     textAlign: 'center',
@@ -313,14 +387,6 @@ const styles = StyleSheet.create({
     color: '#444f6c', 
     fontWeight: '500',
     letterSpacing: 1
-  },
-  thirdHeaderContainer: {
-    margin: 15,
-    backgroundColor: 'yellow',
-  },
-  myDescription: {
-    padding: 10,
-    paddingTop: 0,
   },
   phtoSection: {
     alignSelf: 'stretch',
@@ -345,6 +411,48 @@ const styles = StyleSheet.create({
     paddingLeft: 10, 
     paddingRight: 10
   },
+  nameZone: {
+    backgroundColor: '#F5F5F5', 
+    padding: 15, 
+    flexDirection: 'row'
+  },
+  cnName: {
+    fontSize: 18, 
+    color: '#444f6c', 
+    fontWeight: '500', 
+    letterSpacing: 1
+  },
+  enName: {
+    fontSize: 14, 
+    marginTop: 2, 
+    color: 'gray', 
+    letterSpacing: 2
+  },
+  dividenView: {
+    backgroundColor: '#F5F5F5', 
+    padding: 15
+  },
+  stills: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2
+  },
+  actor: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2
+  },
+  contentInfo: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2, 
+    marginBottom: 15
+  },
+  movieScore: {
+    color: '#2a2f43', 
+    fontWeight: 'bold', 
+    letterSpacing: 2
+  }
 });
 
-export default connect(mapStateToProps, { fetchDetail })(MovieDetail);
+export default connect(mapStateToProps, { fetchDetail, saveDetail, deleteDetail })(MovieDetail);

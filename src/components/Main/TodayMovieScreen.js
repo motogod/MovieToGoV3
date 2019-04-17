@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { fetchTodayMovieList } from '../../actions';
 import { Loader } from '../Shared/Modal/Loader';
 
 const { width, height } = Dimensions.get('window');
@@ -8,6 +9,9 @@ const { width, height } = Dimensions.get('window');
 const halfWidth = width / 2;  
 
 class TodayMovieScreen extends Component {
+  componentDidMount() {
+    this.props.fetchTodayMovieList();
+  }
   renderMovieData = ({ item }) => {
     const { cnName, photoHref } = item;
     return (
@@ -76,4 +80,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, {})(TodayMovieScreen);
+export default connect(mapStateToProps, { fetchTodayMovieList })(TodayMovieScreen);

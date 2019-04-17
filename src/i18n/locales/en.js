@@ -4,6 +4,7 @@ export default {
   SEARCH: 'SEARCH',
   MORE: 'MORE',
   RANKING: 'RANKING',
+  MOVIE_NEWS: 'MOVIE NEWS',
   TODAY_MOVIE: 'TODAY MOVIE',
   RECENT: 'RECENT',
   THIS_WEEK: 'THIS WEEK',
@@ -31,9 +32,14 @@ export default {
   OUTER_ISLAND: 'OUTER ISLAND',
   CANCEL: 'CANCEL',
   SEARCH_ALL_MOVIE: 'SEARCH ALL MOVIE',
+  SEARCH_SINGLE_MOVIE: 'SEARCH_SINGLE_MOVIE',
   TICKETS_LINKING: 'TICKETS LINKING',
   CHOOSE_LOCATION: 'Please select the area',
+  CHOOSED_LOCATION: 'Selected area',
   CHOOSE_SLIDER_TIME: 'Please select the time',
   HEADER_CANCEL: 'RE',
-  ENTER_MOVIE_NAME: 'Please enter a movie name...'
+  ENTER_MOVIE_NAME: 'Please enter a movie name...',
+  COLLECTED: 'COLLECTED',
+  DELETED: 'DELETED',
+  TICKET_REFERENCE_INFO: 'Ticket information is for reference only'
 }; 
