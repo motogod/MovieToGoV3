@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>20</string>
+	<string>21</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -37,8 +37,12 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>顯示戲院距離之用，若拒絕則預設為台北車站</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>顯示戲院距離之用，若拒絕則預設為台北車站</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>顯示戲院距離之用，若拒絕則預設為台北車站</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

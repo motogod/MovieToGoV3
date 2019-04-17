@@ -77,7 +77,7 @@ export const fetchSearchTime = (selectedEnCity, firstSliderValue, secondSliderVa
       searchAllMovieTimeLoading: true,
       searchAllMovieTime: []
     });
-
+    console.log('url', `${serverData.serverUrl}api/getCloseTime?city=${selectedEnCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}`);
     fetch(`${serverData.serverUrl}api/getCloseTime?city=${selectedEnCity}&sTime=${firstSliderValue}&eTime=${secondSliderValue}`)
       .then(response => response.json())
       .then(responseData => {

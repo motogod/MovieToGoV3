@@ -23,8 +23,9 @@ const persistTheaterListConfig = {
 const persistMoreListConfig = {
   key: 'MoreListRedux',
   storage,
-  whitelist: ['selectedCnCity', 'firstSliderValue', 'secondSliderValue', 'selectedSingleCnCity',
-  'firstSingleSliderValue', 'secondSingleSliderValue']
+  whitelist: [
+    'selectedCnCity', 'selectedEnCity', 'firstSliderValue', 'secondSliderValue', 
+    'selectedSingleCnCity', 'selectedSingleEnCity', 'firstSingleSliderValue', 'secondSingleSliderValue']
 };
 
 const locationConfig = {

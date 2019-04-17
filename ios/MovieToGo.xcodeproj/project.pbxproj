@@ -62,6 +62,8 @@
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 		EE5C5634ABFA46F5BB380B16 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5FEB964BEE004F3F82BB8015 /* MaterialCommunityIcons.ttf */; };
 		EF6129925ACA422E81E3EEED /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C67E93BB70FA489186A7A710 /* libRNVectorIcons.a */; };
+		FC22091A2266C164008CF46F /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = FC2208EC2266C164008CF46F /* main.jsbundle */; };
+		FC22091B2266C164008CF46F /* assets in Resources */ = {isa = PBXBuildFile; fileRef = FC2209192266C164008CF46F /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -444,6 +446,8 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F4F8DB901E854891B62B31E4 /* libRNI18n-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNI18n-tvOS.a"; sourceTree = "<group>"; };
+		FC2208EC2266C164008CF46F /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = main.jsbundle; path = ../release_ios/main.jsbundle; sourceTree = "<group>"; };
+		FC2209192266C164008CF46F /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = ../release_ios/assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -710,6 +714,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				FC2209192266C164008CF46F /* assets */,
+				FC2208EC2266C164008CF46F /* main.jsbundle */,
 				13B07FAE1A68108700A75B9A /* MovieToGo */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MovieToGoTests */,
@@ -1308,6 +1314,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				54FB5AA8EB414A1EB1F17404 /* AntDesign.ttf in Resources */,
+				FC22091A2266C164008CF46F /* main.jsbundle in Resources */,
 				7286E9F7291C455389C5655C /* Entypo.ttf in Resources */,
 				CBB9EEEB51C043EE8C821E6D /* EvilIcons.ttf in Resources */,
 				3CF84D08003D402D925BD568 /* Feather.ttf in Resources */,
@@ -1315,6 +1322,7 @@
 				0DFBBD5297E949B88B488F0D /* FontAwesome5_Brands.ttf in Resources */,
 				817347AFE1A1494E9D740FE9 /* FontAwesome5_Regular.ttf in Resources */,
 				76660B2667994FBF8F0B4265 /* FontAwesome5_Solid.ttf in Resources */,
+				FC22091B2266C164008CF46F /* assets in Resources */,
 				31B6FFAD59F345EAAEAD8C6F /* Foundation.ttf in Resources */,
 				406510EC158B46578907361F /* Ionicons.ttf in Resources */,
 				EE5C5634ABFA46F5BB380B16 /* MaterialCommunityIcons.ttf in Resources */,
