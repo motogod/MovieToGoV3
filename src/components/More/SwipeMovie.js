@@ -28,7 +28,7 @@ class SwipeMovie extends Component {
 
   render() {
     const { item } = this.props;
-    console.log('item', item);
+    
     return (
       <Swipeable
         onRef={ref => { this.swipeable = ref; }}
@@ -49,7 +49,9 @@ class SwipeMovie extends Component {
         onRightButtonsCloseRelease={() => this.changeArrowImage('close')}
       > 
         <TouchableOpacity
-          onPress={() => console.log('to storage movie detail')}
+          onPress={() => this.props.navigation.navigate('MovieDetailPersist', {
+            movieDetailPersist: item
+          })}
         >
           <View style={{ padding: 15, flexDirection: 'row' }}>
             <View>
