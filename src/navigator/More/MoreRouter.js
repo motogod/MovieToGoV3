@@ -11,6 +11,7 @@ import TheaterTicketWebScreen from '../../components/More/TheaterTicketWebScreen
 import MyCollectionScreen from '../../components/More/MyCollectionScreen';
 // GeneralComponent screen
 import MovieDetail from '../../components/GeneralComponent/MovieDetail';
+import MovieDetailPersist from '../../components/GeneralComponent/MovieDetailPersist';
 import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
 import SearchSingleMovieTimeScreen from '../../components/GeneralComponent/SearchSingleMovieTimeScreen';
 import SearchSingleResultScreen from '../../components/GeneralComponent/SearchSingleResultScreen';
@@ -52,6 +53,9 @@ const MoreStack = createStackNavigator({
   },
   MovieDetail: {
     screen: MovieDetail
+  },
+  MovieDetailPersist: {
+    screen: MovieDetailPersist
   },
   PttWebScreen: {
     screen: PttWebScreen

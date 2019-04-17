@@ -8,7 +8,6 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { WebView } from 'react-native-webview';
 import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { fetchDetail, saveDetail, deleteDetail } from '../../actions';
 
 import Panel from './Panel';
 import I18n from '../../i18n/i18n';
@@ -27,7 +26,7 @@ const { width } = Dimensions.get('window');
 const halfWidth = width / 2;
 const equalWidth = width / 3;
 
-class MovieDetail extends Component {
+class MovieDetailPersist extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerBackTitle: null,
     headerTintColor: '#fff',
@@ -42,19 +41,18 @@ class MovieDetail extends Component {
 
     this.scale = new Animated.Value(0);
 
-    const { enCity, cnName } = this.props.navigation.state.params;
+    const { movieDetailPersist } = this.props.navigation.state.params;
 
     this.state = {
-      enCity, 
-      cnName,
+      movieDetailPersist,
       animation: new Animated.Value(0),
       opacity: new Animated.Value(1)
     };
   }
 
   componentDidMount() {
-    const { enCity, cnName } = this.state;
-    this.props.fetchDetail(enCity, cnName);
+    // const { enCity, cnName } = this.state;
+    // this.props.fetchDetail(enCity, cnName);
   }
 
   scalElem = (toValue, duration) => {
@@ -90,46 +88,6 @@ class MovieDetail extends Component {
         }}
       >{cnName}</Text>
     </View>
-    );
-  }
-
-  renderLikeImage = (saveMovieDetail, movieDetail) => {
-    const scale = this.scale.interpolate({
-      inputRange: [0, 0.5, 1],
-      outputRange: [1, 0.5, 1]
-    });
-
-    const checkExisted = checkSaveMovieDataExisted(saveMovieDetail, movieDetail);
-
-    if (checkExisted) {
-      return (
-        <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
-          <TouchableWithoutFeedback 
-            onPressIn={() => this.scalElem(1, 250)}
-            onPressOut={() => {
-              this.scalElem(0, 100);
-                this.props.deleteDetail(saveMovieDetail, movieDetail);
-              }}
-          >
-            <Animated.Image source={LikeIcon} style={{ width: 25, height: 25, transform: [{ scale }] }} />
-          </TouchableWithoutFeedback>
-        </View>
-      );
-    }
-
-    return (
-      <View style={{ flex: 1, alignItems: 'flex-end', alignSelf: 'center', marginRight: 8 }}>
-        <TouchableWithoutFeedback 
-        onPressIn={() => this.scalElem(1, 250)}
-        onPressOut={() => {
-          this.scalElem(0, 100);
-          this.refs.toast.show(`${I18n.t('COLLECTED')} ${movieDetail.cnName}`, DURATION.LENGTH_LONG);
-          this.props.saveDetail(saveMovieDetail, movieDetail);
-          }}
-        >
-          <Animated.Image source={UnlikeIcon} style={{ width: 25, height: 25, transform: [{ scale }] }} />
-        </TouchableWithoutFeedback>
-      </View>
     );
   }
 
@@ -254,20 +212,11 @@ class MovieDetail extends Component {
   }
 
   render() {
-    // enCity 給 搜尋時刻用
-    const { enCity } = this.state;
-    const { movieDetailLoading } = this.props;
-    
-    if (movieDetailLoading) {
-      return (
-        <Loader loading={true} />
-      );
-    }
-
+    const { selectedSingleEnCity } = this.props;
     const { cnName, enName, movieDate, movieTime, movieContent, videoId, 
       imdbScore, rottenScore, movieActorCn, movieActorPhoto, movieStills,
       goodMinePoint 
-    } = this.props.movieDetail;
+    } = this.state.movieDetailPersist;
 
     const splitDate = SplitMovieString(movieDate);
     const splitTime = SplitMovieString(movieTime);
@@ -286,10 +235,9 @@ class MovieDetail extends Component {
             <Text style={styles.cnName}>{cnName}</Text>
             <Text style={styles.enName}>{enName}</Text>
           </View>
-          {this.renderLikeImage(this.props.saveMovieDetail, this.props.movieDetail)}
         </View>
 
-        {this.renderTimeAndTicketButtonZone(splitDate, splitTime, enCity, cnName)}
+        {this.renderTimeAndTicketButtonZone(splitDate, splitTime, selectedSingleEnCity, cnName)}
 
         <View style={{ backgroundColor: '#F5F5F5', padding: 15 }} />
         
@@ -360,9 +308,9 @@ class MovieDetail extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { movieDetailLoading, movieDetail, saveMovieDetail } = state.MovieListRedux;
-
-  return { movieDetailLoading, movieDetail, saveMovieDetail };
+  const { selectedSingleEnCity } = state.MoreListRedux;
+  
+  return { selectedSingleEnCity };
 };
 
 const styles = StyleSheet.create({
@@ -455,4 +403,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, { fetchDetail, saveDetail, deleteDetail })(MovieDetail);
+export default connect(mapStateToProps, {})(MovieDetailPersist);
