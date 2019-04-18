@@ -42,7 +42,11 @@ class BuyTicketsTheaterScreen extends Component {
           borderRadius={1}
         >
           <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 15 }}>
-            <Image source={{ uri: theaterPhoto }} style={styles.iconImage} />
+            <Image 
+              source={{ uri: theaterPhoto }} 
+              style={styles.iconImage} 
+              resizeMode='stretch'
+            />
             <Text style={styles.iconText}>{theaterCn}</Text>
           </View>
           <View style={{ width, height: 0.5, backgroundColor: 'gray' }} />
@@ -87,7 +91,7 @@ const styles = StyleSheet.create({
   },
   iconText: {
     marginLeft: 10, 
-    fontSize: 18, 
+    fontSize: 16, 
     color: '#444f6c', 
     fontWeight: '500',
     letterSpacing: 2

@@ -56,7 +56,7 @@ class SwipeMovie extends Component {
           <View style={{ padding: 15, flexDirection: 'row' }}>
             <View>
             <Image
-              style={{ width: 80, height: 80 }}
+              style={{ width: 40, height: 60, borderRadius: 10 }}
               source={{ uri: item.photoHref }}
               resizeMode='stretch'
             />
