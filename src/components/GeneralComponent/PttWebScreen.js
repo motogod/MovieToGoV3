@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { commonColor } from '../Shared/Data/Color';
 
 import LeftIcon from '../../assets/img/left_green_arrow.png';
@@ -55,6 +56,8 @@ class PttWebScreen extends Component {
             <Image source={RightIcon} style={{ height: 30, width: 30 }} />
           </TouchableOpacity>
         </View>
+
+        <AdMobBanner />
       </View>
     );
   }

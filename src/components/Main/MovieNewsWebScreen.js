@@ -5,6 +5,7 @@ import {
 } from 'react-native';
 import { WebView } from 'react-native-webview';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { serverData } from '../../api/ApiData';
 import { commonColor } from '../Shared/Data/Color';
 
@@ -60,6 +61,8 @@ class MovieNewsWebScreen extends Component {
             <Image source={RightIcon} style={{ height: 30, width: 30 }} />
           </TouchableOpacity>
         </View>
+
+        <AdMobBanner />
       </View>    
     );
   }

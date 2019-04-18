@@ -5,6 +5,7 @@ import { View, Text, FlatList, Dimensions,
 import { connect } from 'react-redux';
 import { fetchTime } from '../../actions';
 import { Loader } from '../Shared/Modal/Loader';
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { GetUserTime, SplitMovieTime } from './Function';
 import { TimeButton, TimeGrayButton, VersionButton } from '../Shared/Button';
 import { commonColor } from '../Shared/Data/Color';
@@ -113,6 +114,7 @@ class TheaterMovieTimeScreen extends Component {
           renderItem={this.renderList}
           keyExtractor={(item, index) => index.toString()}             
         />
+        <AdMobBanner />
       </View>
     );
   }

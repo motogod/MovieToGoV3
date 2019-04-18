@@ -6,6 +6,7 @@ import {
 import { connect } from 'react-redux';
 import { getTheaterListWithTicket, getTicketInformation } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import I18n from '../../i18n/i18n';
 import TicketInfoModal from '../Shared/Modal/TicketInfoModal';
 
@@ -82,6 +83,7 @@ class CashInfoDetailScreen extends Component {
           visible={visibleModal} 
           onPress={this.onClose} 
         />
+        <AdMobBanner />
       </View>
     );
   }

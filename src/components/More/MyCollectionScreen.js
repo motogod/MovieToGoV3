@@ -6,6 +6,7 @@ import Toast, { DURATION } from 'react-native-easy-toast';
 import { connect } from 'react-redux';
 import { deleteDetail } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import SwipeMovie from './SwipeMovie';
 import I18n from '../../i18n/i18n';
 
@@ -63,6 +64,7 @@ class MyCollectionScreen extends Component {
           opacity={0.8}
           textStyle={{ color: 'white' }}
         />
+        <AdMobBanner />
       </View>
     );
   }

@@ -7,6 +7,7 @@ import Highlighter from 'react-native-highlight-words';
 import { connect } from 'react-redux';
 import { fetchMovieStyle } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { serverData } from '../../api/ApiData';
 import I18n from '../../i18n/i18n';
 import SearchIcon from '../../assets/img/search.png';
@@ -121,12 +122,12 @@ class SearchScreen extends Component {
           <View style={{ paddingVertical: 15, paddingHorizontal: 20, flexDirection: 'row' }}>
             <View>
               <Image
-                style={{ width: 80, height: 80 }}
+                style={{ width: 60, height: 90, borderRadius: 10 }}
                 source={{ uri: item.photoHref }}
                 resizeMode='stretch'
               />
             </View>
-            <View style={{ marginLeft: 8, flexWrap: 'wrap', width: equalWidth }}>
+            <View style={{ marginLeft: 8, flexWrap: 'wrap', width: equalWidth, justifyContent: 'center' }}>
               <Highlighter
                 style={styles.cnName}
                 highlightStyle={{ color: 'gold' }}
@@ -175,6 +176,7 @@ class SearchScreen extends Component {
               keyExtractor={(item, index) => index.toString()}         
             />
           </View>
+          <AdMobBanner />
       </SafeAreaView>
     );
   }

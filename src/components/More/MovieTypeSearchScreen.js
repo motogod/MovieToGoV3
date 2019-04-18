@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, Dimensions, Image } from 'react-nativ
 import { Button } from 'react-native-elements';
 import FilterComponent from './FilterComponent';
 import I18n from '../../i18n/i18n';
-
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { commonColor } from '../../components/Shared/Data/Color';
 
 const movieStyleArray = [
@@ -78,7 +78,7 @@ class MovieTypeSearchScreen extends Component {
           horizontal={false}
           keyExtractor={(item, index) => index.toString()} 
         />
-
+        <AdMobBanner />
         {this.state.names.length > 0 ? 
           <Button 
             onPress={() => this.props.navigation.navigate('MovieTypeResultScreen', { names })}

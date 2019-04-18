@@ -105,8 +105,8 @@ android {
         applicationId "com.movietogo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 22
-        versionName "3.0.2"
+        versionCode 23
+        versionName "3.0.3"
     }
     signingConfigs {
         release {
@@ -149,6 +149,10 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-firebase')
+    implementation "com.google.android.gms:play-services-base:16.0.1"
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation "com.google.firebase:firebase-ads:16.0.1"
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-webview')
     implementation project(':react-native-i18n')
@@ -164,3 +168,6 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

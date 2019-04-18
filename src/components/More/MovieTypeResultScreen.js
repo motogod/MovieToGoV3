@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { fetchMovieStyle } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { Loader } from '../Shared/Modal/Loader';
 import { VersionButton } from '../Shared/Button';
 import { serverData } from '../../api/ApiData';
@@ -105,6 +106,7 @@ class MovieTypeResultScreen extends Component {
           renderItem={this.renderList}
           keyExtractor={(item, index) => index.toString()}             
         />
+        <AdMobBanner />
       </View>
     );
   }
