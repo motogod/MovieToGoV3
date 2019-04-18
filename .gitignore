@@ -9,6 +9,9 @@
 # Key
 /src/api/ApiData.js
 
+# IOS release
+/release_ios
+
 # OSX
 #
 .DS_Store
