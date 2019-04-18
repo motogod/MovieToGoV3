@@ -8,9 +8,10 @@ Go to the [web site](https://movietogoweb.herokuapp.com/) to download the latest
 
 ## Screen shot
 <div style="display: inline-block;">
-    <img width="30%" src="https://movietogoweb.herokuapp.com/img/screen1.png">
-    <img width="30%" src="https://movietogoweb.herokuapp.com/img/screen2.png">
-    <img width="30%" src="https://movietogoweb.herokuapp.com/img/screen3.png">
+    <img width="20%" src="https://movietogoweb.herokuapp.com/img/screen1.png">
+    <img width="20%" src="https://movietogoweb.herokuapp.com/img/screen2.png">
+    <img width="20%" src="https://movietogoweb.herokuapp.com/img/screen3.png">
+    <img width="20%" src="https://movietogoweb.herokuapp.com/img/screen4.png">
 </div>
 
 ## Technical stack
