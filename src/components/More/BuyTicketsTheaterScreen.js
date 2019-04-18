@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet, 
+import { View, Image, Text, StyleSheet, TouchableOpacity,
   FlatList, Dimensions, SafeAreaView
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
@@ -30,7 +30,7 @@ class BuyTicketsTheaterScreen extends Component {
     const { theaterPhoto, theaterCn, ticketAddress } = item;
     return (
       <View style={styles.gridContainer}>
-        <AwesomeButton 
+        <TouchableOpacity 
           onPress={() => this.props.navigation.navigate('TheaterTicketWebScreen', {
             theaterCn, ticketAddress
           })}
@@ -41,11 +41,12 @@ class BuyTicketsTheaterScreen extends Component {
           width={width - 20} 
           borderRadius={1}
         >
-          <View style={{ flex: 1, flexDirection: 'row' }}>
+          <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 15 }}>
             <Image source={{ uri: theaterPhoto }} style={styles.iconImage} />
             <Text style={styles.iconText}>{theaterCn}</Text>
           </View>
-        </AwesomeButton>
+          <View style={{ width, height: 0.5, backgroundColor: 'gray' }} />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -56,7 +57,7 @@ class BuyTicketsTheaterScreen extends Component {
       <SafeAreaView style={styles.container}>   
         <FlatList
           data={buyTheaterTickets}
-          renderItem={this.renderGrid} 
+          renderItem={this.renderGrid}
           keyExtractor={(item, index) => index.toString()}   
         />
       </SafeAreaView>
@@ -77,18 +78,16 @@ const styles = StyleSheet.create({
   },
   gridContainer: {
     flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    paddingTop: 10
+    justifyContent: 'center'
   },
   iconImage: {
-    width: 30, 
-    height: 30, 
-    marginLeft: 15
+    width: 45, 
+    height: 45, 
+    marginLeft: 5
   },
   iconText: {
     marginLeft: 10, 
-    fontSize: 16, 
+    fontSize: 18, 
     color: '#444f6c', 
     fontWeight: '500',
     letterSpacing: 2
