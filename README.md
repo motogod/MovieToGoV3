@@ -1,4 +1,6 @@
 # MovieToGo V3/React Native
+![React version](https://img.shields.io/badge/react-16.8.3-green.svg)
+![React Native version](https://img.shields.io/badge/react--native-0.59-blue.svg)
 > Build for iOS and Android.
 
 ## Download
