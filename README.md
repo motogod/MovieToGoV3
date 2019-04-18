@@ -7,7 +7,7 @@ Go to the [web site](https://movietogoweb.herokuapp.com/) to download the latest
 ## Technical stack
 - [React Native](https://facebook.github.io/react-native/)
 - [Redux](http://redux.js.org/)
-- [react-native-navigation](https://github.com/wix/react-native-navigation)
+- [react--navigation](https://github.com/react-navigation/react-navigation)
 - [react-native-vector-icons](https://github.com/oblador/react-native-vector-icons)
 - [react-invertible-scroll-view](https://github.com/expo/react-native-invertible-scroll-view)
 - [react-native-fetch-blob](https://github.com/wkh237/react-native-fetch-blob)
