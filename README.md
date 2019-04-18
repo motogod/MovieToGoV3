@@ -1,4 +1,4 @@
-# MovieToGoV3
+# MovieToGo V3/React Native
 > Build for iOS and Android.
 
 ## Download
