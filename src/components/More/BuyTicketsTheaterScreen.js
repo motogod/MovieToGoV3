@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   iconText: {
     marginLeft: 10, 
-    fontSize: 16, 
+    fontSize: 18, 
     color: '#444f6c', 
     fontWeight: '500',
     letterSpacing: 2

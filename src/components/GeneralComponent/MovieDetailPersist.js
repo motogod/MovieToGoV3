@@ -259,7 +259,6 @@ class MovieDetailPersist extends Component {
         </View>
 
         <AdMobBanner />
-
         <View style={styles.dividenView} />
 
         <View style={styles.card}>
