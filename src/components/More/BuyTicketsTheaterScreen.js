@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity,
   FlatList, Dimensions, SafeAreaView
 } from 'react-native';
-import AwesomeButton from 'react-native-really-awesome-button';
 import { connect } from 'react-redux';
 import { fetchBuyTickets } from '../../actions';
 import I18n from '../../i18n/i18n';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { commonColor } from '../../components/Shared/Data/Color';
 
 const { width } = Dimensions.get('window');
@@ -64,6 +64,7 @@ class BuyTicketsTheaterScreen extends Component {
           renderItem={this.renderGrid}
           keyExtractor={(item, index) => index.toString()}   
         />
+        <AdMobBanner />
       </SafeAreaView>
     );
   }

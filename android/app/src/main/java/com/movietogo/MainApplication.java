@@ -3,6 +3,10 @@ package com.movietogo;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import com.google.android.gms.ads.MobileAds;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
@@ -27,6 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFirebasePackage(),
+            new RNFirebaseAdMobPackage(),
+            new RNFirebaseAnalyticsPackage(),
             new VectorIconsPackage(),
             new RNCWebViewPackage(),
             new RNI18nPackage(),
@@ -48,6 +55,7 @@ public class MainApplication extends Application implements ReactApplication {
   @Override
   public void onCreate() {
     super.onCreate();
+    MobileAds.initialize(this, "ca-app-pub-9540920888011810/3333767285");
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

@@ -10,6 +10,7 @@ import { sendSearchForm, defaultSendSearchForm } from '../../actions';
 import MultiSlider from '../GeneralComponent/Slider/MultiSlider';
 import I18n from '../../i18n/i18n';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { commonColor } from '../../components/Shared/Data/Color';
 
 import {   
@@ -242,6 +243,9 @@ class SearchMovieTimeScreen extends Component {
               <Text style={styles.iconText}>{I18n.t('SEARCH')}</Text>  
             </View>
           </AwesomeButton>
+          <View style={{ flex: 1, justifyContent: 'flex-end' }}>
+            <AdMobBanner />
+          </View>
         </View>
       );
     }

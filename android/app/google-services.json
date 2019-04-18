@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "30771837456",
+    "firebase_url": "https://movietogo-3bfd6.firebaseio.com",
+    "project_id": "movietogo-3bfd6",
+    "storage_bucket": "movietogo-3bfd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30771837456:android:f7c965ec8a0569c0",
+        "android_client_info": {
+          "package_name": "com.movietogo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "30771837456-51aeq1om1q210ltgdadcb4uj5tceja6h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_x1okoYPCQ9alT2unKONhBqA-0NlUppo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "30771837456-51aeq1om1q210ltgdadcb4uj5tceja6h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "30771837456-n42356gmfjfbtfcn95lbjehsibq1ceuv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.MovieToGo",
+                "app_store_id": "1403859850"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

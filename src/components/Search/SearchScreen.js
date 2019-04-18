@@ -7,6 +7,7 @@ import Highlighter from 'react-native-highlight-words';
 import { connect } from 'react-redux';
 import { fetchMovieStyle } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { serverData } from '../../api/ApiData';
 import I18n from '../../i18n/i18n';
 import SearchIcon from '../../assets/img/search.png';
@@ -175,6 +176,7 @@ class SearchScreen extends Component {
               keyExtractor={(item, index) => index.toString()}         
             />
           </View>
+          <AdMobBanner />
       </SafeAreaView>
     );
   }

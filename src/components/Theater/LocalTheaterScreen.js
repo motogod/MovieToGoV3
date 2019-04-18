@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Loader } from '../Shared/Modal/Loader';
 import { fetchTheater } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { commonColor } from '../Shared/Data/Color';
 
 const { width } = Dimensions.get('window');
@@ -91,6 +92,7 @@ class LocalTheaterScreen extends Component {
           renderItem={this.renderTheater}
           keyExtractor={(item, index) => index.toString()}             
         />
+        <AdMobBanner />
       </View>
     );
   }

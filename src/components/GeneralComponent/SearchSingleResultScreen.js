@@ -5,6 +5,7 @@ import { View, Image, Text, StyleSheet, NativeModules, TouchableWithoutFeedback,
 import { connect } from 'react-redux';
 import { fetchSingleMovieTime } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import { GetUserTime } from './Function';
 import { Loader } from '../Shared/Modal/Loader';
 import { commonColor } from '../../components/Shared/Data/Color';
@@ -123,6 +124,7 @@ class SearchSingleResultScreen extends Component {
           keyExtractor={(item, index) => index}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
         />
+        <AdMobBanner />
       </View>
     );
   }

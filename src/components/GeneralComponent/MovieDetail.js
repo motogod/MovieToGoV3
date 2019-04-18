@@ -10,6 +10,7 @@ import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDetail, saveDetail, deleteDetail } from '../../actions';
 
+import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import Panel from './Panel';
 import I18n from '../../i18n/i18n';
 import { SplitMovieString, adjustImdbInfo, adjustRottenInfo, 
@@ -308,6 +309,8 @@ class MovieDetail extends Component {
           </Panel>
 
         </View>
+
+        <AdMobBanner />
 
         <View style={styles.dividenView} />
 
