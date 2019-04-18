@@ -6,6 +6,9 @@
 ## Download
 Go to the [web site](https://movietogoweb.herokuapp.com/) to download the latest available apk.
 
+## Screen shot
+![group](https://movietogoweb.herokuapp.com/img/screen1.png)
+
 ## Technical stack
 - [React Native](https://facebook.github.io/react-native/)
 - [react-redux、redux-persist、redux-thunk ](http://redux.js.org/)
@@ -16,3 +19,5 @@ Go to the [web site](https://movietogoweb.herokuapp.com/) to download the latest
 - [react-native-modal-selector](https://github.com/peacechen/react-native-modal-selector)
 - [react-native-really-awesome-button](https://github.com/rcaferati/react-native-really-awesome-button)
 - [react-native-scrollable-tab-view](https://github.com/skv-headless/react-native-scrollable-tab-view)
+
+
