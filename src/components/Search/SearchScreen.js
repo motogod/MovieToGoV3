@@ -5,34 +5,14 @@ import { View, Text, StyleSheet, FlatList, Dimensions, SafeAreaView,
 import _ from 'lodash';
 import Highlighter from 'react-native-highlight-words';
 import { connect } from 'react-redux';
-import { fetchMovieStyle } from '../../actions';
+import { fetchTodayMovieListV2 } from '../../actions';
 
 import AdMobBanner from '../GeneralComponent/AdMobBanner';
-import { serverData } from '../../api/ApiData';
 import I18n from '../../i18n/i18n';
 import SearchIcon from '../../assets/img/search.png';
 
 const { width } = Dimensions.get('window');
 const equalWidth = (width / 2);
-
-const movieStyleArray = [
-  { id: '0', name: '動作' },
-  { id: '1', name: '科幻' },
-  { id: '2', name: '恐怖' },
-  { id: '3', name: '懸疑' },
-  { id: '4', name: '驚悚' },
-  { id: '5', name: '冒險' },
-  { id: '6', name: '奇幻' },
-  { id: '7', name: '喜劇' },
-  { id: '8', name: '動畫' },
-  { id: '9', name: '犯罪' },
-  { id: '10', name: '愛情' },
-  { id: '11', name: '音樂' },
-  { id: '12', name: '歌舞' },
-  { id: '13', name: '劇情' },
-  { id: '14', name: '紀錄片' },
-  { id: '15', name: '戰爭' },
-];
 
 class SearchScreen extends Component {
   constructor(props) {
@@ -52,14 +32,7 @@ class SearchScreen extends Component {
   }
 
   componentDidMount() {
-    const theApi = `${serverData.serverUrl}api/getMovieStyle1?`;
-    let queryString = '';
-
-    // 串接 array 參數的 API // 撈全部類型
-    movieStyleArray.forEach(value => {
-      queryString = queryString.concat(`movieStyle[]=${value.name}&`);
-    });
-    this.props.fetchMovieStyle(`${theApi}${queryString}`);
+    // this.props.fetchTodayMovieListV2();
   }
 
   // about the query: https://stackoverflow.com/questions/5324798/how-to-search-an-array-in-jquery-like-sql-like-value-statement
@@ -78,14 +51,14 @@ class SearchScreen extends Component {
       });
     }, 1000);
 
-    const { movieStyleList } = this.props;
+    const { searchMovie } = this.props;
 
     const inputName = tex.toString().trim().toLowerCase();
     let filterData = [];
 
-    movieStyleList.filter(item => { 
+    searchMovie.filter(item => { 
       if (item.enName !== null || item.cnName !== null) {
-        filterData = movieStyleList.filter(({ enName, cnName }) => 
+        filterData = searchMovie.filter(({ enName, cnName }) => 
           enName.toLowerCase().indexOf(inputName) >= 0 || 
           cnName.trim().toLowerCase().indexOf(inputName) >= 0 
         );
@@ -113,7 +86,7 @@ class SearchScreen extends Component {
         onPress={() => {
           setTimeout(() => {
             this.props.navigation.navigate('MovieDetail', { 
-                enCity: 'TaipeiEast', 
+                enCity: item.enCity, 
                 cnName: item.cnName
               });
           }, 500);
@@ -149,7 +122,6 @@ class SearchScreen extends Component {
 
   render() {
     const { inputText, userFilterData, showLoadingIcon, textInputMarginTop } = this.state;
-
     // 利用 lodash 移除陣列內的物件有相同的 cnName 的物件 (皆以中文片名為移除重複的狀況)
     const finalFilterData = _.uniqBy(userFilterData, 'cnName');
     // Android 有第一個字會消失的Bug 必須加 value={this.state.inputName}
@@ -183,9 +155,9 @@ class SearchScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { movieStyleList, movieStyleLoading } = state.MoreListRedux;
+  const { searchMovie } = state.MovieListRedux;
 
-  return { movieStyleList, movieStyleLoading };
+  return { searchMovie };
 };
 
 const styles = StyleSheet.create({
@@ -234,4 +206,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, { fetchMovieStyle })(SearchScreen);
+export default connect(mapStateToProps, { fetchTodayMovieListV2 })(SearchScreen);
