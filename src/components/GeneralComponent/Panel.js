@@ -89,7 +89,7 @@ class Panel extends Component {
           onPress={this._onPressExpand.bind(this)}
         >
           {/* {this.state.expandText} */}
-          <Image source={this.state.expandIcon} style={{ width: 15, height: 15 }} />
+          <Image source={this.state.expandIcon} style={{ width: 20, height: 20 }} />
         </Text>
       ) : null;
 

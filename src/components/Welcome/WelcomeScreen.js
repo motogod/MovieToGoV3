@@ -14,6 +14,7 @@ import {
   fetchRanking, 
   fetchMovieNews,
   fetchTodayMovieList, 
+  fetchTodayMovieListV2,
   fetchThisWeek,
   fetchRecentMovie,
   fetchBuyTickets,
@@ -39,6 +40,7 @@ class WelcomeScreen extends Component {
     this.props.fetchRanking();
     this.props.fetchMovieNews();
     this.props.fetchTodayMovieList();
+    this.props.fetchTodayMovieListV2();
     this.props.fetchThisWeek();
     this.props.fetchRecentMovie();
   }
@@ -159,6 +161,7 @@ export default connect(null, {
   fetchRanking, 
   fetchMovieNews,
   fetchTodayMovieList,
+  fetchTodayMovieListV2,
   fetchThisWeek,
   fetchRecentMovie,
   fetchBuyTickets,

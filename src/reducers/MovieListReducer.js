@@ -3,6 +3,7 @@ import {
   REQUEST_MOVIELIST_NEWS,
   MOVIELIST_NEWS,
   MOVIELIST_TODAY,
+  MOVIELIST_TODAY_V2,
   REQUEST_MOVIELIST_THISWEEK,
   MOVIELIST_THISWEEK,
   MOVIELIST_RECENT_MOVIE,
@@ -13,6 +14,7 @@ import {
 // asyncData : 判斷收藏 ICON 為已收藏或未收藏
 const INITIAL_STATE = {
   todayMovie: [],
+  searchMovie: [],
   ranking: [],
   movieNews: [],
   thisWeek: [],
@@ -48,6 +50,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         todayMovie: action.todayMovie
+      };
+    case MOVIELIST_TODAY_V2:
+      return {
+        ...state,
+        searchMovie: action.searchMovie
       };
     case REQUEST_MOVIELIST_THISWEEK:
       return {

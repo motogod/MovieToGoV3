@@ -5,6 +5,7 @@ import {
   REQUEST_MOVIELIST_NEWS,
   MOVIELIST_NEWS,
   MOVIELIST_TODAY,
+  MOVIELIST_TODAY_V2,
   REQUEST_MOVIELIST_THISWEEK, 
   MOVIELIST_THISWEEK,
   MOVIELIST_RECENT_MOVIE,
@@ -43,6 +44,17 @@ export const fetchTodayMovieList = () => {
     .then(response => response.json())
     .then(responseData => {
       dispatch({ type: MOVIELIST_TODAY, todayMovie: responseData[0].movie });
+    })
+    .catch((error) => console.log(error));
+  };
+};
+// V2 API 資料量更多 提供給 SearchScreen 使用
+export const fetchTodayMovieListV2 = () => {
+  return (dispatch) => {
+    fetch(`${serverData.serverUrl}api/todayMovieV2`)
+    .then(response => response.json())
+    .then(responseData => {
+      dispatch({ type: MOVIELIST_TODAY_V2, searchMovie: responseData[0].movie });
     })
     .catch((error) => console.log(error));
   };
