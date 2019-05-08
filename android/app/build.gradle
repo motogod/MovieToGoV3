@@ -105,8 +105,8 @@ android {
         applicationId "com.movietogo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 24
-        versionName "3.0.4"
+        versionCode 25
+        versionName "3.0.5"
     }
     signingConfigs {
         release {
