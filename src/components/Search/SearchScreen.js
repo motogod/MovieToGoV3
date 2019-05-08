@@ -56,13 +56,11 @@ class SearchScreen extends Component {
     const inputName = tex.toString().trim().toLowerCase();
     let filterData = [];
 
-    searchMovie.filter(item => { 
-      if (item.enName !== null || item.cnName !== null) {
-        filterData = searchMovie.filter(({ enName, cnName }) => 
-          enName.toLowerCase().indexOf(inputName) >= 0 || 
-          cnName.trim().toLowerCase().indexOf(inputName) >= 0 
-        );
-      } 
+    filterData = searchMovie.filter(item => { 
+      return (
+        item.enName !== null && item.enName.toLowerCase().includes(inputName)
+      ) || (
+        item.cnName !== null && item.cnName.toLowerCase().includes(inputName));
     });
 
     if (filterData !== []) {
