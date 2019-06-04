@@ -60,16 +60,31 @@ class SearchSingleResultScreen extends Component {
 
   sectionComp = (info) => {
     const theaterCn = info.section.title;
+    const movieCount = info.section.data.length;
+    console.log('movieCount', movieCount);
+    console.log('sectionComp info =>', info);
     return (
       <TouchableWithoutFeedback>
         <View style={{ flex: 1, backgroundColor: '#DCDCDC' }}>
           <Text style={styles.sectionTitle}>{theaterCn}</Text>
+          {this.renderNoMovieDesc(movieCount)}
         </View>
       </TouchableWithoutFeedback>
     );
   }
 
+  renderNoMovieDesc = (movieCount) => {
+    if (movieCount === 0) {
+      return (
+        <View style={{ flexDirection: 'row', backgroundColor: '#F5F5F5' }}>
+          <Text style={[styles.sectionSubTitle, { letterSpacing: 1, fontWeight: '100', color: 'gray' }]}>未上映</Text>
+        </View>
+      );
+    }
+  }
+
   renderSectionItem = (info) => {
+    const { stateFirstSlideValue, stateSecondSliderValue } = this.state;
     console.log('what is my info', info);
     // 這邊的cnName指電影名稱
     const cnName = info.item.cnName;
@@ -91,6 +106,11 @@ class SearchSingleResultScreen extends Component {
         </View>
 
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', backgroundColor: '#F8F8FF' }}>
+        {info.item.releasedTime.length === 0 ? 
+          <Text style={styles.sectionTimeTitle}>
+            {`時段 ${stateFirstSlideValue}:00 - ${stateSecondSliderValue}:00 無場次`}
+          </Text> : null
+        }
         {info.item.releasedTime.map((value, index) => {
           const theTime = GetUserTime.getAsiaTime(value, 'YYYY/MM/DD HH:mm:ss');
           const hour = theTime.getHours();            
@@ -108,7 +128,7 @@ class SearchSingleResultScreen extends Component {
 
   render() {
     const { searchSingleMovieTimeLoading, searchSingleMovieTime } = this.props;
-
+    console.log('searchSingleMovieTime =>', searchSingleMovieTime);
     if (searchSingleMovieTimeLoading) {
       return (
         <Loader loading={true} />

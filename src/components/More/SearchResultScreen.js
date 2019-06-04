@@ -85,6 +85,9 @@ class SearchResultScreen extends Component {
         </View>
 
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', backgroundColor: '#F8F8FF' }}>
+        {info.item.releasedTime.length === 0 ? 
+          <Text style={[styles.sectionTimeTitle, { letterSpacing: 1, fontWeight: '100', color: 'gray' }]}>查詢的時段無場次</Text> : null
+        }
         {info.item.releasedTime.map((value, index) => {
           const theTime = GetUserTime.getAsiaTime(value, 'YYYY/MM/DD HH:mm:ss');
           const hour = theTime.getHours();            
@@ -102,7 +105,7 @@ class SearchResultScreen extends Component {
 
   render() {
     const { searchAllMovieTimeLoading, searchAllMovieTime } = this.props;
-
+    console.log('searchAllMovieTime =>', searchAllMovieTime);
     if (searchAllMovieTimeLoading) {
       return (
         <Loader loading={true} />
