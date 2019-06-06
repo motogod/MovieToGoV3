@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, Dimensions, 
   TouchableOpacity, StyleSheet
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { Loader } from '../Shared/Modal/Loader';
 import { fetchTheater } from '../../actions';
@@ -48,7 +49,7 @@ class LocalTheaterScreen extends Component {
     });
   }
 
-  renderTheater = ({ item }) => {
+  renderTheater = ({ item, index }) => {
     const { enCity, navigation } = this.state;
     const { theaterCn, address, dist, theater } = item;
     const dbDist = dist / 1000;
@@ -56,22 +57,24 @@ class LocalTheaterScreen extends Component {
     const meter = kilometers[1].toString().split('');
 
     return (
-      <TouchableOpacity 
-        onPress={() => {
-          this.props.navigation.navigate('TheaterMovieTimeScreen', {
-            theater, enCity, theaterCn
-          });
-        }} 
-        style={styles.listContainer}
-      >
-        <View style={{ flex: 3 }}>
-          <Text style={styles.theaterCn}>{theaterCn}</Text>
-          <Text style={styles.address}>{address}</Text>
-        </View>
-        <View style={styles.kmContainer}>
-          <Text style={styles.meter}>{`${kilometers[0]}.${meter[0]} km`}</Text>
-        </View>
-      </TouchableOpacity>
+      <Animatable.View animation='lightSpeedIn' delay={index * 150}>
+        <TouchableOpacity 
+          onPress={() => {
+            this.props.navigation.navigate('TheaterMovieTimeScreen', {
+              theater, enCity, theaterCn
+            });
+          }} 
+          style={styles.listContainer}
+        >
+          <View style={{ flex: 3 }}>
+            <Text style={styles.theaterCn}>{theaterCn}</Text>
+            <Text style={styles.address}>{address}</Text>
+          </View>
+          <View style={styles.kmContainer}>
+            <Text style={styles.meter}>{`${kilometers[0]}.${meter[0]} km`}</Text>
+          </View>
+        </TouchableOpacity>
+      </Animatable.View>
     );
   }
 
@@ -89,7 +92,7 @@ class LocalTheaterScreen extends Component {
         <FlatList
           data={theaterList}
           ItemSeparatorComponent={() => <View style={{ width, height: 0.5, backgroundColor: 'gray' }} />}
-          renderItem={this.renderTheater}
+          renderItem={(item, index) => this.renderTheater(item, index)}
           keyExtractor={(item, index) => index.toString()}             
         />
         <AdMobBanner />

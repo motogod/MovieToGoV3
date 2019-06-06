@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, Image, FlatList, 
-  SafeAreaView, StyleSheet, Dimensions 
+  SafeAreaView, StyleSheet, Dimensions, Animated 
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ModalSelector from 'react-native-modal-selector';
@@ -19,13 +19,45 @@ import I18n from '../../i18n/i18n';
 
 const { width } = Dimensions.get('window');
 
+const createAnimationStyle = (animation) => {
+  const translateY = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-5, 0]
+  });
+
+  return {
+    opacity: animation,
+    transform: [{
+      translateY
+    }]
+  };
+};
+
 class TheaterScreen extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { theaterItem: new Animated.Value(0) };
+  }
+
+  componentDidMount() {
+    Animated.stagger(100, [
+      Animated.timing(this.state.theaterItem, {
+        toValue: 1,
+        duration: 1000
+      })
+    ]).start(() => {
+
+    });
+  }
 
   renderItem = ({ item }) => {
     const { lat, lng } = this.props;
 
+    const itemStyle = createAnimationStyle(this.state.theaterItem);
+
     return (
-      <View style={styles.gridContainer}>
+      <Animated.View style={[styles.gridContainer, itemStyle]}>
         <ModalSelector
           data={item.cityArray}
           cancelText={I18n.t('CANCEL')}
@@ -55,7 +87,7 @@ class TheaterScreen extends Component {
             </View>
           </AwesomeButton>
         </ModalSelector>
-      </View>
+      </Animated.View>
     );
   }
 

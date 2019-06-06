@@ -130,6 +130,7 @@ class SearchScreen extends Component {
             <View style={styles.sectionStyle}>
               <Image source={SearchIcon} style={styles.imageStyle} />
               <TextInput 
+                autoFocus={true}
                 style={styles.textInputStyle}
                 onChangeText={tex => this.changeInside(tex)}
                 value={inputText}

@@ -8,6 +8,7 @@ import {
   Image, 
   StyleSheet 
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import Swiper from 'react-native-swiper';
 import { connect } from 'react-redux';
 import { fetchRanking } from '../../actions';
@@ -89,7 +90,7 @@ class RankingScreen extends Component {
     return (
       fiveRanking.map((value, index) => {
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', position: 'relative' }} key={index}>
+        <Animatable.View animation='flipInY' duration={1000} style={{ flex: 1, alignItems: 'center', justifyContent: 'flex-end', position: 'relative' }} key={index}>
           <TouchableOpacity 
             onPress={() => this.props.navigation.navigate('MovieDetail', {
               enCity: 'TwRanking', cnName: value.cnName
@@ -127,7 +128,7 @@ class RankingScreen extends Component {
               </View>
             </ImageBackground>
           </TouchableOpacity>
-        </View>
+        </Animatable.View>
         );
       })
     );

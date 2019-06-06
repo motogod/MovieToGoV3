@@ -3,6 +3,7 @@ import { View, Image, Text, StyleSheet,
   FlatList, Dimensions, SafeAreaView
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
+import * as Animatable from 'react-native-animatable';
 import I18n from '../../i18n/i18n';
 
 import TimeIcon from '../../assets/img/time.png';
@@ -22,10 +23,10 @@ const gridData = [
 ]; 
 
 class MoreScreen extends Component {
-  renderGrid = ({ item }) => {
+  renderGrid = ({ item, index }) => {
     const { nextScreen, barTitle } = item;
     return (
-      <View style={styles.gridContainer}>
+      <Animatable.View animation='lightSpeedIn' delay={index * 250} style={styles.gridContainer}>
         <AwesomeButton 
           onPress={() => this.props.navigation.navigate(nextScreen, { barTitle })}
           textColor={'#FFFFFF'} 
@@ -40,7 +41,7 @@ class MoreScreen extends Component {
             <Text style={styles.iconText}>{item.optionName}</Text>
           </View>
         </AwesomeButton>
-      </View>
+      </Animatable.View>
     );
   }
 
@@ -49,7 +50,7 @@ class MoreScreen extends Component {
       <SafeAreaView style={styles.container}>   
         <FlatList
           data={gridData}
-          renderItem={this.renderGrid}
+          renderItem={(item, index) => this.renderGrid(item, index)}
           horizontal={false}
           keyExtractor={(item, index) => index.toString()}        
         />  

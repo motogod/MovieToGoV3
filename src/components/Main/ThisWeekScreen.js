@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { 
   View, Text, FlatList, StyleSheet, Image, Dimensions, 
-  TouchableOpacity 
+  TouchableOpacity, ActivityIndicator
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { Loader } from '../Shared/Modal/Loader';
 import { fetchThisWeek } from '../../actions';
@@ -17,12 +18,12 @@ class ThisWeekScreen extends Component {
     this.props.fetchThisWeek();
   }
 
-  renderMovieData = ({ item }) => {
+  renderMovieData = ({ item, index }) => {
     const { cnName, enName, movieDate, movieContent, photoHref } = item;
 
     const onlyDate = SplitMovieDate(movieDate);
     return (
-      <View style={styles.card}>
+      <Animatable.View animation='lightSpeedIn' delay={index * 250} style={styles.card}>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('MovieDetail', {
             enCity: 'ThisWeek', cnName
@@ -44,7 +45,7 @@ class ThisWeekScreen extends Component {
             </View>
           </View>
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     );
   }
 
@@ -56,11 +57,15 @@ class ThisWeekScreen extends Component {
     //     <Loader loading={true} />
     //   );
     // }
+    if (thisWeek.length === 0) {
+      return <ActivityIndicator style={{ marginTop: 10 }} animating={true} />;
+    }
+
     return (
       <View style={{ backgroundColor: 'rgba(0,0,0,.2)' }}>
         <FlatList
           data={thisWeek}
-          renderItem={this.renderMovieData}
+          renderItem={(item, index) => this.renderMovieData(item, index)}
           keyExtractor={(item, index) => index.toString()}  
         />
       </View>
