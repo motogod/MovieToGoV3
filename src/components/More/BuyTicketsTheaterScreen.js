@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet, TouchableOpacity,
   FlatList, Dimensions, SafeAreaView
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { fetchBuyTickets } from '../../actions';
 import I18n from '../../i18n/i18n';
@@ -26,10 +27,11 @@ class BuyTicketsTheaterScreen extends Component {
     this.props.fetchBuyTickets();
   }
 
-  renderGrid = ({ item }) => {
+  renderGrid = ({ item, index }) => {
     const { theaterPhoto, theaterCn, ticketAddress } = item;
+    
     return (
-      <View style={styles.gridContainer}>
+      <Animatable.View animation='lightSpeedIn' delay={index * 150} style={styles.gridContainer}>
         <TouchableOpacity 
           onPress={() => this.props.navigation.navigate('TheaterTicketWebScreen', {
             theaterCn, ticketAddress
@@ -51,7 +53,7 @@ class BuyTicketsTheaterScreen extends Component {
           </View>
           <View style={{ width, height: 0.5, backgroundColor: 'gray' }} />
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     );
   }
 
@@ -61,7 +63,7 @@ class BuyTicketsTheaterScreen extends Component {
       <SafeAreaView style={styles.container}>   
         <FlatList
           data={buyTheaterTickets}
-          renderItem={this.renderGrid}
+          renderItem={(item, index) => this.renderGrid(item, index)}
           keyExtractor={(item, index) => index.toString()}   
         />
         <AdMobBanner />

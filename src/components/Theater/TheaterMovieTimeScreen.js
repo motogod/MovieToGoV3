@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, FlatList, Dimensions, 
   TouchableOpacity, StyleSheet, Image
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { fetchTime } from '../../actions';
 import { Loader } from '../Shared/Modal/Loader';
@@ -64,6 +65,7 @@ class TheaterMovieTimeScreen extends Component {
     const onlyTime = SplitMovieTime(movieTime);
 
     return (
+      <Animatable.View animation='zoomIn' duration={500}>
       <TouchableOpacity 
         onPress={() => this.props.navigation.navigate('MovieDetail', {
           enCity: this.state.enCity, cnName
@@ -96,6 +98,7 @@ class TheaterMovieTimeScreen extends Component {
           </View>
         </View>
       </TouchableOpacity>
+      </Animatable.View>
     );
   }
 

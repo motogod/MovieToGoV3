@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Image, Dimensions, TouchableOpacity, ActivityIndicator } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { fetchTodayMovieList } from '../../actions';
 import { Loader } from '../Shared/Modal/Loader';
@@ -15,7 +16,7 @@ class TodayMovieScreen extends Component {
   renderMovieData = ({ item }) => {
     const { cnName, photoHref } = item;
     return (
-      <View style={{ flex: 1, alignItems: 'center', marginTop: 5 }}>
+      <Animatable.View animation='bounceIn' duration={500} style={{ flex: 1, alignItems: 'center', marginTop: 5 }}>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('MovieDetail', {
             enCity: 'TaipeiOthers', cnName
@@ -27,12 +28,17 @@ class TodayMovieScreen extends Component {
             resizeMode='stretch'
           />
         </TouchableOpacity>
-      </View>
+      </Animatable.View>
     );
   }
 
   render() {
     const { todayMovie } = this.props;
+
+    if (todayMovie.length === 0) {
+      return <ActivityIndicator style={{ marginTop: 10 }} animating={true} />;
+    }
+
     return (
       <View style={{ backgroundColor: 'black' }}>
         <FlatList

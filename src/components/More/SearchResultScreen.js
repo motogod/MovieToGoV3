@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet, NativeModules, TouchableWithoutFeedback,
   FlatList, Dimensions, LayoutAnimation, Platform, TouchableOpacity, SectionList
 } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { fetchSearchTime } from '../../actions';
 
@@ -53,15 +54,17 @@ class SearchResultScreen extends Component {
     );
   }
 
-  sectionComp = (info) => {
+  sectionComp = (info, index) => {
     const theaterCn = info.section.title;
 
     return (
-      <TouchableWithoutFeedback>
-        <View style={{ flex: 1, backgroundColor: '#DCDCDC' }}>
-          <Text style={styles.sectionTitle}>{theaterCn}</Text>
-        </View>
-      </TouchableWithoutFeedback>
+      <Animatable.View animation='slideInRight' duration={1500}>
+        <TouchableWithoutFeedback>
+          <View style={{ flex: 1, backgroundColor: '#DCDCDC' }}>
+            <Text style={styles.sectionTitle}>{theaterCn}</Text>
+          </View>
+        </TouchableWithoutFeedback>
+      </Animatable.View>
     );
   }
 
@@ -69,6 +72,7 @@ class SearchResultScreen extends Component {
     const cnName = info.item.cnName;
     const versionType = info.item.versionType;
     return (
+      <Animatable.View animation='slideInLeft' duration={1500}>
       <TouchableOpacity 
         onPress={() => {
         this.props.navigation.navigate('MovieDetail', {
@@ -100,6 +104,7 @@ class SearchResultScreen extends Component {
         </View>
       </View>
       </TouchableOpacity>
+      </Animatable.View>
     );
   }
 
