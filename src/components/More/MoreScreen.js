@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet, 
-  FlatList, Dimensions, SafeAreaView
+import { View, Image, Text, StyleSheet, Platform,
+  FlatList, Dimensions, SafeAreaView, Linking
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import * as Animatable from 'react-native-animatable';
@@ -11,24 +11,36 @@ import TypeIcon from '../../assets/img/type.png';
 import TicketIcon from '../../assets/img/ticket.png';
 import CashIcon from '../../assets/img/cash.png';
 import HeartIcon from '../../assets/img/heart.png';
+import StarIcon from '../../assets/img/star.png';
 
 const { width } = Dimensions.get('window');
+
+const iosUrl = 'https://apps.apple.com/tw/app/e9-9b-bb-e5-bd-b1-e6-99-82-e5-88-bb-movietogo/id1403859850';
+const androidUrl = 'https://play.google.com/store/apps/details?id=com.movietogo&hl=zh-TW';
+const storeUrl = Platform.OS === 'ios' ? iosUrl : androidUrl;
 
 const gridData = [
   { optionName: I18n.t('TIME_INQUIRY'), source: TimeIcon, nextScreen: 'SearchMovieTimeScreen', barTitle: I18n.t('SEARCH_ALL_MOVIE') },
   { optionName: I18n.t('TYPE_INQUIRY'), source: TypeIcon, nextScreen: 'MovieTypeSearchScreen', barTitle: I18n.t('TYPE_INQUIRY') },
   { optionName: I18n.t('TICKET_INQUIRY'), source: TicketIcon, nextScreen: 'BuyTicketsTheaterScreen', barTitle: I18n.t('TICKETS_LINKING') },
   { optionName: I18n.t('CASH_INQUIRY'), source: CashIcon, nextScreen: 'CashInfoScreen', barTitle: I18n.t('CASH_INFO') },
-  { optionName: I18n.t('MY_COLLECTION'), source: HeartIcon, nextScreen: 'MyCollectionScreen', barTitle: I18n.t('MY_COLLECTION') }
+  { optionName: I18n.t('MY_COLLECTION'), source: HeartIcon, nextScreen: 'MyCollectionScreen', barTitle: I18n.t('MY_COLLECTION') },
+  { optionName: I18n.t('STAR'), source: StarIcon, nextScreen: 'MyCollectionScreen', barTitle: I18n.t('MY_COLLECTION') }
 ]; 
 
 class MoreScreen extends Component {
   renderGrid = ({ item, index }) => {
-    const { nextScreen, barTitle } = item;
+    const { nextScreen, barTitle, optionName } = item;
     return (
-      <Animatable.View animation='lightSpeedIn' delay={index * 250} style={styles.gridContainer}>
+      <Animatable.View animation='lightSpeedIn' delay={index * 100} style={styles.gridContainer}>
         <AwesomeButton 
-          onPress={() => this.props.navigation.navigate(nextScreen, { barTitle })}
+          onPress={() => {
+            if (optionName === I18n.t('STAR')) {
+              Linking.openURL(storeUrl);
+            } else {
+              this.props.navigation.navigate(nextScreen, { barTitle });
+            }
+          }}
           textColor={'#FFFFFF'} 
           backgroundColor={'#FFFFFF'} 
           paddingTop={8}

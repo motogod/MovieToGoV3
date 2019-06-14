@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList, Dimensions, SafeAreaView,
 } from 'react-native';
 import _ from 'lodash';
 import Highlighter from 'react-native-highlight-words';
+import * as Animatable from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { fetchTodayMovieListV2 } from '../../actions';
 
@@ -80,6 +81,7 @@ class SearchScreen extends Component {
     const { inputText } = this.state;
 
     return (
+      <Animatable.View animation='fadeInDown'>
       <TouchableOpacity
         onPress={() => {
           setTimeout(() => {
@@ -115,6 +117,7 @@ class SearchScreen extends Component {
           </View>
         
       </TouchableOpacity>
+      </Animatable.View>
     );
   }
 

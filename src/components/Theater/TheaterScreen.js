@@ -138,6 +138,9 @@ class TheaterScreen extends Component {
     ];   
     return (
       <SafeAreaView style={styles.container}>
+        <View style={{ padding: 20, alignItems: 'center' }}>
+          <Text style={{ fontSize: 15, color: '#444f6c', fontWeight: '200', letterSpacing: 1 }}>{I18n.t('TIME_REFERENCE_INFO')}</Text>
+        </View>
         <FlatList
           data={list}
           renderItem={this.renderItem}

@@ -9,7 +9,6 @@ import { WebView } from 'react-native-webview';
 import { Rating } from 'react-native-elements';
 import { connect } from 'react-redux';
 import { fetchDetail, saveDetail, deleteDetail } from '../../actions';
-
 import AdMobBanner from '../GeneralComponent/AdMobBanner';
 import Panel from './Panel';
 import I18n from '../../i18n/i18n';
@@ -258,7 +257,7 @@ class MovieDetail extends Component {
     // enCity 給 搜尋時刻用
     const { enCity } = this.state;
     const { movieDetailLoading } = this.props;
-    
+
     if (movieDetailLoading) {
       return (
         <Loader loading={true} />

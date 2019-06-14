@@ -14,6 +14,7 @@ export default {
   CASH_INFO: 'FARE INFORMATION',
   CASH_INQUIRY: 'CASH INFORMATION',
   MY_COLLECTION: 'MY COLLECTION',
+  STAR: 'EVALUATION',
   RELEASE_DATE: 'RELEASE DATE：',
   MOVIE_TIME: 'MOVIE TIME：',
   MOVIE_SCORE: 'MOVIE SCORE',
@@ -41,5 +42,6 @@ export default {
   ENTER_MOVIE_NAME: 'Please enter a movie name...',
   COLLECTED: 'COLLECTED',
   DELETED: 'DELETED',
-  TICKET_REFERENCE_INFO: 'Ticket information is for reference only'
+  TICKET_REFERENCE_INFO: 'Ticket information is for reference only',
+  TIME_REFERENCE_INFO: 'Time information is for reference only'
 }; 
