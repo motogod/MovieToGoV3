@@ -15,6 +15,7 @@ export default {
   CASH_INFO: '票價資訊',
   CASH_INQUIRY: '票價資訊',
   MY_COLLECTION: '我的收藏',
+  STAR: '評價與建議',
   RELEASE_DATE: '上 映：',
   MOVIE_TIME: '片 長：',
   MOVIE_SCORE: '電影評分資訊',
@@ -42,5 +43,6 @@ export default {
   ENTER_MOVIE_NAME: '請輸入電影名稱...',
   COLLECTED: '已收藏',
   DELETED: '已移除',
-  TICKET_REFERENCE_INFO: '票價資訊僅供參考，如有雷同純屬巧合'
+  TICKET_REFERENCE_INFO: '票價資訊僅供參考，如有雷同純屬巧合',
+  TIME_REFERENCE_INFO: '時刻僅供參考，如有異動仍以各戲院當日公告為準'
 }; 

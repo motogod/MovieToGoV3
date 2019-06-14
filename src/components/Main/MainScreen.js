@@ -28,6 +28,7 @@ class MainScreen extends Component {
 
   render() {
     const { navigation } = this.props;
+
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: commonColor.headerColor }}>
         <ScrollableTabView

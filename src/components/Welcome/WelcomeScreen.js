@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
 import { connect } from 'react-redux';
+// AdMob
+import { showAdMobInterstitial } from '../GeneralComponent/AdMobInterstitial';
 import { 
   fetchRanking, 
   fetchMovieNews,
@@ -109,6 +111,9 @@ class WelcomeScreen extends Component {
   }
 
   render() {
+    // show AdMobInterstitial
+    showAdMobInterstitial();
+    
     // About animate setting
     const xInterpolate = this.state.animation.interpolate({
       inputRange: [0, 1],

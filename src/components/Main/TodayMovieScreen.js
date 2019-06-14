@@ -16,7 +16,7 @@ class TodayMovieScreen extends Component {
   renderMovieData = ({ item }) => {
     const { cnName, photoHref } = item;
     return (
-      <Animatable.View animation='bounceIn' duration={500} style={{ flex: 1, alignItems: 'center', marginTop: 5 }}>
+      <Animatable.View animation='bounceIn' style={{ flex: 1, alignItems: 'center', marginTop: 5 }}>
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('MovieDetail', {
             enCity: 'TaipeiOthers', cnName
@@ -36,7 +36,7 @@ class TodayMovieScreen extends Component {
     const { todayMovie } = this.props;
 
     if (todayMovie.length === 0) {
-      return <ActivityIndicator style={{ marginTop: 10 }} animating={true} />;
+      return <ActivityIndicator style={{ marginTop: 10 }} animating={true} color='#fff' />;
     }
 
     return (
