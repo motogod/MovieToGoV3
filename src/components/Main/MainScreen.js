@@ -8,6 +8,7 @@ import MovieNews from './MovieNews';
 import TodayMovieScreen from './TodayMovieScreen';
 import ThisWeekScreen from './ThisWeekScreen';
 import RecentMovieScreen from './RecentMovieScreen';
+import PopularTvScreen from './PopularTvScreen';
 
 import I18n from '../../i18n/i18n';
 import { commonColor } from '../Shared/Data/Color';
@@ -46,6 +47,7 @@ class MainScreen extends Component {
           <TodayMovieScreen navigation={navigation} tabLabel={I18n.t('TODAY_MOVIE')} />
           <ThisWeekScreen navigation={navigation} tabLabel={I18n.t('THIS_WEEK')} />
           <RecentMovieScreen navigation={navigation} tabLabel={I18n.t('RECENT')} />
+          <PopularTvScreen navigation={navigation} tabLabel={I18n.t('POPULAR_TV')} />
         </ScrollableTabView>
       </SafeAreaView>
     );

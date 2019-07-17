@@ -9,7 +9,13 @@ import {
   MOVIELIST_RECENT_MOVIE,
   REQUEST_MOVIE_DETAIL,
   MOVIE_DETAIL,
-  PERSIST_MOVIE_DETAIL
+  PERSIST_MOVIE_DETAIL,
+  FETCH_POPULAR_TV,
+  FETCH_TV_DETAIL,
+  FETCH_TV_VIDEO_ID,
+  FETCH_TV_ACTOR_STILLS,
+  FETCH_TV_STILLS,
+  DEFAULT_FETCH_TV_REDUCER
 } from '../actions/types';
 // asyncData : 判斷收藏 ICON 為已收藏或未收藏
 const INITIAL_STATE = {
@@ -20,6 +26,11 @@ const INITIAL_STATE = {
   thisWeek: [],
   thisWeekLoading: true,
   recentMovie: [],
+  popularTv: [],
+  tvDetail: {},
+  tvVideoId: [],
+  tvActorStills: [],
+  tvStills: [],
   timeList: [],
   movieDetailLoading: true,
   movieDetail: [],
@@ -90,6 +101,42 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         saveMovieDetail: action.saveMovieDetail
       };
+    case FETCH_POPULAR_TV:
+      return {
+        ...state,
+        popularTv: action.popularTv
+      };
+    case FETCH_TV_DETAIL:
+      return {
+        ...state,
+        tvDetail: action.tvDetail
+      };
+    case FETCH_TV_VIDEO_ID:
+      return {
+        ...state,
+        tvVideoId: action.tvVideoId
+      };
+    case FETCH_TV_ACTOR_STILLS: {
+      return {
+        ...state,
+        tvActorStills: action.tvActorStills
+      };
+    }
+    case FETCH_TV_STILLS: {
+      return {
+        ...state,
+        tvStills: action.tvStills
+      };
+    }
+    case DEFAULT_FETCH_TV_REDUCER: {
+      return {
+        ...state,
+        tvDetail: {},
+        tvVideoId: [],
+        tvActorStills: [],
+        tvStills: []
+      };
+    }
     default:
       return state;
   }
