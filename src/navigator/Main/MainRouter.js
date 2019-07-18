@@ -16,6 +16,7 @@ import MovieDetail from '../../components/GeneralComponent/MovieDetail';
 import PttWebScreen from '../../components/GeneralComponent/PttWebScreen';
 import SearchSingleMovieTimeScreen from '../../components/GeneralComponent/SearchSingleMovieTimeScreen';
 import SearchSingleResultScreen from '../../components/GeneralComponent/SearchSingleResultScreen';
+import TvDetail from '../../components/GeneralComponent/TvDetail';
 // Router
 import TheaterRouter from '../Theater/TheaterRouter';
 import SearchRouter from '../Search/SearchRouter';
@@ -54,6 +55,9 @@ const MainStack = createStackNavigator({
   },
   SearchSingleResultScreen: {
     screen: SearchSingleResultScreen
+  },
+  TvDetail: {
+    screen: TvDetail
   }
 },
 {

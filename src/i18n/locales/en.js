@@ -7,6 +7,7 @@ export default {
   MOVIE_NEWS: 'MOVIE NEWS',
   TODAY_MOVIE: 'TODAY MOVIE',
   RECENT: 'RECENT',
+  POPULAR_TV: 'TV ON AIR',
   THIS_WEEK: 'THIS WEEK',
   TIME_INQUIRY: 'TIME INQUIRY',
   TYPE_INQUIRY: 'TYPE INQUIRY',
@@ -43,5 +44,9 @@ export default {
   COLLECTED: 'COLLECTED',
   DELETED: 'DELETED',
   TICKET_REFERENCE_INFO: 'Ticket information is for reference only',
-  TIME_REFERENCE_INFO: 'Time information is for reference only'
+  TIME_REFERENCE_INFO: 'Time information is for reference only',
+  SEASON_TITLE: 'SEASONS',
+  EPISODE: 'E',
+  LATEST_EPISODE: 'LATEST EPISODE',
+  COMMING_SOON: 'COMMING SOON'
 }; 

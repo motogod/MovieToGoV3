@@ -9,6 +9,7 @@ export default {
   TODAY_MOVIE: '今日強檔',
   THIS_WEEK: '本週新片',
   RECENT: '本週過後',
+  POPULAR_TV: '新上映影集',
   TIME_INQUIRY: '時刻查詢',
   TYPE_INQUIRY: '分類查詢',
   TICKET_INQUIRY: '訂票連結',
@@ -44,5 +45,9 @@ export default {
   COLLECTED: '已收藏',
   DELETED: '已移除',
   TICKET_REFERENCE_INFO: '票價資訊僅供參考，如有雷同純屬巧合',
-  TIME_REFERENCE_INFO: '時刻僅供參考，如有異動仍以各戲院當日公告為準'
+  TIME_REFERENCE_INFO: '時刻僅供參考，如有異動仍以各戲院當日公告為準',
+  SEASON_TITLE: '季數',
+  EPISODE: '集',
+  LATEST_EPISODE: '最新集數',
+  COMMING_SOON: '即將上映'
 }; 

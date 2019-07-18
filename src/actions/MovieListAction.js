@@ -11,7 +11,13 @@ import {
   MOVIELIST_RECENT_MOVIE,
   REQUEST_MOVIE_DETAIL,
   MOVIE_DETAIL,
-  PERSIST_MOVIE_DETAIL
+  PERSIST_MOVIE_DETAIL,
+  FETCH_POPULAR_TV,
+  FETCH_TV_DETAIL,
+  FETCH_TV_VIDEO_ID,
+  FETCH_TV_STILLS,
+  FETCH_TV_ACTOR_STILLS,
+  DEFAULT_FETCH_TV_REDUCER
 } from './types';
 
 export const fetchRanking = () => {
@@ -150,5 +156,67 @@ export const deleteDetail = (saveMovieDetail, movieDetail) => {
       } else {
         // 無資料，不需做刪除動作
       }
+  };
+};
+// 取得最近有新級數上映的影集
+export const fetchPopularTv = () => {
+  return (dispatch) => {
+    fetch(`${serverData.theMovieDb}tv/on_the_air?api_key=${serverData.theMovieDbApiKey}&language=zh-TW&page=1`)
+      .then(response => response.json())
+      .then(responseData => {
+        console.log('fetchPopularTv responseData', responseData);
+        dispatch({ type: FETCH_POPULAR_TV, popularTv: responseData.results });
+      })
+      .catch((error) => console.log(error));  
+  };
+};
+
+export const fetchTvDetail = (id) => {
+  return (dispatch) => {
+    // 透過影集的 id 來取得影集內容
+    fetch(`${serverData.theMovieDb}tv/${id}?api_key=${serverData.theMovieDbApiKey}&language=zh-TW`)
+      .then(response => response.json())
+      .then(responseData => {
+        // console.log('fetchTvDetail responseData', responseData);
+        dispatch({ type: FETCH_TV_DETAIL, tvDetail: responseData });
+
+        // 透過最新集數的 show_id 來取得演員的圖片跟名字
+        const showId = responseData.next_episode_to_air.show_id;
+
+        fetch(`${serverData.theMovieDb}tv/${showId}/credits?api_key=${serverData.theMovieDbApiKey}&language=zh-TW`)
+        .then(response => response.json())
+        .then(responseData => {
+          // console.log('fetchActorStills responseData', responseData);
+          dispatch({ type: FETCH_TV_ACTOR_STILLS, tvActorStills: responseData.cast });
+  
+          // 透過最新集數的 show_id 來取得演員的圖片跟名字
+        })
+        .catch((error) => console.log(error));  
+
+      })
+      .catch((error) => console.log(error));  
+    // 透過影集的 id 來取得 Youtube的影片 id
+    fetch(`${serverData.theMovieDb}tv/${id}/videos?api_key=${serverData.theMovieDbApiKey}`)
+      .then(response => response.json())
+      .then(responseData => {
+        // console.log('fetchTvVideoId responseData', responseData);
+        dispatch({ type: FETCH_TV_VIDEO_ID, tvVideoId: responseData.results });
+      })
+      .catch((error) => console.log(error)); 
+    // 透過影集的 id 來取得 Youtube的影片 id
+    fetch(`${serverData.theMovieDb}tv/${id}/images?api_key=${serverData.theMovieDbApiKey}`)
+      .then(response => response.json())
+      .then(responseData => {
+        // console.log('fetchTvStills responseData', responseData);
+        dispatch({ type: FETCH_TV_STILLS, tvStills: responseData.backdrops });
+      })
+      .catch((error) => console.log(error)); 
+  };  
+};
+
+// 取得最近有新級數上映的影集
+export const defaultTvReducer = () => {
+  return (dispatch) => {
+    dispatch({ type: DEFAULT_FETCH_TV_REDUCER });
   };
 };
