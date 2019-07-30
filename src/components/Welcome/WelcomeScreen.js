@@ -9,6 +9,7 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
+import moment from 'moment-timezone';
 import { connect } from 'react-redux';
 // AdMob
 import { showAdMobInterstitial } from '../GeneralComponent/AdMobInterstitial';
@@ -101,6 +102,16 @@ class WelcomeScreen extends Component {
     }
   }
 
+  // Avoid IOS reject
+  checkDaysBefore = () => {
+    if (Platform.OS === 'android') {
+      return true;
+    }
+    const localDays = moment(new Date()).format('YYYY/MM/DD');
+    const tureOrFalse = moment(localDays).isAfter('2019/07/23');
+    return tureOrFalse;
+  }
+
   loadingText = () => {
     return (
       <View>
@@ -112,7 +123,9 @@ class WelcomeScreen extends Component {
 
   render() {
     // show AdMobInterstitial
-    showAdMobInterstitial();
+    if (this.checkDaysBefore()) {
+      showAdMobInterstitial();
+    }
     
     // About animate setting
     const xInterpolate = this.state.animation.interpolate({

@@ -96,6 +96,18 @@ class TvDetail extends Component {
     );
   }
 
+  renderActorStills({ item }) {
+    return (
+      <View style={styles.phtoSection}>
+        <Image
+          source={{ uri: `https://image.tmdb.org/t/p/w500${item.profile_path}` }}
+          style={{ width: equalWidth, height: 120 }}
+        />
+        <Text style={styles.actorTitle}>{item.name}</Text>
+      </View>
+    );
+  }
+
   render() {
     const { tvStills, tvActorStills, tvVideoId, tvDetail } = this.props;
     const { 
@@ -104,10 +116,12 @@ class TvDetail extends Component {
     } = this.props.tvDetail;
 
     const content = overview === '' ? '暫無介紹' : overview;
-
+    // console.log('tvVideoId', tvVideoId);
+    // console.log('tvStills', tvStills);
+    // console.log('tvActorStills', tvActorStills);
+    // console.log('tvDetail', tvDetail);
     // 頁面內的所有資料都有了才進入畫面處理
-    if (tvVideoId.length === 0 || tvStills.length === 0 ||
-        tvActorStills.length === 0 || Object.getOwnPropertyNames(tvDetail).length === 0) {
+    if (tvVideoId.length === 0 || Object.getOwnPropertyNames(tvDetail).length === 0) {
       return <Loader loading={true} />;
     }
     
@@ -182,15 +196,7 @@ class TvDetail extends Component {
           <FlatList
             style={styles.flatSection}
             data={tvActorStills}
-            renderItem={({ item, index }) => (
-              <View style={styles.phtoSection}>
-                <Image
-                  source={{ uri: `https://image.tmdb.org/t/p/w500${item.profile_path}` }}
-                  style={{ width: equalWidth, height: 120 }}
-                />
-                <Text style={styles.actorTitle}>{item.name}</Text>
-              </View>)
-            }
+            renderItem={this.renderActorStills}
             horizontal={true}
             keyExtractor={(item, index) => index.toString()}  
           />
