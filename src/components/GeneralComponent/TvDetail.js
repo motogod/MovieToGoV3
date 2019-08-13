@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { View, Image, Text, StyleSheet,
-  FlatList, Dimensions,
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+  Platform
 } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { WebView } from 'react-native-webview';
+// 針對 Android 的 react-native-webview 無法全屏
+import WebViewAndroid from 'react-native-android-fullscreen-webview-video';
 import { connect } from 'react-redux';
 import I18n from '../../i18n/i18n';
 import { Loader } from '../Shared/Modal/Loader';
@@ -23,13 +31,13 @@ class TvDetail extends Component {
     headerBackTitle: null,
     headerTintColor: '#fff',
     headerStyle: {
-        backgroundColor: commonColor.headerColor, 
-        elevation: null
+      backgroundColor: commonColor.headerColor,
+      elevation: null
     }
   });
 
   constructor(props) {
-    super(props); 
+    super(props);
 
     const { id } = this.props.navigation.state.params;
 
@@ -48,7 +56,17 @@ class TvDetail extends Component {
     this.props.defaultTvReducer();
   }
 
-  renderWebView = (videoId) => {
+  renderWebView = videoId => {
+    if (Platform.OS === 'android') {
+      return (
+        <View style={{ width, height: 240 }}>
+          <WebViewAndroid
+            mediaPlaybackRequiresUserAction={true}
+            source={{ uri: `https://www.youtube.com/embed/${videoId}?rel=0` }}
+          />
+        </View>
+      );
+    }
     return (
       <View style={{ width, height: 240 }}>
         <WebView
@@ -57,19 +75,24 @@ class TvDetail extends Component {
         />
       </View>
     );
-  }
+  };
 
-  renderStickyHeader = (cnName) => {
+  renderStickyHeader = cnName => {
     return (
       <View style={styles.stickyHeader}>
-      <Text 
-        style={{ 
-          fontWeight: '900', color: 'white', fontSize: 20, margin: 8
-        }}
-      >{cnName}</Text>
-    </View>
+        <Text
+          style={{
+            fontWeight: '900',
+            color: 'white',
+            fontSize: 20,
+            margin: 8
+          }}
+        >
+          {cnName}
+        </Text>
+      </View>
     );
-  }
+  };
 
   renderSeasons({ item }) {
     const { name, episode_count, air_date, poster_path } = item;
@@ -79,7 +102,9 @@ class TvDetail extends Component {
           source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
           style={{ width: equalWidth, height: 120 }}
         />
-        <Text style={styles.actorTitle}>{`${name} - ${episode_count} ${I18n.t('EPISODE')}`}</Text>
+        <Text style={styles.actorTitle}>{`${name} - ${episode_count} ${I18n.t(
+          'EPISODE'
+        )}`}</Text>
         <Text style={styles.actorTitle}>{air_date}</Text>
       </View>
     );
@@ -89,10 +114,10 @@ class TvDetail extends Component {
     return (
       <View style={styles.phtoSection}>
         <Image
-          source={{ uri: `https://image.tmdb.org/t/p/w500${item.file_path}` }} 
+          source={{ uri: `https://image.tmdb.org/t/p/w500${item.file_path}` }}
           style={{ width: halfWidth, height: 120 }}
         />
-      </View>      
+      </View>
     );
   }
 
@@ -100,7 +125,9 @@ class TvDetail extends Component {
     return (
       <View style={styles.phtoSection}>
         <Image
-          source={{ uri: `https://image.tmdb.org/t/p/w500${item.profile_path}` }}
+          source={{
+            uri: `https://image.tmdb.org/t/p/w500${item.profile_path}`
+          }}
           style={{ width: equalWidth, height: 120 }}
         />
         <Text style={styles.actorTitle}>{item.name}</Text>
@@ -110,9 +137,14 @@ class TvDetail extends Component {
 
   render() {
     const { tvStills, tvActorStills, tvVideoId, tvDetail } = this.props;
-    const { 
-      name, original_name, last_episode_to_air, next_episode_to_air, 
-      overview, seasons, vote_average 
+    const {
+      name,
+      original_name,
+      last_episode_to_air,
+      next_episode_to_air,
+      overview,
+      seasons,
+      vote_average
     } = this.props.tvDetail;
 
     const content = overview === '' ? '暫無介紹' : overview;
@@ -121,19 +153,22 @@ class TvDetail extends Component {
     // console.log('tvActorStills', tvActorStills);
     // console.log('tvDetail', tvDetail);
     // 頁面內的所有資料都有了才進入畫面處理
-    if (tvVideoId.length === 0 || Object.getOwnPropertyNames(tvDetail).length === 0) {
+    if (
+      tvVideoId.length === 0 ||
+      Object.getOwnPropertyNames(tvDetail).length === 0
+    ) {
       return <Loader loading={true} />;
     }
-    
+
     return (
       <ParallaxScrollView
-        backgroundColor='transparent'
-        contentBackgroundColor='transparent'
+        backgroundColor="transparent"
+        contentBackgroundColor="transparent"
         parallaxHeaderHeight={240}
         renderForeground={() => this.renderWebView(tvVideoId[0].key)}
         stickyHeaderHeight={42}
         renderStickyHeader={() => this.renderStickyHeader(name)}
-      >    
+      >
         <View style={styles.nameZone}>
           <View>
             <Text style={styles.cnName}>{name}</Text>
@@ -144,23 +179,33 @@ class TvDetail extends Component {
         <View style={styles.card}>
           <View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image 
-                source={TmdbIcon} 
-                style={{ width: 65, height: 25 }} 
-                resizeMode='contain' 
+              <Image
+                source={TmdbIcon}
+                style={{ width: 65, height: 25 }}
+                resizeMode="contain"
               />
-              <Text style={[styles.stills, { fontSize: 26, marginLeft: 5 }]}>{vote_average}</Text>
+              <Text style={[styles.stills, { fontSize: 26, marginLeft: 5 }]}>
+                {vote_average}
+              </Text>
             </View>
-            
-            <Text style={[styles.stills, { marginTop: 15 }]}>{I18n.t('LATEST_EPISODE')}</Text>
+
+            <Text style={[styles.stills, { marginTop: 15 }]}>
+              {I18n.t('LATEST_EPISODE')}
+            </Text>
             <Text style={{ fontSize: 16, marginLeft: 15, marginTop: 10 }}>
-              {`${last_episode_to_air.air_date}   ${last_episode_to_air.season_number} 季 ${last_episode_to_air.name}`}
+              {`${last_episode_to_air.air_date}   ${
+                last_episode_to_air.season_number
+              } 季 ${last_episode_to_air.name}`}
             </Text>
 
-            <Text style={[styles.stills, { marginTop: 15 }]}>{I18n.t('COMMING_SOON')}</Text>
+            <Text style={[styles.stills, { marginTop: 15 }]}>
+              {I18n.t('COMMING_SOON')}
+            </Text>
             <Text style={{ fontSize: 16, marginLeft: 15, marginTop: 10 }}>
-              {`${next_episode_to_air.air_date}   ${next_episode_to_air.season_number} 季 ${next_episode_to_air.name}`}
-            </Text>  
+              {`${next_episode_to_air.air_date}   ${
+                next_episode_to_air.season_number
+              } 季 ${next_episode_to_air.name}`}
+            </Text>
           </View>
         </View>
 
@@ -171,10 +216,9 @@ class TvDetail extends Component {
           <Panel numberOfLines={3} showExpandText={true}>
             {content.trim()}
           </Panel>
-
         </View>
 
-        <AdMobBanner />
+        {Platform.OS === 'ios' ? <AdMobBanner /> : null}
 
         <View style={styles.dividenView} />
 
@@ -185,7 +229,7 @@ class TvDetail extends Component {
             data={seasons}
             renderItem={this.renderSeasons}
             horizontal={true}
-            keyExtractor={(item, index) => index.toString()}  
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
 
@@ -198,7 +242,7 @@ class TvDetail extends Component {
             data={tvActorStills}
             renderItem={this.renderActorStills}
             horizontal={true}
-            keyExtractor={(item, index) => index.toString()}  
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
 
@@ -211,16 +255,15 @@ class TvDetail extends Component {
             data={tvStills}
             renderItem={this.renderStills}
             horizontal={true}
-            keyExtractor={(item, index) => index.toString()}  
+            keyExtractor={(item, index) => index.toString()}
           />
         </View>
-
       </ParallaxScrollView>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { tvDetail, tvVideoId, tvActorStills, tvStills } = state.MovieListRedux;
 
   return { tvDetail, tvVideoId, tvActorStills, tvStills };
@@ -234,10 +277,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: 'white',
     padding: 15,
-    borderRadius: 0,
+    borderRadius: 0
   },
   dividenView: {
-    backgroundColor: '#F5F5F5', 
+    backgroundColor: '#F5F5F5',
     padding: 15
   },
   stickyHeader: {
@@ -247,50 +290,50 @@ const styles = StyleSheet.create({
     paddingLeft: 15
   },
   nameZone: {
-    backgroundColor: '#F5F5F5', 
-    padding: 15, 
+    backgroundColor: '#F5F5F5',
+    padding: 15,
     flexDirection: 'row'
   },
   cnName: {
-    fontSize: 18, 
-    color: '#444f6c', 
-    fontWeight: '500', 
+    fontSize: 18,
+    color: '#444f6c',
+    fontWeight: '500',
     letterSpacing: 1
   },
   enName: {
-    fontSize: 14, 
-    marginTop: 2, 
-    color: 'gray', 
+    fontSize: 14,
+    marginTop: 2,
+    color: 'gray',
     letterSpacing: 2
   },
   stills: {
-    color: '#2a2f43', 
-    fontWeight: 'bold', 
+    color: '#2a2f43',
+    fontWeight: 'bold',
     letterSpacing: 2
   },
   flatSection: {
-    backgroundColor: '#ffffff', 
-    paddingTop: 15, 
-    paddingBottom: 15, 
-    paddingLeft: 10, 
+    backgroundColor: '#ffffff',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 10,
     paddingRight: 10
   },
   actor: {
-    color: '#2a2f43', 
-    fontWeight: 'bold', 
+    color: '#2a2f43',
+    fontWeight: 'bold',
     letterSpacing: 2
   },
   actorTitle: {
-    flex: 1, 
+    flex: 1,
     marginTop: 5,
-    alignItems: 'center', 
-    justifyContent: 'center', 
+    alignItems: 'center',
+    justifyContent: 'center',
     alignSelf: 'center'
   },
   contentInfo: {
-    color: '#2a2f43', 
-    fontWeight: 'bold', 
-    letterSpacing: 2, 
+    color: '#2a2f43',
+    fontWeight: 'bold',
+    letterSpacing: 2,
     marginBottom: 15
   },
   phtoSection: {
@@ -300,8 +343,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff',
     marginLeft: 5,
-    marginRight: 5 
-  },
+    marginRight: 5
+  }
 });
 
-export default connect(mapStateToProps, { fetchTvDetail, defaultTvReducer })(TvDetail);
+export default connect(
+  mapStateToProps,
+  { fetchTvDetail, defaultTvReducer }
+)(TvDetail);
