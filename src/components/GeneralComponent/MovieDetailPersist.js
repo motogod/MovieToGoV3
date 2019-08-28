@@ -8,7 +8,8 @@ import {
   Easing,
   FlatList,
   Dimensions,
-  Platform
+  Platform,
+  AppState
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
@@ -59,6 +60,7 @@ class MovieDetailPersist extends Component {
     const { movieDetailPersist } = this.props.navigation.state.params;
 
     this.state = {
+      appState: AppState.currentState,
       movieDetailPersist,
       animation: new Animated.Value(0),
       opacity: new Animated.Value(1)
@@ -66,8 +68,17 @@ class MovieDetailPersist extends Component {
   }
 
   componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
     // const { enCity, cnName } = this.state;
     // this.props.fetchDetail(enCity, cnName);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange = (nextAppState) => {
+    this.setState({ appState: nextAppState });
   }
 
   scalElem = (toValue, duration) => {
@@ -81,7 +92,7 @@ class MovieDetailPersist extends Component {
   };
 
   renderWebView = videoId => {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android' && this.state.appState === 'active') {
       return (
         <View style={{ width, height: 240 }}>
           <WebViewAndroid
@@ -352,7 +363,7 @@ class MovieDetailPersist extends Component {
           </Panel>
         </View>
 
-        {Platform.OS === 'ios' ? <AdMobBanner /> : null}
+        {Platform.OS === 'ios' ? <AdMobBanner /> : <AdMobBanner />}
 
         <View style={styles.dividenView} />
 

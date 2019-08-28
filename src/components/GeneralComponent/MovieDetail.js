@@ -9,7 +9,8 @@ import {
   FlatList,
   Dimensions,
   TouchableWithoutFeedback,
-  Platform
+  Platform,
+  AppState
 } from 'react-native';
 import AwesomeButton from 'react-native-really-awesome-button';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
@@ -61,16 +62,26 @@ class MovieDetail extends Component {
     const { enCity, cnName } = this.props.navigation.state.params;
 
     this.state = {
+      appState: AppState.currentState,
       enCity,
       cnName,
       animation: new Animated.Value(0),
       opacity: new Animated.Value(1)
     };
   }
-
+  
   componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
     const { enCity, cnName } = this.state;
     this.props.fetchDetail(enCity, cnName);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+  
+  handleAppStateChange = (nextAppState) => {
+    this.setState({ appState: nextAppState });
   }
 
   scalElem = (toValue, duration) => {
@@ -82,9 +93,9 @@ class MovieDetail extends Component {
       useNativeDriver: true
     }).start();
   };
-
+  // Google 表示手機鎖屏 會有背景播放問題 把 APP 下架(雖然實際上沒有...) 所以加入 appState 判斷
   renderWebView = videoId => {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android' && this.state.appState === 'active') {
       return (
         <View style={{ width, height: 240 }}>
           <WebViewAndroid
@@ -432,7 +443,7 @@ class MovieDetail extends Component {
           </Panel>
         </View>
 
-        {Platform.OS === 'ios' ? <AdMobBanner /> : null}
+        {Platform.OS === 'ios' ? <AdMobBanner /> : <AdMobBanner />}
 
         <View style={styles.dividenView} />
 

@@ -6,7 +6,8 @@ import {
   StyleSheet,
   FlatList,
   Dimensions,
-  Platform
+  Platform,
+  AppState
 } from 'react-native';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import { WebView } from 'react-native-webview';
@@ -41,23 +42,29 @@ class TvDetail extends Component {
 
     const { id } = this.props.navigation.state.params;
 
-    this.state = { id, videoId: '' };
+    this.state = { id, videoId: '', appState: AppState.currentState, };
   }
 
   componentDidMount() {
+    AppState.addEventListener('change', this.handleAppStateChange);
     const { id } = this.state;
 
     this.props.fetchTvDetail(id);
   }
 
   componentWillUnmount() {
+    AppState.removeEventListener('change', this.handleAppStateChange);
     // 離開頁面時清空該影集的 reducer 資料，讓下次進來該頁面時 call API 時資料是空的
     // 因為 render 底下只用 reducer 的 length 資料來判斷 call API 的讀取條
     this.props.defaultTvReducer();
   }
 
+  handleAppStateChange = (nextAppState) => {
+    this.setState({ appState: nextAppState });
+  }
+
   renderWebView = videoId => {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android' && this.state.appState === 'active') {
       return (
         <View style={{ width, height: 240 }}>
           <WebViewAndroid

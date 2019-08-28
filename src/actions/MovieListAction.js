@@ -46,11 +46,13 @@ export const fetchMovieNews = () => {
 
 export const fetchTodayMovieList = () => {
   return (dispatch) => {
+    dispatch({ type: MOVIELIST_TODAY, todayMovie: [], todayMovieLoading: true });
+
     fetch(`${serverData.serverUrl}api/todayMovie`)
-    .then(response => response.json())
-    .then(responseData => {
-      dispatch({ type: MOVIELIST_TODAY, todayMovie: responseData[0].movie });
-    })
+      .then(response => response.json())
+      .then(responseData => {
+        dispatch({ type: MOVIELIST_TODAY, todayMovie: responseData[0].movie, todayMovieLoading: false });
+      })
     .catch((error) => console.log(error));
   };
 };

@@ -33,10 +33,10 @@ class TodayMovieScreen extends Component {
   }
 
   render() {
-    const { todayMovie } = this.props;
+    const { todayMovie, todayMovieLoading } = this.props;
 
-    if (todayMovie.length === 0) {
-      return <ActivityIndicator style={{ marginTop: 10 }} animating={true} color='#fff' />;
+    if (todayMovieLoading) {
+      return <ActivityIndicator style={{ marginTop: 10 }} animating={true} />;
     }
 
     return (
@@ -54,9 +54,9 @@ class TodayMovieScreen extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { todayMovie } = state.MovieListRedux;
+  const { todayMovie, todayMovieLoading } = state.MovieListRedux;
 
-  return { todayMovie };
+  return { todayMovie, todayMovieLoading };
 };
 
 const styles = StyleSheet.create({
