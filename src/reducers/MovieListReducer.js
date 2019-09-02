@@ -20,6 +20,7 @@ import {
 // asyncData : 判斷收藏 ICON 為已收藏或未收藏
 const INITIAL_STATE = {
   todayMovie: [],
+  todayMovieLoading: true,
   searchMovie: [],
   ranking: [],
   movieNews: [],
@@ -60,7 +61,8 @@ export default (state = INITIAL_STATE, action) => {
     case MOVIELIST_TODAY:
       return {
         ...state,
-        todayMovie: action.todayMovie
+        todayMovie: action.todayMovie,
+        todayMovieLoading: action.todayMovieLoading
       };
     case MOVIELIST_TODAY_V2:
       return {
