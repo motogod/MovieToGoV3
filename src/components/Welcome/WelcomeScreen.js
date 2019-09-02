@@ -108,7 +108,7 @@ class WelcomeScreen extends Component {
       return true;
     }
     const localDays = moment(new Date()).format('YYYY/MM/DD');
-    const tureOrFalse = moment(localDays).isAfter('2019/07/23');
+    const tureOrFalse = moment(localDays).isAfter('2019/09/05');
     return tureOrFalse;
   }
 

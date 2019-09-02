@@ -191,7 +191,7 @@ class TvDetail extends Component {
                 style={{ width: 65, height: 25 }}
                 resizeMode="contain"
               />
-              <Text style={[styles.stills, { fontSize: 26, marginLeft: 5 }]}>
+              <Text style={[styles.stills, { fontSize: 26, marginLeft: 5, marginTop: 0 }]}>
                 {vote_average}
               </Text>
             </View>
@@ -229,10 +229,11 @@ class TvDetail extends Component {
 
         <View style={styles.dividenView} />
 
-        <View style={styles.card}>
+        <View style={[styles.card, { padding: 0 }]}>
           <Text style={styles.stills}>{I18n.t('SEASON_TITLE')}</Text>
           <FlatList
             style={styles.flatSection}
+            showsHorizontalScrollIndicator={false}
             data={seasons}
             renderItem={this.renderSeasons}
             horizontal={true}
@@ -242,10 +243,11 @@ class TvDetail extends Component {
 
         <View style={styles.dividenView} />
 
-        <View style={styles.card}>
+        <View style={[styles.card, { padding: 0 }]}>
           <Text style={styles.actor}>{I18n.t('ACTOR')}</Text>
           <FlatList
             style={styles.flatSection}
+            showsHorizontalScrollIndicator={false}
             data={tvActorStills}
             renderItem={this.renderActorStills}
             horizontal={true}
@@ -255,10 +257,11 @@ class TvDetail extends Component {
 
         <View style={styles.dividenView} />
 
-        <View style={styles.card}>
+        <View style={[styles.card, { padding: 0 }]}>
           <Text style={styles.stills}>{I18n.t('STILLS')}</Text>
           <FlatList
             style={styles.flatSection}
+            showsHorizontalScrollIndicator={false}
             data={tvStills}
             renderItem={this.renderStills}
             horizontal={true}
@@ -316,7 +319,9 @@ const styles = StyleSheet.create({
   stills: {
     color: '#2a2f43',
     fontWeight: 'bold',
-    letterSpacing: 2
+    letterSpacing: 2,
+    marginLeft: 15,
+    marginTop: 15
   },
   flatSection: {
     backgroundColor: '#ffffff',
@@ -328,7 +333,9 @@ const styles = StyleSheet.create({
   actor: {
     color: '#2a2f43',
     fontWeight: 'bold',
-    letterSpacing: 2
+    letterSpacing: 2,
+    marginLeft: 15,
+    marginTop: 15
   },
   actorTitle: {
     flex: 1,

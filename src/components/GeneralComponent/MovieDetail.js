@@ -9,10 +9,11 @@ import {
   FlatList,
   Dimensions,
   TouchableWithoutFeedback,
+  TouchableHighlight,
   Platform,
   AppState
 } from 'react-native';
-import AwesomeButton from 'react-native-really-awesome-button';
+import * as Animatable from 'react-native-animatable';
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import Toast, { DURATION } from 'react-native-easy-toast';
 import { WebView } from 'react-native-webview';
@@ -197,7 +198,7 @@ class MovieDetail extends Component {
       </View>
     );
   };
-
+  
   renderTimeAndTicketButtonZone = (splitDate, splitTime, enCity, cnName) => {
     return (
       <View style={styles.card}>
@@ -209,29 +210,24 @@ class MovieDetail extends Component {
             'MOVIE_TIME'
           )}${splitTime}`}</Text>
         </View>
-        <View
+        <Animatable.View 
+          animation='fadeIn'
+          delay={150}
           style={{
             marginTop: 15,
             flexDirection: 'row',
             justifyContent: 'space-between'
           }}
         >
-          <AwesomeButton
+          <TouchableHighlight
+            style={styles.buttonStyle}
+            activeOpacity={0}
+            underlayColor={'#F5FCFF'}
             onPress={() =>
               this.props.navigation.navigate('SearchSingleMovieTimeScreen', {
                 cnName
               })
             }
-            textColor={'#FFFFFF'}
-            backgroundColor={'#F5FCFF'}
-            raiseLevel={6}
-            paddingTop={0}
-            paddingBottom={0}
-            height={45}
-            width={halfWidth - 20}
-            borderRadius={1}
-            borderWidth={1}
-            borderColor={'#DDDDDD'}
           >
             <View
               style={{
@@ -242,22 +238,15 @@ class MovieDetail extends Component {
             >
               <Text style={styles.iconText}>{I18n.t('TIME_INQUIRY')}</Text>
             </View>
-          </AwesomeButton>
+          </TouchableHighlight>
 
-          <AwesomeButton
+          <TouchableHighlight
+            style={styles.buttonStyle}
+            activeOpacity={0}
+            underlayColor={'#F5FCFF'}
             onPress={() =>
               this.props.navigation.navigate('BuyTicketsTheaterScreen')
             }
-            textColor={'#FFFFFF'}
-            backgroundColor={'#F5FCFF'}
-            raiseLevel={6}
-            paddingTop={0}
-            paddingBottom={0}
-            height={45}
-            width={halfWidth - 20}
-            borderRadius={1}
-            borderWidth={1}
-            borderColor={'#DDDDDD'}
           >
             <View
               style={{
@@ -268,8 +257,8 @@ class MovieDetail extends Component {
             >
               <Text style={styles.iconText}>{I18n.t('TICKET_INQUIRY')}</Text>
             </View>
-          </AwesomeButton>
-        </View>
+          </TouchableHighlight>
+        </Animatable.View>
       </View>
     );
   };
@@ -332,22 +321,15 @@ class MovieDetail extends Component {
             {I18n.t('PTT_SCORE')}
           </Text>
         </View>
-        <AwesomeButton
+        <TouchableHighlight
+          style={[styles.buttonStyle, { width: width - 30 }]}
+          activeOpacity={0}
+          underlayColor={'#F5FCFF'}
           onPress={() =>
             this.props.navigation.navigate('PttWebScreen', { cnName })
           }
-          textColor={'#FFFFFF'}
-          backgroundColor={'#F5FCFF'}
-          raiseLevel={6}
-          paddingTop={0}
-          paddingBottom={0}
-          height={45}
-          width={width - 30}
-          borderRadius={1}
-          borderWidth={1}
-          borderColor={'#DDDDDD'}
         >
-          <View style={{ flex: 1, alignItems: 'flex-start', marginLeft: 15 }}>
+          <View style={{ flex: 1, alignItems: 'flex-start', justifyContent: 'center', marginLeft: 15 }}>
             <Rating
               readonly
               style={{ backgroundColor: '#F5FCFF' }}
@@ -356,7 +338,7 @@ class MovieDetail extends Component {
               startingValue={showPTTScore(goodMinePoint)}
             />
           </View>
-        </AwesomeButton>
+        </TouchableHighlight>
       </View>
     );
   };
@@ -447,10 +429,11 @@ class MovieDetail extends Component {
 
         <View style={styles.dividenView} />
 
-        <View style={styles.card}>
+        <View style={[styles.card, { padding: 0 }]}>
           <Text style={styles.actor}>{I18n.t('ACTOR')}</Text>
           <FlatList
             style={styles.flatSection}
+            showsHorizontalScrollIndicator={false}
             data={movieActorPhoto}
             extraData={movieActorCn}
             renderItem={({ item, index }) => (
@@ -469,10 +452,11 @@ class MovieDetail extends Component {
 
         <View style={styles.dividenView} />
 
-        <View style={styles.card}>
+        <View style={[styles.card, { padding: 0 }]}>
           <Text style={styles.stills}>{I18n.t('STILLS')}</Text>
           <FlatList
             style={styles.flatSection}
+            showsHorizontalScrollIndicator={false}
             data={movieStills}
             renderItem={this.renderStills}
             horizontal={true}
@@ -575,12 +559,16 @@ const styles = StyleSheet.create({
   stills: {
     color: '#2a2f43',
     fontWeight: 'bold',
-    letterSpacing: 2
+    letterSpacing: 2,
+    marginLeft: 15,
+    marginTop: 15
   },
   actor: {
     color: '#2a2f43',
     fontWeight: 'bold',
-    letterSpacing: 2
+    letterSpacing: 2,
+    marginLeft: 15,
+    marginTop: 15
   },
   contentInfo: {
     color: '#2a2f43',
@@ -592,6 +580,14 @@ const styles = StyleSheet.create({
     color: '#2a2f43',
     fontWeight: 'bold',
     letterSpacing: 2
+  },
+  buttonStyle: {
+    width: halfWidth - 20,
+    height: 45,
+    backgroundColor: '#F5FCFF',
+    borderRadius: 1,
+    borderWidth: 3,
+    borderColor: '#DDDDDD'
   }
 });
 
