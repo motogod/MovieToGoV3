@@ -82,6 +82,7 @@ class MovieDetail extends Component {
   }
   
   handleAppStateChange = (nextAppState) => {
+    console.log('what is my nextAppSatte', nextAppState);
     this.setState({ appState: nextAppState });
   }
 
@@ -105,7 +106,7 @@ class MovieDetail extends Component {
           />
         </View>
       );
-    }
+    } 
     return (
       <View style={{ width, height: 240 }}>
         <WebView
