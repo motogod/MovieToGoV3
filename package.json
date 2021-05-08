@@ -9,7 +9,7 @@
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^1.0.0",
     "install": "^0.12.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "moment-timezone": "^0.5.23",
     "npm": "^6.9.0",
     "react": "16.8.3",
