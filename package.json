@@ -10,7 +10,7 @@
     "@ptomasroos/react-native-multi-slider": "^1.0.0",
     "install": "^0.12.2",
     "lodash": "^4.17.11",
-    "moment-timezone": "^0.5.23",
+    "moment-timezone": "^0.5.35",
     "npm": "^6.9.0",
     "react": "16.8.3",
     "react-native": "0.59.10",
